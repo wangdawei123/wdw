@@ -1,4 +1,0 @@
-rootProject.name = 'gs-circuit-breaker'
-
-include 'bookstore'
-include 'reading'
