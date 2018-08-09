@@ -1,0 +1,130 @@
+html, body{
+    background: #f6f6f6;
+    font-family:'Microsoft Yahei', Arial, Helvetica, sans-serif;
+    color: #333;
+    -webkit-user-select: none;
+    -webkit-text-size-adjust: none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    box-sizing: border-box;
+    min-height: 100%;
+}   
+a{
+    display: block;
+}
+img{
+    display: block;
+    width: 100%;
+}
+.clearfix:after {
+    display: block;
+    height: 0;
+    content: "",clear:both;
+    visibility: hidden;
+}
+.clearfix:after {
+    content: '\0020';
+    display: block;
+    height: 0;
+    clear: both;
+}
+.title{
+    margin: 25px 12px 0;
+    font-size: 24px;
+    color: #000000;
+}
+.desc{
+    margin: 22px 12px 0;
+    line-height: 27px;
+    color: #888888;
+    font-size: 15px;
+}
+.desc .icon{
+    color: #fff;
+    font-size: 12px;
+    padding: 1px 3px;
+    background: #4184c0;
+    border-radius: 3px;
+}
+.selects-pic{
+    margin: 1.5rem 0 0 0.5rem;
+}
+.selects-pic .li{
+    margin: 0 0.5rem 1.5rem 0;
+    float: left;
+    width: 7.25rem;
+}
+.selects-pic .li .img{
+    padding: 3px;
+    border: 1px solid #c1c1c1;
+}
+.selects-pic .li .txt{
+    margin: 10px 0 0;
+    text-align: center;
+}
+.selects-pic .li .txt span{
+    padding: 0 0 0 32px;
+    background: url(../img/ico12.png) left center/21px auto no-repeat;
+    color: #000000;
+    font-size: 16px;
+    text-align: center;
+}
+.selects-pic .li.act .txt span{
+    padding: 0 0 0 32px;
+    background: url(../img/ico12_2.png) left center/21px auto no-repeat;
+    color: #fd5249;
+    font-size: 16px;
+    text-align: center;
+}
+.selects-pic .li .like{
+    margin: 7px 0 0;
+    text-align: center;
+}
+.selects-pic .li .like span{
+    padding: 0 0 0 21px;
+    background: url(../img/ico13.png) left center/15px auto no-repeat;
+    color: #9a9a9a;
+    font-size: 12px;
+    text-align: center;
+}
+.selects-nopic{
+    margin: 20px 12px;
+    border-top: 1px solid #e5e5e5;
+}
+.selects-nopic .li{
+    border-bottom: 1px solid #e5e5e5;
+    padding: 10px 0;
+}
+.selects-nopic .li .txt{
+    line-height: 22px;
+    padding: 0 0 0 32px; 
+    font-size: 16px;
+    color: #000;
+    background: url(../img/ico12.png)  left 0px/21px auto no-repeat;
+}
+.selects-nopic .li.act .txt{
+    color: #fd5249;
+    background: url(../img/ico12_2.png)  left 0px/21px auto no-repeat;
+}
+.selects-nopic .li .txt span{
+    
+    /*background: url(../img/ico12_2.png) left center/21px auto no-repeat;*/
+}
+.selects-nopic .li .like{
+    margin: 10px 0 0 32px;
+    padding: 0 0 0 20px;
+    font-size: 12px;
+    line-height: 16px;
+    color: #9a9a9a;
+
+    background: url(../img/ico13.png) left center/15px auto no-repeat;
+}
+.btn{
+    margin: 0 12px 25px;
+    border-radius: 4px;
+    background: #fd5249;
+    color: #fff;
+    font-size: 15px;
+    text-align: center;
+    height: 50px;
+    line-height: 50px;
+}

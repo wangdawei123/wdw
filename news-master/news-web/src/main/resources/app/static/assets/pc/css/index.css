@@ -1,0 +1,29 @@
+.index-focus{width: 660px; height: 375px; overflow: hidden; position: relative;}
+#imgs_cont1 {overflow: hidden; position: absolute; top: 0px ; left: 0px;}
+#imgs_cont1 li {width: 660px; height: 375px; position: relative;}
+#imgs_cont1 li .ft {position: absolute; left: 0px; bottom: 0; width: 100%;height: 60px;line-height: 60px;}
+#imgs_cont1 li .ft .t1 { width: 620px; height: 60px; padding: 0 20px; overflow: hidden; font-size: 22px; line-height: 60px; color: #fff; white-space: nowrap; -o-text-overflow: ellipsis; -ms-text-overflow: ellipsis; text-overflow: ellipsis;z-index: 1;position: relative;}
+#imgs_cont1 li .ft .mask-focus{display: block;position: absolute;bottom:0;left: 0;height:60px;width: 100%;*background: #000;*opacity: 0.6;background-image: linear-gradient(-180deg, rgba(0,0,0,0.00) 0%, rgba(0,0,0,0.42) 57%, rgba(0,0,0,0.75) 100%);}
+
+#icons_cont1 {position: absolute; right: 20px; bottom: 27px;}
+#icons_cont1 li { float: left; width: 6px; height: 6px; margin-left: 5px; background: #999999; border-radius: 50%;}
+#icons_cont1 li.on { width: 24px; background: #FF4F53; border-radius: 100px;}
+#prevIcon1,#nextIcon1,.index-m2-focus .prev,.index-m2-focus .next,.news-focus .prev,.news-focus .next{position: absolute;width: 40px; height: 60px; top: 50%;left: 0;margin-top: -30px;background: rgba(0,0,0,0.50);text-align: center;}
+#nextIcon1 ,.index-m2-focus .next,.news-focus .next{ left: auto;right: 0;margin-top: -30px;}
+#prevIcon1 i,#nextIcon1 i,.index-m2-focus .prev i,.index-m2-focus .next i,.news-focus .prev i,.news-focus .next i{display: inline-block;width: 15px;height: 24px;background: url(../images/icon.png) 0 -143px;margin-top: 19px;}
+/*#nextIcon1 i,.index-m2-focus .next i,.news-focus .next i{background-position: 0 -95px;}*/
+#prevIcon1:hover,#nextIcon1:hover,.index-m2-focus .next:hover,.index-m2-focus .prev:hover,.news-focus .next:hover,.news-focus .prev:hover{background: #F3413D;}
+#prevIcon1 i{background: url(../images/icon_left.png);}
+#nextIcon1 i{background: url(../images/icon_right.png);}
+.gg-slide{ width: 320px; height: 260px; overflow: hidden; position: relative;}
+.gg-slide .fslide{overflow: hidden; position: absolute; top: 0px ; left: 0px;}
+.gg-slide .fslide li{ width: 320px; height: 260px; position: relative;}
+.gg-slide .fslide li .img{ width: 320px; height: 260px; display: block;  line-height: 260px; text-align: center; vertical-align: middle;}
+.gg-slide .fslide li .img img{ max-width: 320px; max-height: 260px; _width: 320px; _height: 260px; vertical-align: middle; display: inline-block;}
+.gg-slide .fpoint{ width: 100%; height: 6px; margin: 0 auto; text-align: center; position: absolute; bottom: 20px;}
+.gg-slide .fpoint li{ width: 6px; height: 6px; display: inline-block; margin-left: 5px; background: #999999; border-radius: 50%; cursor: pointer;}
+.gg-slide .fpoint li.on{ width: 24px; background: #FF4F53; border-radius: 100px;}
+
+.copyright{ color: #666666; line-height: 24px;}
+.copyright .icon{ float: left; width: 18px; height: 18px; display: inline-block; margin-top: 4px; margin-right: 2px; background: url(../images/icon_police.png);
+ }

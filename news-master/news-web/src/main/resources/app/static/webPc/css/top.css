@@ -1,0 +1,173 @@
+.top{
+    position: fixed;
+    z-index: 16;
+    width: 100%;
+    top:0;
+    left: 0;
+    height: 40px;
+    line-height: 40px;
+    background: #333333;
+    font-size: 14px;
+}
+.top .downloadApp,.top .contact-us{
+    display: inline-block;
+    width: 94px;
+    height: 40px;
+    color: #FFFFFF;
+    line-height: 40px;
+    font-size: 16px;
+    border-right: 1px solid #666666;
+    outline: none;
+    text-decoration: none;
+    text-align: center;
+}
+.top .basic_menu li{
+    padding: 0 15px;
+    display: inline-block;
+    cursor: pointer;
+}
+.top .basic_menu li .contact-us{
+    width: auto;
+    border: none;
+    font-size: 14px;
+}
+.basic_menu_more{
+    border-left: 1px solid #666666;
+    position: relative;
+}
+.top .basic_menu_more_ul{
+    background-color: #FFFFFF;
+    display: none;
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 120px;
+    text-align: center;
+    border: solid 1px #666666;
+    border-top: 0;
+}
+.top .basic_menu_more_ul li{
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+.top .basic_menu_more_ul li:hover {
+    background: #F2F2F2;
+}
+.top .basic_menu_more_ul li a:hover{
+    color: #666666;
+}
+#showAppModal .showapp-modal{
+    padding: 20px 0;
+    text-align: center;
+}
+#showAppModal .showapp-modal span{
+    display: inline-block;
+    padding: 10px;
+    border: 1px solid #E1E1E1;
+}
+#showAppModal .showapp-modal img{
+    display: block;
+    width: 160px;
+    height: 160px;
+}
+#showAppModal .showapp-modal h2{
+    font-style: normal;
+    font-weight: bold;
+    font-size: 20px;
+}
+.modal .modal-dialog {
+   width: 600px;
+   margin: 120px auto;
+}
+#showLoginModal .showlogin-modal .loginform{
+    width: 380px;
+    padding: 0 40px;
+    margin-top: 20px;
+    border-right: 1px solid #F2F2F2;
+}
+#showLoginModal .showlogin-modal .loginform .seccode{
+    position: absolute;
+    top: 0;
+    right: 0;
+    cursor: pointer;
+}
+#showLoginModal .showlogin-modal .form-group{
+    position: relative;
+}
+#showLoginModal .showlogin-modal .get-phone-code{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 80px;
+    font-size: 12px;
+    height: 34px;
+    border-radius: 0;
+}
+#showLoginModal .showlogin-modal .login-but{
+    width: 100%;
+}
+
+#showLoginModal .showlogin-modal .icon{
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    display: block;
+    background: url(../images/weibo.png) 0 0 no-repeat;
+}
+#showLoginModal .showlogin-modal .icon.weixin{
+    background: url(../images/weixin.png) 0 0 no-repeat;
+}
+#showLoginModal .showlogin-modal .icon.qq{
+    background: url(../images/qzone.png) 0 0 no-repeat;
+}
+#showLoginModal .showlogin-modal .shortcut-login{
+    margin-top: 35px;
+    line-height: 40px;
+}
+#showLoginModal .showlogin-modal .shortcut-login li{
+    margin: 15px 50px 0 0;
+}
+#showFeedbackModal .showfeedback-modal{
+    padding: 20px;
+}
+#showFeedbackModal .showfeedback-modal .eedfback-but{
+    display: block;
+    margin: 25px auto 0;
+    width: 60%;
+}
+
+.float-icon{
+    position: fixed;
+    left:50%;
+    bottom: 200px;
+    height: 110px;
+    margin-left: 650px;
+}
+.float-icon .icon{
+    display: block;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+    color: #FFFFFF;
+    font-size: 20px;
+    line-height: 50px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    background-color: #ff7679;
+}
+.float-icon .icon span{
+    line-height: 50px;
+}
+.float-icon .icon:hover{
+    background-color: #FF4F53;
+}
+.float-icon .return-top{
+   display: none;
+}
+em.error{
+    color: #FF4F53;
+}
+.top .return-home{
+    display: none;
+}

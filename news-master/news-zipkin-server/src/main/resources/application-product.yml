@@ -1,0 +1,5 @@
+spring:
+    application:
+        name: news-zipkin-server
+server:
+    port: 8702 #启动端口

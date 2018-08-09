@@ -1,0 +1,121 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/webPc/css/image.css">
+</head>
+<#include "head.html" />
+<body id="newDetailsImage">
+<!-- 其他 hearder-->
+<div class="header">
+    <div class="w1200">
+        <div class="logo fl">
+            <h1><a href="../../../">看法网</a></h1>
+        </div>
+        <div class="fl crumbs">
+            <a href="../../../">首页</a>&nbsp;/&nbsp;图集&nbsp;/&nbsp;正文
+        </div>
+        <div class="search fr">
+            <input type="email" class="form-control search-text" id="searchText" placeholder="请输入关键词">
+            <span class="glyphicon glyphicon-search btn"></span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+
+<div class="image-wrap clearfix">
+    <div id="myCarousel" class="main carousel slide fl">
+        <!-- 轮播（Carousel）项目 -->
+        <div class="carousel-inner" id="carouselInner" role="listbox">
+            <#list contentImageList as contentImage>
+                <#if contentImage_index == 0>
+                    <div class="item active">
+                        <img src="${contentImage.imageGroup!''}"
+                             alt="${contentImage.desc}">
+                    </div>
+                    <#else>
+                        <div class="item">
+                            <img src="${contentImage.imageGroup!''}"
+                                 alt="${contentImage.desc}">
+                        </div>
+                </#if>
+                </#list>
+        </div>
+        <!-- Controls -->
+        <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <div class="side fr">
+        <!-- 图片描述begin -->
+        <div class="desc-page">
+            <span class="now-num">01</span><i class="line">/</i><span class="total-num">
+
+            <#if contentImageList?size!=0 >
+                ${contentImageList[0].num!""}
+                <#else>
+                    0
+            </#if>
+
+        </span>
+        </div>
+        <div class="desc-info">
+            <div class="title"><#if contentImageList?size!=0 >${contentImageList[0].title!"title暂无"}</#if></div>
+            <div class="content"><#if contentImageList?size!=0 >${contentImageList[0].desc!"暂无内容。"}</#if></div>
+        </div>
+        <div class="desc-ft">
+            <p class="time"><#if contentImageList?size!=0 >${contentImageList[0].createTime?string("yyyy-MM-dd HH:mm:ss")}</#if></p>
+            <div class="share clearfix">
+                <span>分享到</span>
+                <ul id="share-1" class="fl">
+                </ul>
+            </div>
+        </div>
+        <!-- 图片描述end -->
+    </div>
+</div>
+
+<!-- 结束浮层 start -->
+<div class="photo-end-layer" style="display: none;">
+    <div class="hd">
+            <span class="fr">
+                <a href="#" class="replay J-replay"><i></i>重新浏览</a>
+                <!--<a href="#" class="next"><i></i>下一图集</a>-->
+            </span>
+        <h3>${contentImageList[0].title!"title暂无"}</h3>
+    </div>
+    <div class="bd">
+        <div class="share clearfix">
+            <span>分享到</span>
+            <ul id="share-2" class="fl">
+            </ul>
+        </div>
+        <div class="list">
+            <ul>
+                <#list hots as content>
+                    <li>
+                        <a href="#"><img src="${content.image!}" alt=""></a>
+                        <p><a href="${'/detail/'+ content.id + '/' + content.contentType}">${content.title!}</a></p>
+                    </li>
+                </#list>
+                <div style="clear: both"></div>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!--<div class="bottom">
+    <p>京ICP备17035527号-1   CopyRight ©2017 kanfanews,All Rights Reserved. 版权所有 看法(北京)科技有限公司</p>
+</div>-->
+
+</body>
+<!--每个页面都会有的-->
+
+<script src="/static/webPc/js/jquery.share.js?v=33"></script>
+<script src="/static/webPc/js/newsDetailsImage.js"></script>
+
+</html>
+<#include "detailFoot.html" />

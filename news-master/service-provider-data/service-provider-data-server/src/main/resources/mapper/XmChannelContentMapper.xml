@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.data.mapper.XmChannelContentMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.data.entity.XmChannelContent" id="xmChannelContentMap">
+        <result property="id" column="id"/>
+        <result property="chanId" column="chan_id"/>
+        <result property="cid" column="cid"/>
+        <result property="top" column="top"/>
+        <result property="pub" column="pub"/>
+        <result property="pubTime" column="pub_time"/>
+        <result property="stat" column="stat"/>
+        <result property="order" column="order"/>
+        <result property="cardType" column="card_type"/>
+        <result property="recommendWeight" column="recommend_weight"/>
+        <result property="fromType" column="from_type"/>
+        <result property="check" column="check"/>
+        <result property="sortTime" column="sort_time"/>
+        <result property="type" column="type"/>
+        <result property="cate" column="cate"/>
+        <result property="checkUid" column="check_uid"/>
+    </resultMap>
+
+
+    <!-- vr返回appChannelIdList  -->
+    <select id="getAppChannels" resultType="java.lang.Integer">
+        SELECT
+        cc.id id
+        FROM
+        xm_channel_content kcc
+        LEFT JOIN xm_live kc ON kcc.cid = kc.id
+        LEFT JOIN xm_channel cc ON kcc.chan_id = cc.id
+        WHERE
+        kc.id =#{liveId}
+        AND kcc.from_type = 2
+    </select>
+
+
+    <!-- 获得appchannelids -->
+    <select id="selectAppChannels" resultType="java.lang.Integer">
+        SELECT
+        cc.id id
+        FROM
+        xm_channel_content kcc
+        LEFT JOIN xm_content kc ON kcc.cid = kc.id
+        LEFT JOIN xm_channel cc ON kcc.chan_id = cc.id
+        WHERE
+        kc.id = #{contentId}
+        AND kc.type = 4
+        AND cc.cate = 1
+    </select>
+
+    <!-- 返回pcChannelList -->
+    <select id="selectPcChannels" resultType="java.lang.Integer">
+        SELECT
+        cc.id id
+        FROM
+        xm_channel_content kcc
+        LEFT JOIN xm_content kc ON kcc.cid = kc.id
+        LEFT JOIN xm_channel cc ON kcc.chan_id = cc.id
+        WHERE
+        kc.id = #{contentId}
+        AND kc.type = 4
+        AND cc.cate = 4
+    </select>
+
+    <!-- 返回VrChannelList -->
+    <select id="selectVrChannels" resultType="java.lang.Integer">
+        SELECT
+        cc.id id
+        FROM
+        xm_channel_content kcc
+        LEFT JOIN xm_content kc ON kcc.cid = kc.id
+        LEFT JOIN xm_channel cc ON kcc.chan_id = cc.id
+        WHERE
+        kc.id = #{contentId}
+        AND kc.type = 11
+        AND kcc.cate = 3
+    </select>
+
+    <!-- 返回vr 返回selectAppChannelsForVr -->
+    <select id="selectAppChannelsForVr" resultType="java.lang.Integer">
+        SELECT
+        cc.id id
+        FROM
+        xm_channel_content kcc
+        LEFT JOIN xm_content kc ON kcc.cid = kc.id
+        LEFT JOIN xm_channel cc ON kcc.chan_id = cc.id
+        WHERE
+        kc.id = #{contentId}
+        AND kc.type = 11
+        AND kcc.cate = 1
+    </select>
+
+<<<<<<< HEAD
+    <select id="selectChannelContentByCid" resultType="com.kanfa.news.data.entity.XmChannelContent">
+        SELECT
+        id,chan_id chanId,cid,top,pub,pub_time pubTime,stat,`order`,card_type cardType,recommend_weight recommendWeight,from_type fromType,`check`,
+        sort_time sortTime,`type`,cate,check_uid checkUid
+        FROM
+        xm_channel_content xcc
+        WHERE xcc.cid = #{cid}
+=======
+    <select id="getChannelContentChannelId" resultType="com.kanfa.news.data.common.vo.channel.ChannelInfo">
+        SELECT
+                c.id,
+                cc.card_type cardType,
+                cc.recommend_weight recommendWeight,
+                c.cate category
+        FROM
+                xm_channel_content cc
+                LEFT JOIN xm_channel c ON c.id=cc.chan_id
+        <where>
+            <if test="xmChannelContent.cid!=null">
+                AND cc.cid = #{xmChannelContent.cid}
+            </if>
+            <if test="xmChannelContent.fromType != null">
+                AND cc.from_type = #{xmChannelContent.fromType}
+            </if>
+        </where>
+>>>>>>> a2ef0f2f8f46789749c0853cc8adeffe5c110831
+    </select>
+
+
+</mapper>

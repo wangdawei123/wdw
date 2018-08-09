@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.data.mapper.XmContentSpecialMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.data.entity.XmContentSpecial" id="xmContentSpecialMap">
+        <result property="id" column="id"/>
+        <result property="cid" column="cid"/>
+        <result property="targetCid" column="target_cid"/>
+        <result property="pub" column="pub"/>
+        <result property="pubTime" column="pub_time"/>
+        <result property="stat" column="stat"/>
+        <result property="order" column="order"/>
+        <result property="catalogId" column="catalog_id"/>
+    </resultMap>
+
+</mapper>

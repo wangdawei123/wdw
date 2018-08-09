@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="x5-orientation" content="portrait">
+	<meta name="screen-orientation"content="portrait">
+	<!--  清除缓存  -->
+	<meta http-equiv="X-UA-Compatible" content="IE=8">
+	<meta http-equiv="Expires" content="0">
+	<meta http-equiv="Pragma" content="no-cache">
+	<meta http-equiv="Cache-control" content="no-cache">
+	<meta http-equiv="Cache" content="no-cache">
+	<title>青春普法</title>
+	<script src="../static/js/flexble-main.js"></script>
+	<script src="../static/js/jquery-1.11.1.min.js"></script>
+	<script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+	<link rel="stylesheet" href="../static/css/law.css?v=10210">
+	<link rel="stylesheet" href="../static/js/jquery/fancybox/jquery.fancybox.css">
+	<style>
+		.hidden {
+			display: none;
+		}
+	</style>
+</head>
+<body>
+
+<a href="javascript:void(0);" id="btnOpenApp" style="display: none;"></a>
+<span class="hint-info"></span>
+<div id="law"></div>
+<!-- 榜单规则 -->
+<div class="cd-popup" role="alert"></div>
+
+<script id="remind_template" type="text/html">
+	<div class="remind">
+		<div class="re-box">
+			<p>活动暂未开始</p>
+			<p>活动时间：<span><%= start_time %>-<%= end_time %></span></p>
+			<div class="btn">
+				<a class="download" href="javascript:void(0)">OK</a>
+			</div>
+		</div>
+	</div>
+</script>
+
+<script id="activity_law_template" type="text/html">
+	<!-- 头部 -->
+	<header class="header">
+		<img src="<%=image%>" title="普法青春" alt="普法青春">
+	</header>
+
+	<!-- 排行榜 -->
+	<div class="tap">
+		<div class="tap-title">
+			<span class="tab-day show" data-to="day">日榜</span>
+			<span class="tab-all" data-to="all">总榜</span>
+		</div>
+		<div class="tap-content">
+			<%-day_data%>
+			<%-all_data%>
+		</div>
+	</div>
+</script>
+<script id="notice_template" type="text/html">
+	<div class="error">
+		<div class="network-fault">
+			<img src="../static/image/bluesky/404.png" alt="网络出错了" title="网络出错了">
+		</div>
+		<div class="prompt">
+			<%=error%>
+		</div>
+	</div>
+</script>
+
+<script id="detail_info_template" type="text/html">
+
+	<div class="date-rule <%=cls%> <%if(!display){%>hidden<%}%>">
+		<span><%=activity_time%></span>
+		<span class="cd-popup-trigger">榜单规则</span>
+	</div>
+
+	<!-- 排名列表 -->
+	<div class="ranking-list <%=cls%> <%if(!display){%>hidden<%}%>">
+		<% if (items){ %>
+			<ul class="ranking-ul">
+				<% for(var i=0;i<items.length;i++){ %>
+					<li data-index="<%= i %>" data-votenum="<%= items[i].vote_total %>" data-id="<%= items[i].id %>">
+						<a class="jump-detail" href="<%= items[i].url %>" >
+
+							<span class="rank-num <%if((is_day && i==0) || (!is_day && i<5)){ %>ranking-index<% }else{ %>c-gray<% } %>"><%= i+1 %></span>
+
+							<span><img class="img-border <% if((is_day && i==0) || (!is_day && i<5)){ %>head-focus<% } %>" src="<%= items[i].headimage %>"></span>
+							<span>
+								<i><%= items[i].name %></i>
+								<i class="voteNum <%if(items[i].top == 1){%>flat<%}else if(items[i].top == 2){%>rise<%}else if(items[i].top == 3){%>decline<%}else{%><%}%>">热力值&nbsp;<em><%= items[i].vote_total %></em></i>
+							</span>
+						</a>
+						<a class="v-btn <%if(items[i].is_vote){%>bg-gray<%}%>" data-target="<%=items[i].id%>" href="javascript:void(0)"><%if(items[i].is_vote){%>已完成<%}else{%>冲榜<%}%></a>
+
+						<%if(i==0){%>
+							<div class="gift">
+								<img src="../static/image/law/gift-1.png">
+							</div>
+						<%}else if(i<5 && !is_day){%>
+							<div class="gift">
+								<img src="../static/image/law/gift-2.png">
+							</div>
+						<%}%>
+
+					</li>
+				<% } %>
+			</ul>
+
+		<% } %>
+		<section class="baseline">
+			<div class="base-tit">
+				<span>我是有底线的</span>
+			</div>
+		</section>
+	</div>
+</script>
+
+
+<script id="rule_template" type="text/html">
+	<div class="cd-popup-container">
+    	<!-- 关闭按钮 -->
+		<a href="#0" class="cd-popup-close img-replace"></a>
+		<div class="bg-up"><img src="../static/image/law/bg-up.png"></div>
+		<div class="activity-rule">
+			<div class="list-tit">
+				<span>榜单规则</span>
+			</div>
+		</div>
+		<div class="rule-con day"><%-day_rule%></div>
+		<div class="rule-con all hidden"><%-all_rule%></div>
+	</div>
+</script>
+
+	<script src="https://static.mlinks.cc/scripts/dist/mlink.min.js"></script>
+	<script src="../static/js/global.js?v=1006"></script>
+	<script src="../static/js/activity/law.js?v=1070"></script>
+	<script src="../static/js/template-web.js"></script>
+	<script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+	<script src="../js/libs/weixin.js"></script>
+	<script src="../static/js/jquery/fancybox/jquery.fancybox.pack.js"></script>
+	<script type="text/javascript">
+		$(function () {
+            FastClick.attach(document.body);
+
+            var activity_id=kf.getSearchParam("aid");
+            var law = new Law("index",{activity_id:activity_id,tab:[".tab-day",".tab-all"],vote_btn:".v-btn"});
+
+            law.index(function(data) {
+                if(data.error_code==-1){
+                    var error=template("notice_template",{error:data.error_msg});
+                    $("#law").html(error);
+                    return;
+                }
+                document.title = " “青春微普法”2018年首都高校普法微视频大赛";
+                // 活动开始之前
+			   	if(new Date(data.start_time.replace(/\-/g, "/")) > new Date()){
+
+				   	var remind=template("remind_template",{start_time:law.timeFormat(data.start_time), end_time:law.timeFormat(data.end_time).substr(5,law.timeFormat(data.end_time).length)});
+				   	$("#law").html(remind);
+
+                    $('.download').on('click', function () {
+//                        kf.redirect('/download/index.html');
+                        var link='https://aih3gj.mlinks.cc/A06D?activity?url=:url';//短链地址
+
+                        var options =
+                            {
+                                mlink: "A06D",
+                                button: document.querySelector('a#btnOpenApp'),
+                                autoLaunchApp : false,
+                                autoRedirectToDownloadUrl: true,
+                                downloadWhenUniversalLinkFailed: false,
+                                inapp : false,
+                                params: {
+                                    url:location.href
+                                },
+                            }
+                        new Mlink(options);
+                        $("#btnOpenApp").trigger("click");
+                    })
+
+			   	} else {
+                    var day_data = template("detail_info_template", { items: data.day_data, activity_time: data.activity_time, is_day: true, cls:"day", display: 1});
+                    var all_data = template("detail_info_template", { items: data.all_data, activity_time: data.activity_time, is_day: false, cls:"all", display: 0});
+
+                    var html = template("activity_law_template", { day_data: day_data, all_data: all_data, image: data.background});
+                    $("#law").html(html);
+
+                    var rule=template("rule_template",{day_rule:data.day_rule, all_rule:data.all_rule, cls:"day",});
+                    $(".cd-popup").html(rule);
+
+                }
+
+                kf.appShare(0," “青春微普法”2018年首都高校普法微视频大赛","提高广大青少年法律素质，营造普法良好的校园氛围和社会氛围。",'http://kanfatest.oss-cn-beijing.aliyuncs.com/jpg/law-share.png',document.location.href+'&share=1');
+                kf.get("/web/weixin/sign",{url:document.location.href},null,function(package){
+                    var wxshare=new wechat(package.appId,package.timestamp,package.nonceStr,package.signature);
+                    wxshare.share("“青春微普法”2018年首都高校普法微视频大赛","提高广大青少年法律素质，营造普法良好的校园氛围和社会氛围。",document.location.href+'&share=1','http://kanfatest.oss-cn-beijing.aliyuncs.com/jpg/law-share.png');
+                });
+
+
+
+            });
+
+        })
+	</script>
+
+	<!-- 百度统计代码 -->
+	<script>
+	    var _hmt = _hmt || [];
+	    (function() {
+	        var hm = document.createElement("script");
+	        hm.src = "https://hm.baidu.com/hm.js?f629854132f3cfafdb620261198d53b0";
+	        var s = document.getElementsByTagName("script")[0];
+	        s.parentNode.insertBefore(hm, s);
+	    })();
+
+	</script>
+
+</body>
+</html>

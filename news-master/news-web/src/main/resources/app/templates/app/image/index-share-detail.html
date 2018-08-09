@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    {{ get_title() }}
+    {{ stylesheet_link('assets/web/2017-5-8/reset.css') }}
+    {{ stylesheet_link('assets/web/2017-5-8/style.css?v=2888') }}
+    {{ javascript_include('assets/web/2017-5-8/jq172.js') }}
+    <style>
+    body{
+        background: #000;
+    }
+    #wapListImage{overflow: hidden;width: 100%; height: auto; cursor: move; zoom:1; position: absolute; top: 30%;left: 0;width: 100%;}
+
+    #wapListImage ul li{ list-style: none;}
+    #wapListImage .bg{
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: .3;
+    }
+    #wapListImage ul{width: 19999px; height: 100%;}
+    #wapListImage ul li{ float: left;font-size: 0; height: 100%;
+        display: -webkit-box;
+        -webkit-box-orient: horizontal;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+        position: relative;
+    }
+    #wapListImage ul li a{
+        width: 100%;
+        height: 100%;
+        display: -webkit-box;
+        -webkit-box-orient: horizontal;
+        -webkit-box-pack: center;
+        -webkit-box-align: center;
+        position: relative;
+
+    }
+    #wapListImage ul li a img:focus,
+    #wapListImage ul li a img:checked,
+    #wapListImage ul li a img,
+    #wapListImage ul li a img:active,
+    #wapListImage ul li a,#wapListImage ul li a:active{cursor: move;}
+    #wapListImage ul li{position: relative;}
+    #wapListImage ul li p{position: absolute; bottom: 0; line-height: 30px; background: #000; opacity: 0.8;width: 100%}
+    #wapListImage ul li p span{color: #fff;}
+    #wapListImage dl{ position: absolute; bottom: 5px; right: 10px;}
+    #wapListImage dl.dl{ 
+      width: 100%;
+      position: absolute;
+      bottom: 5px;
+      right: 10px;
+      text-align: center;
+    }
+    #wapListImage dl.home{ 
+        display: none;
+      position: absolute;
+      bottom: 19px;
+      right: 10px;
+      width: 100%;
+      text-align: center;
+    }
+    #wapListImage dl span{overflow: hidden;width: 8px; height: 8px;/* border-radius:5px 5px;*/ background-color: #fff; display: inline-block;margin-left:5px;}
+    #wapListImage dl span.selected{ background-color:rgb(0,142,208);}
+
+    #wapListImage .content{
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        color: #fff;
+        width: 100%;
+        padding: 0 10px;
+        box-sizing: border-box;
+    }
+    #wapListImage .title{
+        padding: 0 23px 0 0;
+        font-size: 18px;
+        color: #fff;
+        font-weight: bold;
+        height: 28px;
+        line-height: 28px;
+        position: relative;
+        overflow: hidden;
+    }
+    #wapListImage .title .con{
+        font-size: 18px;
+        color: #fff;
+        font-weight: bold;
+        height: 24px;
+        overflow: hidden;
+    }
+    #wapListImage .title .tit_r{
+        font-weight: normal;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        font-size: 12px;
+        color: #fff;
+    }
+    #wapListImage .title .tit_r span{
+        font-size: 14px;
+    }
+    #wapListImage .txt{
+        font-size: 14px;
+        color: #fff;
+        line-height: 18px;
+        height: 3.5rem;
+    }
+    #wapListImage .pre{
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 10%;
+
+    }
+    #wapListImage .next{
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 10%;
+
+    }
+
+    .fix-footer{
+        border-top: 1px solid #333;
+        background: #000000;
+        box-shadow: 0 0 4px 0 rgba(0,0,0,0.50);
+    }
+    .fix-footer .inp input {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        line-height: 32px;
+        height: 32px;
+        padding: 0 0 0 41px;
+        box-sizing: border-box;
+        border: none;
+        color: #999;
+        background: url(../../../../assets/web/2017-5-8/img/ico27.png) 10px center / auto 14px no-repeat;
+        -webkit-appearance: none;
+    }
+    .fix-footer .inp {
+        position: relative;
+        margin: 9px 20px;
+        height: 32px;
+        box-sizing: border-box;
+        background: #000000;
+        border: 1px solid #434343;
+        border-radius: 100px;
+        -webkit-box-flex: 1;
+    }
+    </style>
+</head>
+<body class="{{params['nightmode'] ? 'night' : ''}}">
+{% autoescape true %}
+<div id="wapListImage" class="clearfix">
+    <ul>
+        {%for k,v in obj['extend']%}
+        <!--<li><a href="javascript:void(0)" hrefto="{{v['image']}}" target="_black"><img src="{{v['image']}}" alt="{{obj['title']}}" data-txt="{{v['desc']}}"></a></li>-->
+        <li><img src="{{v['image']}}" alt="{{obj['title']}}" data-txt="{{v['desc']}}"></li>
+        {%endfor%}
+    </ul>
+    <dl class="home">
+        {%for k,v in obj['extend']%}
+        <span class="{%if loop.first%}selected{%endif%}"></span>
+        {%endfor%}
+    </dl>
+    <div class="content">
+        <div class="title"><span class="con"></span> <div class="tit_r">1/{{obj['num']}}</div></div>
+        <div class="txt"></div>
+    </div>
+</div>
+{% endautoescape %}
+<!-- 判断链接中包含‘share’且为非原创文章 -->
+{%if (_GET['share']==1) %}
+<div class="download">
+    <div class="img">
+        <img src="{{url('/assets/web/2017-5-8/img/App Icon@2x.png')}}" alt="">
+    </div>
+    <div class="box_con">
+        <div class="box_t">看法新闻</div>
+        <div class="box_txt">KANFA NEWS</div>
+    </div>
+    <a  class="box_btn">
+        立即下载
+    </a>
+    <div id="close" class="close">
+        <img src="{{url('assets/web/')}}img/icon_close.png" alt="close">
+    </div>
+</div>
+{%endif%}
+
+{{ javascript_include('assets/web/2017-5-8/autoImages.js') }}
+{{ javascript_include('/assets/web/suyi/common.js') }}
+<script>
+    //当前状态
+    var nightStat = "";
+    var loveStat = "";
+
+    //切换夜间模式
+    var nightMode = function(){
+        $('body').toggleClass('night');
+        nightStat = !nightStat;
+        if(!loveStat){
+            $('.li_c img').each(function(k,v){
+                if(nightStat){
+                    $(v).attr('src', $(v).attr('night-src'));
+                }else{
+                    $(v).attr('src', $(v).attr('day-src'));
+                }
+            })
+        }
+    };
+
+//    var share = "1";
+//    if(share){
+//        $("[href^='xmnews://']").attr("href", "javascript:void(0)");
+//    }
+
+
+    (function(w,d){
+        var obj = {
+            dom:document.getElementById('wapListImage'),
+            isupdate: true,
+            time:3000,
+            // isfor:true,
+            leftOrright:'left',
+            callBack:function(obj){
+
+                var span = document.getElementById('wapListImage').getElementsByTagName('dl')[0].getElementsByTagName('span');
+                for(var k = 0;k<span.length;k++){
+                    span[k].className='';
+                }
+                span[obj.index-1].className='selected';
+                // console.log(obj)
+                $('#wapListImage .title .con').html($('#wapListImage ul img').eq(1).attr('alt'));
+                $('#wapListImage .txt').html($('#wapListImage ul img').eq(1).attr('data-txt'));
+                $('#wapListImage .tit_r').html(obj.index+'/'+obj.total);
+// if($('#wapListImage ul img').eq(1).attr('alt') == "") {
+//                     $('#wapListImage .title').hide();
+//                 } else {
+//                     $('#wapListImage .title').show();
+//                 }
+
+            }
+        };
+        WapImage.start(obj);
+        WapImage.position(1)
+// var img = new w.WapImage();
+// img.start(obj);
+    })();
+</script>
+</body>
+</html>

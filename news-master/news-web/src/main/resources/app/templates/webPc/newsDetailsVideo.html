@@ -1,0 +1,107 @@
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/webPc/css/video.css">
+</head>
+
+<#include "head.html" />
+<body>
+<!-- 其他 hearder-->
+<div class="header">
+    <div class="w1200">
+        <div class="logo fl">
+            <h1><a href="../../../">看法网</a></h1>
+        </div>
+        <div class="fl crumbs">
+            <a href="../../../">首页</a>&nbsp;/&nbsp;&nbsp;视频&nbsp;/&nbsp;&nbsp;正文
+        </div>
+        <div class="search fr">
+            <input type="email" class="form-control search-text" id="searchText" placeholder="请输入关键词">
+            <span class="glyphicon glyphicon-search btn"></span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+
+
+<div class="video-main">
+    <div class="wrap clearfix">
+        <div class="main fl">
+            <div class="video-box">
+                <div class="video">
+                    <!--{%if data['status']!=1%}-->
+                    <video id="myvideo"
+                           src="${video.url!}"
+                           controls="controls" autoplay="autoplay" loop="loop">
+                        您的浏览器不支持 video 标签。
+                    </video>
+                    <!--{%else%}-->
+                    <!--<img src="{{data['video_img']}}" width="830" height="520" />-->
+                    <!--{%endif%}-->
+                </div>
+                <div class="info clearfix">
+                    <div class="words fl">
+                        <p class="tit"><a href="javascript:void(0);" target="_blank">${video.title!}</a></p>
+                      <!--  <p class="intro"
+                           data-text="${video.title!}">
+                            <em>${video.title!}</em>
+                            <a class="slide slide-show-btn" href="javascript:void(0);">展开</a>
+                        </p>-->
+                        <p class="time">${video.createTime?string("yyyy-MM-dd HH:mm:ss")}发布</p>
+                    </div>
+                    <div class="handle fr">
+                        <span class="num">播放${video.viewCount!}次</span>
+                        <div class="share clearfix">
+                            <span>分享</span>
+                            <ul id="share-1">
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      <div class="side recommend-chunk fr">
+            <h2>热门视频</h2>
+            <ul>
+                <!--&lt;!&ndash;小视频列表&ndash;&gt;
+                <li class="small-new-line small-video-news" title="男子撞死7旬等车人：获刑一年 自认有点重">
+                    <div class="new-line-info">
+                        <a href="newsDetailsVideo.html"> <h4>男子撞死7旬等车人：获刑一年 自认有点重</h4></a>
+                        <p>2960次播放</p>
+                    </div>
+                    <a class="image-box">
+                        <img src="https://kanfaimage.oss-cn-beijing.aliyuncs.com/20180203/video_151763821268286.png?x-oss-process=image/resize,m_fill,w_750,h_422">
+                        <p class="video-time"><i>23:01</i></p>
+                    </a>
+                </li>-->
+                <#list hots! as content>
+                <li class="small-new-line small-video-news" title="${content.title!}">
+                    <div class="new-line-info">
+                        <a href="${'/detail/'+ content.id + '/' + content.contentType}"> <h4>${content.title!}</h4></a>
+                        <p>${content.viewCount}次播放</p>
+                    </div>
+                    <a class="image-box">
+                        <img src="${content.image!}">
+                        <p class="video-time"><i>${content.durations!}</i></p>
+                    </a>
+                </li>
+                </#list>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- 小视频窗口浮层 start -->
+    <div class="video-fixed">
+        <a href="javascript:;" class="close">×</a>
+        <video src="http://cdn.vrcdkj.cn/Act-ss-mp4-hd/ec54485d59234e42a129d877acbddfc5/1517276492266bqki7i8nm5qo7pw19vrv8to6r.mp4"
+               controls="controls">
+            您的浏览器不支持 video 标签。
+        </video>
+    </div>
+</div>
+</body>
+<script src="/static/webPc/js/jquery.share.js?v=3"></script>
+<script src="/static/webPc/js/newsDetailsVideo.js"></script>
+
+<#include "detailFoot.html" />

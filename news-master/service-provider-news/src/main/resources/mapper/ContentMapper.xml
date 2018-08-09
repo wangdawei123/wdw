@@ -1,0 +1,1433 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.ContentMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.Content" id="contentMap">
+        <result property="id" column="id"/>
+        <result property="category" column="category"/>
+        <result property="contentType" column="content_type"/>
+        <result property="title" column="title"/>
+        <result property="longTitle" column="long_title"/>
+        <result property="introduction" column="introduction"/>
+        <result property="image" column="image"/>
+        <result property="coverImg" column="cover_img"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="likeCount" column="like_count"/>
+        <result property="collectCount" column="collect_count"/>
+        <result property="tag" column="tag"/>
+        <result property="channels" column="channels"/>
+        <result property="commentCount" column="comment_count"/>
+        <result property="commentCheckedCount" column="comment_checked_count"/>
+        <result property="updateUid" column="update_uid"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="contentState" column="content_state"/>
+        <result property="deleteTime" column="delete_time"/>
+        <result property="deleteUid" column="delete_uid"/>
+        <result property="activityId" column="activity_id"/>
+        <result property="activityVoteId" column="activity_vote_id"/>
+        <result property="customBtn" column="custom_btn"/>
+        <result property="customUrl" column="custom_url"/>
+        <result property="scoreTaskId" column="score_task_id"/>
+        <result property="isCheck" column="is_check"/>
+        <result property="checkStatus" column="check_status"/>
+        <result property="checkTime" column="check_time"/>
+        <result property="mongoId" column="mongo_id"/>
+        <result property="author" column="author"/>
+        <result property="contentStyle" column="content_style"/>
+        <result property="sourceType" column="source_type"/>
+        <result property="isLegal" column="is_legal"/>
+        <result property="platform" column="platform"/>
+        <result property="videoType" column="video_type"/>
+        <result property="videoView" column="video_view"/>
+        <result property="appvideoView" column="appvideo_view"/>
+        <result property="firstCheckTime" column="first_check_time"/>
+        <result property="isRelation" column="is_relation"/>
+    </resultMap>
+
+    <select id="getBindNewsByBurstId" parameterType="java.lang.Integer" resultType="java.util.Map">
+                    SELECT
+                c.id,
+                c.category,
+                c.content_type,
+                c.title,
+                c.introduction,
+                c.image,
+                c.view_count,
+                c.create_uid,
+                c.comment_count,
+                c.comment_checked_count,
+                c.content_style,
+                c.source_type,
+                c.custom_url,
+                cc.card_type,
+                cc.top,
+                cc.publish_time,
+                cc.recommend_weight,
+                cc.order_number,
+                cc.from_type
+            FROM
+                kf_content_burst cb
+            LEFT JOIN kf_content c ON c.id = cb.content_id
+            LEFT JOIN kf_channel_content cc ON cc.content_id = cb.content_id
+            WHERE
+                c.content_state = 1
+            AND cc.is_delete = 1
+            AND cc.check_status = 1
+            AND cc.is_publish = 1
+
+            AND cb.burst_id =#{id}    ORDER BY cc.publish_time
+    </select>
+
+    <select id="getContentVideoDetailById" parameterType="java.lang.Integer" resultType="java.util.Map">
+                select
+                            kf_content.id,
+                            kf_content.title,
+                            kf_content.category,
+                            kf_content.content_type,
+                            kf_content.view_count,
+                            kf_content.introduction,
+                            kf_content.create_time,
+                            kf_content.comment_count,
+                            kf_content.image con_img,
+                            kf_content_video.image,
+                            kf_content_video.url,
+                            kf_content_video.duration,
+                            base_user.id user_id,
+                            base_user.`name`,
+                            base_user.head_portrait user_img,
+                            kf_video_source.image source_image,
+                            kf_video_source.name source_name,
+                            kf_channel_content.publish_time
+                            from kf_video_album_bind
+                            right join kf_content on kf_content.id = kf_video_album_bind.video_id
+                            left join base_user on kf_content.create_uid = base_user.id
+                            left join kf_content_video on kf_content_video.cid = kf_content.id
+                            left join kf_video_source on kf_video_source.id = kf_content_video.source_id
+                            left join kf_channel_content on kf_channel_content.content_id = kf_content.id
+
+            WHERE
+                kf_video_album_bind.video_album_id = (select id from kf_video_album where album_type = 2 and is_delete = 1 and is_publish = 1)
+            AND kf_channel_content.channel_id = 59
+    </select>
+
+    <select id="getContentSpecialDetailById" parameterType="java.lang.Integer" resultType="java.util.Map">
+
+            SELECT
+                    c.*, cc.publish_time,
+                    cc.channel_id,
+                    cs.order_number
+            FROM
+                   kf_content_special cspe
+            LEFT JOIN kf_content c ON cspe.target_cid = c.id
+            LEFT JOIN kf_channel_content cc ON c.id = cc.content_id
+            LEFT JOIN kf_content_special cs ON cs.target_cid = c.id
+            AND cs.is_publish = 1
+            WHERE
+                cspe.content_id  =#{id}
+            ORDER BY
+                cs.order_number DESC
+
+    </select>
+
+
+    <select id="getList" resultMap="contentMap">
+        SELECT
+        c.id,
+        c.`content_type`,
+        c.`title`,
+        c.category
+        FROM
+        kf_content c
+        <where>
+            c.content_state = 1
+            <if test="cidsKey != null and cidsKey.size() > 0">
+                AND c.id IN
+                <foreach collection="cidsKey" separator="," open="(" close=")" item="id">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+
+    </select>
+
+    <select id="selectByIds" resultType="com.kanfa.news.info.vo.admin.info.ContentInfo">
+          SELECT
+                c.id,
+                c.category,
+                c.content_type contentType,
+                c.source_type sourceType,
+                c.content_style contentStyle,
+                c.title,
+                c.introduction,
+                c.image,
+                c.view_count viewCount,
+                c.tag,
+                c.comment_count commentCount,
+                c.comment_checked_count commentCheckedCount,
+                c.custom_url customUrl,
+               cc.publish_time
+          FROM
+          kf_content c
+          LEFT JOIN kf_channel_content cc ON c.id = cc.content_id
+          <where>
+              <if test="list != null and list.size() > 0">
+                  c.id IN
+                  <foreach collection="list" separator="," open="(" close=")" item="id">
+                      #{id}
+                  </foreach>
+              </if>
+          </where>
+            GROUP BY
+            c.id
+    </select>
+
+    <select id="selectConBindList" resultType="com.kanfa.news.info.vo.admin.live.LiveVideoBindInfo">
+        SELECT
+            b.sort,
+            b.sorttime,
+            b.bind_id bindId,
+            b.from_type fromType,
+            l.`title`,
+            l.view_count views,
+            l.image thumbimg,
+            v.duration,
+            4 `type`
+        FROM
+            kf_live_video_bind b
+        LEFT JOIN kf_content l ON b.bind_id = l.id
+        AND b.from_type = 1
+        LEFT JOIN kf_content_video v ON v.cid = l.id
+        WHERE
+            l.check_status = 1
+        AND l.content_state = 1
+        AND b.cid = #{id}
+        ORDER BY
+            b.sort DESC,
+            b.sorttime DESC
+
+    </select>
+
+
+    <select id="selectConBindList2" resultType="com.kanfa.news.info.vo.admin.live.LiveVideoBindInfo">
+        SELECT
+            b.sort,
+            b.sorttime,
+            b.id,
+            b.cid,
+            b.bind_id bindId,
+            l.`title`,
+            l.view_count views,
+            l.create_uid createUid,
+            l.create_time createTime,
+            l.update_uid updateUid,
+            l.update_time updateTime,
+            b.from_type fromType
+        FROM
+            kf_live_video_bind b
+        LEFT JOIN kf_content l ON b.bind_id = l.id
+        AND b.from_type = 1
+        WHERE
+            l.check_status = 1
+        AND b.cid = #{id}
+        ORDER BY
+            sort DESC,
+            sorttime DESC
+
+    </select>
+
+    <select id="getContentByIds" parameterType="integer" resultType="java.util.Map">
+
+        SELECT
+        c.*, cbb.order_number ,a.replay_duration
+        FROM
+        kf_content_broadcast_bind cbb
+        LEFT JOIN kf_content c ON cbb.bind_id = c.id
+        LEFT JOIN kf_content_broadcast a on c.id=a.cid
+        WHERE
+        cbb.content_id =#{id}
+        ORDER BY
+        cbb.order_number DESC  limit 4
+
+    </select>
+
+    <select id="getSearchListByKeyWord" parameterType="java.util.Map" resultType="java.util.Map">
+
+        SELECT
+        c.id,
+        c.category,
+        c.content_type,
+        c.title,
+        c.introduction,
+        c.image,
+        c.view_count,
+        c.tag,
+        c.comment_count,
+        c.custom_url,
+        cc.publish_time,
+        cc.top,
+        cc.card_type
+        FROM
+        kf_channel_content cc
+        LEFT JOIN kf_content  c on cc.content_id=c.id
+        where cc.is_delete=1
+        and cc.is_publish =1
+        and cc.from_type=1
+        and c.content_state=1
+        and  <![CDATA[ c.check_status < 2 ]]>
+        and c.title LIKE  concat('%',#{entity.keyWord},'%')
+        order by cc.top desc,cc.order_number desc
+
+    </select>
+
+    <select id="getContentImageById" parameterType="integer"  resultType="com.kanfa.news.info.vo.admin.info.ContentImageInfo">
+        SELECT
+            c.id,
+            ci.cid,
+            c.title,
+            c.content_type contentType,
+            c.image,
+            c.introduction,
+            c.custom_url customUrl,
+            c.view_count viewCount,
+            c.create_time createTime,
+            c.check_status checkStatus,
+            c.content_state contentState,
+            ci.desc_type descType,
+            ci.num,
+            ci.stat,
+            cig.`desc`,
+            cig.image imageGroup,
+            cig.`order`
+        FROM
+            kf_content c,
+            kf_content_image ci ,
+        	kf_content_image_group cig
+        where
+          c.id = ci.cid and c.id = cig.cid and c.id = ${id}
+        ORDER BY cig.`order` DESC
+    </select>
+
+
+    <select id="getContentVideoById" parameterType="integer"  resultType="com.kanfa.news.info.vo.admin.info.ContentInfo">
+        SELECT
+            c.id,
+            c.title,
+            c.long_title longTitle,
+            c.content_type contentType,
+            c.cover_img coverImage,
+            c.view_count viewCount,
+            c.like_count likeCount,
+            c.collect_count collectCount,
+            c.create_time createTime,
+            cv.image ,
+            cv.url,
+            cv.duration,
+            cv.source
+        FROM
+            kf_content c
+        LEFT JOIN kf_content_video cv ON c.id = cv.cid
+        WHERE c.id = ${id}
+    </select>
+
+    <select id="webSearch" parameterType="string"  resultType="com.kanfa.news.info.vo.admin.info.ContentInfo">
+        SELECT
+            c.id,
+            c.content_type contentType,
+            c.`title`,
+            c.`introduction`,
+            c.image,
+            c.create_time createTime,
+            c.view_count viewCount,
+            cc.publish_time publishTime,
+            cc.`top`,
+            ca.`source`,
+            cv.duration
+        FROM
+            kf_channel_content cc
+        LEFT JOIN kf_channel ch ON ch.id = cc.channel_id
+        INNER JOIN kf_content c ON c.id = cc.content_id
+        LEFT JOIN kf_content_article ca ON ca.cid = c.id
+        LEFT JOIN kf_content_video cv ON cv.cid = c.id
+        <where>
+            <if test="searchKey != null">
+                c.title LIKE CONCAT('%',#{searchKey},'%')
+            </if>
+            AND cc.check_status = 1
+            AND c.check_status = 1
+            AND cc.is_publish = 1
+            AND ch.category = 4
+            AND ch.is_publish = 1
+        </where>
+        ORDER BY
+            cc.order_number DESC
+            LIMIT 0,8
+    </select>
+
+    <select id="searchLoad" parameterType="string"  resultType="com.kanfa.news.info.vo.admin.info.ContentImageInfo">
+        SELECT
+            c.id,
+            c.content_type contentType,
+            c.`title`,
+            c.`introduction`,
+            c.image,
+            c.create_time createTime,
+            c.view_count viewCount,
+            cc.publish_time publishTime,
+            cc.`top`,
+            ca.`source`,
+            cv.duration
+        FROM
+            kf_channel_content cc
+        LEFT JOIN kf_channel ch ON ch.id = cc.channel_id
+        INNER JOIN kf_content c ON c.id = cc.content_id
+        LEFT JOIN kf_content_article ca ON ca.cid = c.id
+        LEFT JOIN kf_content_video cv ON cv.cid = c.id
+        <where>
+            <if test="searchKey != null">
+                c.title LIKE CONCAT('%',#{searchKey},'%')
+            </if>
+            AND cc.check_status = 1
+            AND c.check_status = 1
+            AND cc.is_publish = 1
+            AND ch.category = 4
+            AND ch.is_publish = 1
+        </where>
+        ORDER BY
+            cc.order_number DESC
+            LIMIT #{offset},#{limit}
+    </select>
+
+    <!--获取热门-->
+    <select id="hotgetlist" parameterType="integer"  resultType="com.kanfa.news.info.vo.admin.info.ContentInfo">
+        SELECT distinct
+            kc.id,
+            kc.content_type contentType,
+            kc.image,
+            kc.title,
+            kc.view_count viewCount
+        FROM
+          kf_content kc
+        INNER JOIN kf_channel_content cc ON kc.id = cc.content_id
+        INNER JOIN kf_channel ch ON ch.id = cc.channel_id
+        <where>
+            <if test="contentType != null">
+                kc.content_type = #{contentType}
+                <if test="contentType == 2">
+                    AND  kc.image != ""
+                </if>
+            </if>
+            AND cc.is_delete = 1
+            AND kc.content_state = 1
+            AND cc.is_publish = 1
+            AND ch.category = 4
+            AND ch.is_publish= 1
+            AND <![CDATA[ cc.publish_time <= date_sub(curdate(),interval -1 day) ]]> AND cc.publish_time >= date_sub(curdate(),interval 15 day)
+        </where>
+        ORDER BY
+        kc.view_count DESC
+        <if test="contentType == 1 or contentType == 2 or contentType == 4">
+            LIMIT 4
+        </if>
+        <if test="contentType == 3">
+            LIMIT 8
+        </if>
+    </select>
+
+
+    <select id="getContentArticle" parameterType="integer"  resultType="com.kanfa.news.info.vo.admin.info.ContentInfo">
+        SELECT
+            c.id,
+            c.title,
+            c.long_title longTitle,
+            c.content_type contentType,
+            c.image,
+            c.cover_img coverImage,
+            c.view_count viewCount,
+            c.like_count likeCount,
+            c.collect_count collectCount,
+            c.create_time createTime,
+            ca.source ,
+            ca.content contentDetail,
+            ca.video,
+            ca.video_img videoImage,
+            ca.did,
+            ca.author
+        FROM
+            kf_content c
+        LEFT JOIN kf_content_article ca ON c.id = ca.cid
+        WHERE c.id = ${id}
+    </select>
+
+    <update id="updateByviews" >
+        UPDATE kf_content c SET c.view_count = ${entity.viewCount} WHERE c.id = ${entity.id}
+    </update>
+
+    <select id="getContent" parameterType="integer"  resultType="com.kanfa.news.info.vo.admin.info.ContentInfo">
+        SELECT
+                c.id,
+                c.title,
+                c.introduction,
+                c.long_title longTitle,
+                c.image,
+                c.cover_img coverImage,
+                c.source_type sourceType,
+                c.is_legal isLegal,
+                c.create_uid createUid,
+                c.check_status checkStatus,
+                cc.recommend_weight recommendWeight,
+                cc.card_type cardType,
+                ca.source,
+                ca.content contentDetail,
+                ca.video,
+                ca.video_img videoImage,
+                ca.did
+        FROM
+                kf_content c
+                LEFT JOIN kf_content_article ca ON c.id = ca.cid
+                LEFT JOIN (SELECT content_id,card_type,recommend_weight FROM kf_channel_content WHERE content_id=#{id} LIMIT 1) cc ON cc.content_id=c.id
+        <where>
+            <if test="id != null">
+                AND c.id = #{id}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectSubjectById" parameterType="integer"  resultType="com.kanfa.news.info.vo.admin.info.ContentInfo">
+        SELECT
+                c.id,
+                c.title,
+                c.introduction,
+                c.image,
+                c.cover_img coverImg,
+                c.source_type sourceType,
+                c.is_legal isLegal,
+                c.create_uid createUid,
+                (SELECT recommend_weight FROM kf_channel_content WHERE content_id=#{id} LIMIT 1) recommendWeight,
+                au.`name` createUser
+
+        FROM
+                kf_content c
+                LEFT JOIN base_user au ON c.create_uid = au.id
+        <where>
+            <if test="id != null">
+                AND c.id = #{id}
+            </if>
+        </where>
+    </select>
+
+
+    <select id="selectActivityById" parameterType="integer"  resultType="com.kanfa.news.info.vo.admin.info.ContentInfo">
+        SELECT
+                c.id,
+                c.title,
+                c.introduction,
+                c.image,
+                c.custom_url customUrl,
+                (SELECT type FROM kf_channel_content WHERE content_id=#{id} LIMIT 1) cardType
+
+        FROM
+                kf_content c
+        <where>
+            <if test="id != null">
+                AND c.id = #{id}
+            </if>
+        </where>
+    </select>
+
+    <select id="getPagePC" parameterType="com.kanfa.news.info.vo.admin.info.ContentImageInfo" resultType="com.kanfa.news.info.vo.admin.info.ContentImageInfo">
+        SELECT
+            c.id,
+            ci.cid,
+            c.title,
+            c.content_type contentType,
+            c.image,
+            c.custom_url customUrl,
+            c.view_count viewCount,
+            c.create_time createTime,
+            c.update_time updateTime,
+            c.check_status checkStatus,
+            c.content_state contentState,
+            ci.desc_type descType,
+            ci.num,
+            ci.stat,
+            cig.`desc`,
+            cig.image imageGroup,
+            cig.`order`,
+            cv.duration
+        FROM
+           (select
+               *
+                from kf_content cc
+                <where>
+                    cc.content_type BETWEEN 1 and 4
+                    AND cc.content_state = 1
+                    AND  cc.check_status = 1
+                    <if test="entity!=null and entity.contentState!=null">
+                         AND cc.content_state=#{entity.contentState}
+                    </if>
+                    <if test="entity.checkStatus!=null">
+                         AND cc.check_status=#{entity.checkStatus}
+                    </if>
+                </where>
+            ORDER BY cc.create_time DESC
+             limit #{entity.page},#{entity.limit}) c
+        LEFT JOIN 	kf_content_image ci ON c.id = ci.cid
+        LEFT JOIN 	kf_content_image_group cig ON c.id = cig.cid
+        LEFT JOIN 	kf_content_video cv ON c.id = cv.cid
+        where ci.stat = 1
+          and cv.is_delete = 1
+    </select>
+
+    <select id="getContentAll" parameterType="com.kanfa.news.info.vo.admin.info.ContentImageInfo" resultType="com.kanfa.news.info.vo.admin.info.ContentImageInfo">
+        SELECT
+            c.id,
+            ci.cid,
+            c.title,
+            c.content_type contentType,
+            c.image,
+            c.view_count viewCount,
+            c.create_time createTime,
+            c.check_status checkStatus,
+            c.content_state contentState,
+            ci.desc_type descType,
+            ci.num,
+            ci.stat,
+            cig.`desc`,
+            cig.image imageGroup,
+            cig.`order`,
+            <if test="entity.channelId!=null">
+                c.channel_id channelId,
+            </if>
+            cv.duration
+        FROM
+            (select
+                cc.id,
+                cc.title,
+                cc.content_type,
+                cc.image,
+                cc.custom_url,
+                cc.view_count,
+                cc.create_time,
+                cc.update_time,
+                cc.check_status,
+                <if test="entity.channelId!=null">
+                    con.channel_id,
+                </if>
+                cc.content_state
+        from kf_content cc
+            <if test="entity.channelId!=null">
+                LEFT JOIN  kf_channel_content con on con.content_id = cc.id
+            </if>
+            <where>
+                cc.content_type BETWEEN 1 and 4
+                <if test="entity!=null and entity.contentState!=null">
+                    AND cc.content_state=#{entity.contentState}
+                </if>
+                <if test="entity.checkStatus!=null">
+                    AND cc.check_status=#{entity.checkStatus}
+                </if>
+                <if test="entity.channelId!=null">
+                    AND con.channel_id=#{entity.channelId}
+                </if>
+            </where>
+            ORDER BY
+                cc.create_time DESC
+                <if test="entity.channelId!=null">
+                  ,con.order_number
+                </if>
+            limit #{entity.page},#{entity.limit}) c
+        LEFT JOIN 	kf_content_image ci ON c.id = ci.cid
+        LEFT JOIN 	kf_content_image_group cig ON c.id = cig.cid
+        LEFT JOIN 	kf_content_video cv ON c.id = cv.cid
+    </select>
+
+
+    <select id="getPage" resultType="com.kanfa.news.info.vo.admin.info.ContentInfo">
+        SELECT
+                c.id,
+                c.title,
+                cc.recommend_weight recommendWeight,
+                cc.is_publish isPublish,
+                cc.top isTop,
+                cc.order_number orderNumber,
+                c.content_type contentType,
+                c.create_time createTime,
+                IF (c.update_time != '',c.update_time,c.create_time) updateTime,
+                c.view_count viewCount,
+                bu.`name` createUser,
+                c.content_state contentState,
+                bu1.`name` updateUser
+        FROM
+                kf_content c
+                LEFT JOIN base_user bu ON c.create_uid = bu.id
+                LEFT JOIN base_user bu1 ON c.update_uid = bu1.id
+                LEFT JOIN kf_channel_content cc ON cc.content_id = c.id AND cc.from_type=1
+        <where>
+            <if test="entity!=null and entity.contentState!=null">
+                AND c.content_state=#{entity.contentState}
+            </if>
+            <if test="entity.contentType!=null">
+                AND c.content_type=#{entity.contentType}
+            </if>
+            <if test="entity.category!=null">
+                AND c.category=#{entity.category}
+            </if>
+            <if test="entity.beginTime!=null">
+                AND c.create_time &gt;= #{entity.beginTime}
+            </if>
+            <if test="entity.endTime!=null">
+                AND c.create_time &lt;= #{entity.endTime}
+            </if>
+            <if test="entity.id!=null">
+                AND c.id=#{entity.id}
+            </if>
+            <if test="entity.title!=null and entity.title != '' ">
+                AND c.title LIKE CONCAT('%',#{entity.title},'%')
+            </if>
+            <if test="entity.createUser!=null and entity.createUser != ''">
+                AND bu.name=#{entity.createUser}
+            </if>
+            <if test="entity.checkStatus!=null">
+                AND (c.check_status=#{entity.checkStatus} <if test="entity.checkStatus==1">OR c.is_check=1</if>) AND cc.check_status=1
+            </if>
+            <if test="entity.notInIds!=null and entity.notInIds.size()>0">
+                AND c.id NOT IN
+                <foreach collection="entity.notInIds" item="id" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+            </if>
+            <if test="entity.channelId!=null">
+                AND cc.channel_id=#{entity.channelId}
+            </if>
+            <if test="entity.isPublish!=null">
+                AND cc.is_publish=#{entity.isPublish}
+            </if>
+        </where>
+        GROUP BY c.id
+        UNION
+        SELECT
+                    l.id,
+                    l.title,
+                    cc.recommend_weight recommendWeight,
+                    cc.is_publish isPublish,
+                    cc.top isTop,
+                    cc.order_number orderNumber,
+                    22 contentType,
+                    l.create_time createTime,
+                    IF(l.update_time!='',l.update_time,l.create_time) updateTime,
+                    l.view_count viewCount,
+                    bu.name createUser,
+                    l.is_delete contentState,
+                    IF(bu1.name!='',bu1.name,bu.name) updateUser
+        FROM
+                kf_live l
+                LEFT JOIN base_user bu ON l.create_uid = bu.id
+                LEFT JOIN base_user bu1 ON l.update_uid = bu1.id
+                INNER JOIN kf_channel_content cc ON cc.content_id = l.id AND cc.from_type=2
+        <where>
+            <if test="entity!=null and entity.contentState!=null">
+                <if test="entity.contentState==1">
+                    AND l.is_delete=0
+                </if>
+                <if test="entity.contentState==0">
+                    AND l.is_delete=1
+                </if>
+            </if>
+            <if test="entity.contentType!=null">
+                AND cc.type=#{entity.contentType}
+            </if>
+            <if test="entity.category!=null">
+                AND cc.cate=#{entity.category}
+            </if>
+            <if test="entity.beginTime!=null">
+                AND l.create_time &gt;= #{entity.beginTime}
+            </if>
+            <if test="entity.endTime!=null">
+                AND l.create_time &lt;= #{entity.endTime}
+            </if>
+            <if test="entity.id!=null">
+                AND l.id=#{entity.id}
+            </if>
+            <if test="entity.title!=null and entity.title != '' ">
+                AND l.title LIKE CONCAT('%',#{entity.title},'%')
+            </if>
+            <if test="entity.createUser!=null and entity.createUser != ''">
+                AND bu.name=#{entity.createUser}
+            </if>
+            <if test="entity.checkStatus!=null">
+                AND l.check_state=#{entity.checkStatus} AND cc.check_status=1
+            </if>
+            <if test="entity.notInIds!=null and entity.notInIds.size()>0">
+                AND l.id NOT IN
+                <foreach collection="entity.notInIds" item="id" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+            </if>
+            <if test="entity.channelId!=null">
+                AND cc.channel_id=#{entity.channelId}
+            </if>
+            <if test="entity.isPublish!=null">
+                AND cc.is_publish=#{entity.isPublish}
+            </if>
+        </where>
+        GROUP BY l.id
+        ORDER BY isTop DESC,<if test="entity.channelId ==2 ">recommendWeight DESC,</if>orderNumber DESC,updateTime DESC
+    </select>
+
+    <select id="getContentPageForVideo" resultType="com.kanfa.news.info.vo.admin.info.ContentInfo">
+        SELECT
+                c.id,
+                c.title,
+                c.content_type contentType,
+                cu.url video,
+                cu.duration
+        FROM
+                kf_content c
+                LEFT JOIN kf_content_video cu ON c.id = cu.cid
+        <where>
+            <if test="entity!=null and entity.contentState!=null">
+                AND c.content_state=#{entity.contentState}
+            </if>
+            <if test="entity.title!=null and entity.title != '' ">
+                AND c.title LIKE CONCAT('%',#{entity.title},'%')
+            </if>
+            <if test="entity.checkStatus!=null">
+                AND c.check_status=#{entity.checkStatus}
+            </if>
+                AND  cu.url!=''
+        </where>
+        ORDER BY c.create_time DESC
+    </select>
+
+    <insert id="addContent" parameterType="com.kanfa.news.info.vo.admin.info.ContentInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into kf_content(
+                                content_type,
+                                category,
+                                title,
+                                long_title,
+                                introduction,
+                                image,
+                                create_uid,
+                                create_time,
+                                content_state,
+                                source_type,
+                                is_legal,
+                                is_check,
+                                check_status,
+                                channels,
+                                video_type
+                                )
+        values(#{contentType},
+                #{category},
+                #{title},
+                #{longTitle},
+                #{introduction},
+                #{image},
+                #{createUid},
+                #{createTime},
+                #{contentState},
+                #{sourceType},
+                #{isLegal},
+                #{isCheck},
+                #{checkStatus},
+                #{channels},
+                #{videoType})
+    </insert>
+
+    <insert id="addContentSubject" parameterType="com.kanfa.news.info.vo.admin.info.ContentInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into kf_content(
+                                content_type,
+                                category,
+                                title,
+                                introduction,
+                                image,
+                                cover_img,
+                                create_uid,
+                                create_time,
+                                content_state,
+                                is_check,
+                                check_status,
+                                channels,
+                                is_legal
+                                )
+        values(#{contentType},
+                #{category},
+                #{title},
+                #{introduction},
+                #{image},
+                #{coverImg},
+                #{createUid},
+                #{createTime},
+                #{contentState},
+                #{isCheck},
+                #{checkStatus},
+                #{channels},
+                #{isLegal}
+                )
+    </insert>
+
+
+    <!-- 新增视频 -->
+   <insert id="addVideoContent" parameterType="com.kanfa.news.info.vo.admin.video.VideoContentInfo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO kf_content(
+                                content_type,
+                                title,
+                                introduction,
+                                image,
+                                create_uid,
+                                create_time,
+                                content_state,
+                                source_type,
+                                is_legal,
+                                category,
+                                video_type,
+                                is_relation,
+                                is_check
+        )
+        VALUES (#{contentType},
+                #{title},
+                #{introduction},
+                #{image},
+                #{createUid},
+                #{createTime},
+                #{contentState},
+                #{sourceType},
+                #{isLegal},
+                #{category},
+                #{videoType},
+                #{isRelation},
+                #{isCheck}
+        )
+    </insert>
+
+
+    <!-- 查询已删除列表的分页显示 -->
+    <select id="selectDeletes" resultType="com.kanfa.news.info.vo.admin.video.RecycleBinInfo">
+        SELECT
+            xc.id,
+            xc.title,
+            kd.contentType contentType,
+            xau.`name` deleteUser,
+            xc.delete_time deleteTime,
+            xc.update_time updateTime,
+            xc.view_count viewCount
+        FROM
+            kf_content xc
+        LEFT JOIN base_user xau ON xc.delete_uid = xau.id
+        LEFT JOIN kf_dictionary kd on xc.content_type = kd.id
+        WHERE
+            xc.content_state = 0
+        ORDER BY
+            xc.delete_time DESC
+    </select>
+
+    <!-- 查询搜索标题已删除列表的分页显示 -->
+    <select id="selectSearchDeletes"  parameterType="java.lang.String" resultType="com.kanfa.news.info.vo.admin.video.RecycleBinInfo">
+        SELECT
+        xc.id,
+        xc.title,
+        kd.contentType contentType,
+        xau.`name` deleteUser,
+        xc.delete_time deleteTime,
+        xc.update_time updateTime,
+        xc.view_count viewCount
+        FROM
+        kf_content xc
+        LEFT JOIN base_user xau ON xc.delete_uid = xau.id
+        LEFT JOIN kf_dictionary kd on xc.content_type = kd.id
+        WHERE
+        xc.content_state = 0 AND xc.title LIKE CONCAT('%',#{title},'%' )
+        ORDER BY
+        xc.update_time DESC
+    </select>
+
+    <!-- 已删除列表的 清空回车站 -->
+    <delete id="deleteAll">
+        DELETE
+        FROM
+            kf_content xc
+        WHERE
+            xc.content_state = 0
+    </delete>
+
+    <select id="getBroadContent" resultType="com.kanfa.news.info.vo.admin.info.ContentInfo">
+        SELECT
+                c.id,
+                c.title
+        FROM
+                kf_content_broadcast_bind cbb
+                LEFT JOIN kf_content c ON cbb.content_id = c.id
+        <where>
+            <if test="entity.id != null">
+                AND cbb.content_id = #{entity.id}
+            </if>
+            <if test="entity.contentState != null">
+                AND c.content_state = #{entity.contentState}
+            </if>
+            <if test="entity.checkStatus != null">
+                AND c.check_status = #{entity.checkStatus}
+            </if>
+        </where>
+    </select>
+
+    <select id="getVideoPage" resultType="com.kanfa.news.info.vo.admin.video.VideoContentSelectInfo">
+        SELECT DISTINCT
+        c.id,
+        c.title,
+        cc.top isTop,
+        cc.is_publish isPublish,
+        kd.contentType contentTypeCh,
+        c.create_time createTime,
+        c.update_time updateTime,
+        c.view_count viewCount,
+        bu.`name` createUser,
+        bu1.`name` updateUser,
+        c.id clickUrl
+        FROM
+        kf_content c
+        LEFT JOIN base_user bu ON c.create_uid = bu.id
+        LEFT JOIN base_user bu1 ON c.update_uid = bu1.id
+        LEFT JOIN kf_channel_content cc ON cc.content_id = c.id
+        LEFT JOIN kf_channel ccc ON cc.channel_id = ccc.id
+        LEFT JOIN kf_dictionary kd ON c.content_type = kd.id
+        <where>
+            <if test="entity!=null and entity.contentState!=null">
+                AND c.content_state=#{entity.contentState}
+            </if>
+            <if test="entity.contentType!=null">
+                AND c.content_type=#{entity.contentType}
+            </if>
+            <if test="entity.contentType==null">
+                AND c.content_type IN (4,9)
+            </if>
+            <if test="entity.title!=null and entity.title != '' ">
+                AND c.title LIKE CONCAT('%',#{entity.title},'%')
+            </if>
+            <if test="entity.checkStatus!=null">
+                AND c.check_status=#{entity.checkStatus}
+            </if>
+            <if test="entity.isPublish!=null">
+                AND cc.is_publish=#{entity.isPublish}
+            </if>
+            <if test="entity.channelId!=null">
+            AND cc.channel_id=#{entity.channelId}
+            </if>
+            <if test="entity.isCheck!=null">
+                AND c.is_check=#{entity.isCheck}
+            </if>
+            <if test="entity.category!=null">
+                AND ccc.category=#{entity.category}
+            </if>
+        </where>
+        ORDER BY id DESC,updateTime DESC
+    </select>
+
+
+    <!-- 修改视频 -->
+    <update id="updateVideoContent" parameterType="com.kanfa.news.info.vo.admin.video.VideoContentInfo">
+        update kf_content
+        <trim prefix="set" suffixOverrides=",">
+            <if test="id!=null">id=#{id},</if>
+            <if test="contentType!=null">content_type=#{contentType},</if>
+            <if test="title!=null and title!=''">title=#{title},</if>
+            <if test="introduction!=null and introduction!=''">introduction=#{introduction},</if>
+            <if test="image!=null and image!=''">image=#{image},</if>
+            <if test="contentState!=null ">content_state=#{contentState},</if>
+            <if test="sourceType!=null ">source_type=#{sourceType},</if>
+            <if test="isLegal!=null ">is_legal=#{isLegal},</if>
+            <if test="category!=null ">category=#{category},</if>
+            <if test="videoType!=null ">video_type=#{videoType},</if>
+            <if test="updateUid!=null ">update_uid=#{updateUid},</if>
+            <if test="updateTime!=null ">update_time=#{updateTime},</if>
+            <if test="isRelation!=null ">is_relation=#{isRelation},</if>
+            <if test="isCheck!=null ">is_check=#{isCheck},</if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <select id="getContentForBind"  resultType="com.kanfa.news.info.vo.admin.info.ContentInfo">
+        SELECT
+                xc.id,
+                xc.title,
+                xc.update_time updateTime,
+                kd.contentType contentTypeName,
+                xau.`name` updateUser
+        FROM
+                kf_content xc
+                LEFT JOIN base_user xau ON xc.update_uid = xau.id
+                LEFT JOIN kf_dictionary kd on xc.content_type = kd.id
+        <where>
+           <if test="id!=null">
+               xc.id=#{id}
+           </if>
+        </where>
+    </select>
+
+    <!--bu.nickname createUser, d.contentType contentTypeName, LEFT JOIN kf_dictionary d ON c.content_type = d.id-->
+    <select id="getContentNotCheckPage" resultType="com.kanfa.news.info.vo.admin.info.ContentInfo">
+        SELECT
+                c.id,
+                c.title,
+                c.content_type contentType,
+                au.`name` createUser,
+                if(c.update_time!='',c.update_time,c.create_time) updateTime,
+                cc.from_type fromType
+        FROM kf_content c
+                LEFT JOIN base_user au ON if(c.update_uid!=0,c.update_uid,c.create_uid)=au.id
+                INNER JOIN kf_channel_content cc on c.id=cc.content_id
+                <if test="entity.channelId!=null">
+                    AND cc.channel_id=#{entity.channelId}
+                </if>
+                AND cc.from_type=1 AND cc.is_delete=1
+        <where>
+            <if test="entity != null and entity.contentState != null">
+                AND c.content_state=#{entity.contentState}
+            </if>
+            <if test="entity.title!=null and entity.title != '' ">
+                AND c.title LIKE CONCAT('%',#{entity.title},'%')
+            </if>
+            <if test="entity.updateUser!=null and entity.updateUser != ''">
+                AND au.`name`=#{entity.updateUser}
+            </if>
+            <if test="entity.checkStatus!=null">
+                <if test="entity.checkStatus==2">
+                    AND c.check_status=#{entity.checkStatus}
+                </if>
+                <if test="entity.checkStatus!=2">
+                    AND (c.is_check=1 OR c.check_status=#{entity.checkStatus})
+                </if>
+            </if>
+        </where>
+        UNION
+        SELECT
+                l.id,
+                l.title,
+                22 contentType,
+                au.`name` createUser,
+                if(l.update_time!='',l.update_time,l.create_time) updateTime,
+                cc.from_type fromType
+        FROM kf_live l
+                LEFT JOIN base_user au ON if(l.update_uid!=0,l.update_uid,l.create_uid)=au.id
+                INNER JOIN kf_channel_content cc ON l.id=cc.content_id
+                <if test="entity.channelId!=null">
+                    AND cc.channel_id=#{entity.channelId}
+                </if>
+                AND cc.from_type=2 AND cc.is_delete=1
+        <where>
+            <if test="entity != null and entity.contentState != null">
+                <if test="entity.contentState == 0">
+                    AND l.is_delete=1
+                </if>
+                <if test="entity.contentState == 1">
+                    AND l.is_delete=0
+                </if>
+            </if>
+            <if test="entity.title!=null and entity.title != '' ">
+                AND l.title LIKE CONCAT('%',#{entity.title},'%')
+            </if>
+            <if test="entity.updateUser!=null and entity.updateUser != ''">
+                AND au.`name`=#{entity.updateUser}
+            </if>
+            <if test="entity.checkStatus!=null">
+                AND l.check_state=#{entity.checkStatus}
+            </if>
+        </where>
+        ORDER BY id DESC,updateTime DESC
+    </select>
+
+    <select id="selectContentByIds" resultType="com.kanfa.news.info.vo.admin.info.ContentInfo">
+        SELECT
+                c.id,
+                cc.channel_id channelId
+        FROM
+                kf_content c
+                LEFT JOIN kf_channel_content cc ON cc.content_id = c.id
+        <where>
+            <if test="checkStatus!=null">
+                c.check_status=#{checkStatus}
+            </if>
+            <if test="list!=null and list.size()>0">
+                AND cc.channel_id IN
+                <foreach collection="list" separator="," open="(" close=")" item="id">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+    </select>
+
+
+    <insert id="addContentAtlas" parameterType="com.kanfa.news.info.vo.admin.info.ContentInfo" keyProperty="id" useGeneratedKeys="true">
+        insert into kf_content(
+                                content_type,
+                                category,
+                                title,
+                                introduction,
+                                image,
+                                create_uid,
+                                create_time,
+                                content_state,
+                                source_type,
+                                is_legal,
+                                is_check,
+                                check_status,
+                                channels
+                                )
+        values(#{contentType},
+                #{category},
+                #{title},
+                #{introduction},
+                #{image},
+                #{createUid},
+                #{createTime},
+                #{contentState},
+                #{sourceType},
+                #{isLegal},
+                #{isCheck},
+                #{checkStatus},
+                #{channels}
+                )
+    </insert>
+
+    <insert id="addContentActivity" parameterType="com.kanfa.news.info.vo.admin.info.ActivityInfo" keyProperty="id" useGeneratedKeys="true">
+        insert into kf_content(
+                                content_type,
+                                category,
+                                title,
+                                introduction,
+                                image,
+                                custom_url,
+                                create_uid,
+                                create_time,
+                                content_state,
+                                is_check,
+                                check_status,
+                                channels
+                                )
+        values(#{contentType},
+                #{category},
+                #{title},
+                #{introduction},
+                #{image},
+                #{customUrl},
+                #{createUid},
+                #{createTime},
+                #{contentState},
+                #{isCheck},
+                #{checkStatus},
+                #{channels}
+                )
+    </insert>
+
+
+    <!-- 新增VR -->
+    <insert id="addVRContent" parameterType="com.kanfa.news.info.vo.admin.vr.VRContentAddInfo" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO kf_content(
+        title,
+        is_legal,
+        introduction,
+        image,
+        content_type,
+        category,
+        create_uid,
+        create_time,
+        is_check,
+        check_status,
+        update_uid,
+        update_time,
+        content_state
+        )
+        VALUES (#{title},
+        #{isLegal},
+        #{introduction},
+        #{image},
+        #{contentType},
+        #{category},
+        #{createUid},
+        #{createTime},
+        #{isCheck},
+        #{CheckStatus},
+        #{updateUid},
+        #{updateTime},
+        #{contentState}
+        )
+    </insert>
+
+    <!-- 编辑 Vr -->
+    <update id="updateVRContent" parameterType="com.kanfa.news.info.vo.admin.vr.VRContentAddInfo">
+        update kf_content
+        <trim prefix="set" suffixOverrides=",">
+            <if test="id!=null and id!=''">id=#{id},</if>
+            <if test="title!=null and title!=''">title=#{title},</if>
+            <if test="introduction!=null and introduction!=''">introduction=#{introduction},</if>
+            <if test="image!=null and image!=''">image=#{image},</if>
+            <if test="isLegal!=null and isLegal!=''">is_legal=#{isLegal},</if>
+            <if test="updateUid!=null and updateUid!=''">update_uid=#{updateUid},</if>
+            <if test="updateTime!=null">update_time=#{updateTime},</if>
+            <if test="isCheck!=null and isCheck!=''">is_check=#{isCheck},</if>
+            <if test="CheckStatus!=null and CheckStatus!=''">check_status=#{CheckStatus},</if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <select id="getContentPageForMessage" resultType="com.kanfa.news.info.vo.admin.info.ContentInfo">
+        SELECT
+                    c.id,
+                    c.title
+        FROM
+                    kf_content c
+        <where>
+            c.content_state = 1 AND c.check_status =1 AND
+            (SELECT is_publish FROM kf_channel_content WHERE content_id=c.id AND is_publish=1 limit 1)=1
+            <if test="entity.title != null">
+                AND c.title LIKE  concat('%',#{entity.title},'%')
+            </if>
+            <if test="entity.notInIds != null and entity.notInIds.size() > 0 ">
+                AND c.category IN
+                    <foreach collection="entity.notInIds" separator="," open="(" close=")" item="item">
+                        #{item}
+                    </foreach>
+            </if>
+            <if test="entity.contentType != null">
+                AND c.content_type = #{entity.contentType}
+            </if>
+        </where>
+        ORDER BY c.id DESC
+    </select>
+
+
+    <select id="getContentPageForBind" resultType="com.kanfa.news.info.vo.admin.info.ContentInfo">
+        SELECT
+                c.id,
+                c.title,
+                c.update_time updateTime,
+                bu.`name` updateUser,
+                kd.contentType contentTypeName
+
+        FROM
+                kf_content c
+                LEFT JOIN base_user bu ON c.update_uid = bu.id
+                LEFT JOIN kf_dictionary kd on c.content_type = kd.id
+        <where>
+            c.content_state = 1 AND c.check_status =1 AND
+            (SELECT is_publish FROM kf_channel_content WHERE content_id=c.id AND is_publish=1 limit 1)=1
+            <if test="entity.title != null">
+                AND (c.title LIKE  concat('%',#{entity.title},'%') OR c.id=#{entity.title})
+            </if>
+            <if test="entity.notInIds != null and entity.notInIds.size() > 0 ">
+                AND c.id NOT IN
+                    <foreach collection="entity.notInIds" separator="," open="(" close=")" item="item">
+                        #{item}
+                    </foreach>
+            </if>
+            <if test="entity.contentType != null">
+                AND c.content_type = #{entity.contentType}
+            </if>
+        </where>
+        ORDER BY c.id DESC
+    </select>
+
+    <select id="selectCommentCountByIds" resultType="com.kanfa.news.info.entity.Content">
+            SELECT
+                        c.id,
+                        c.comment_count commentCount,
+                        c.comment_checked_count commentCheckedCount
+            FROM
+                    kf_content c
+            <where>
+                <if test="contentids != null and contentids.size() > 0">
+                    AND c.id IN
+                    <foreach collection="contentids" separator="," open="(" close=")" item="id">
+                        #{id}
+                    </foreach>
+                </if>
+            </where>
+    </select>
+
+    <!-- 我的内容 分页及搜索 -->
+    <select id="getMyContentPage" resultType="com.kanfa.news.info.vo.admin.my.MyContentInfo">
+        SELECT
+        kc.id,
+        kc.title,
+        kc.check_status checkStatus,
+        kau.`name` updateUser,
+        kc.update_time updateTime,
+        kc.content_type contentType
+        FROM kf_content kc
+        LEFT JOIN base_user kau ON kc.update_uid = kau.id
+        LEFT JOIN kf_channel_content kcc ON kc.id = kcc.content_id
+        <where>
+        <if test="title!=null and title != '' ">
+            AND kc.title LIKE CONCAT('%',#{title},'%')
+        </if>
+        <if test="channelId!=null ">
+            AND kcc.channel_id=#{channelId}
+        </if>
+        <if test="isCheck!=null">
+            AND kc.is_check=#{isCheck}
+        </if>
+        <if test="createUid!=null">
+            AND kc.create_uid=#{createUid}
+        </if>
+        <if test="contentState!=null">
+            AND kc.content_state=#{contentState}
+        </if>
+        <if test="checkStatus!=null">
+            AND kc.check_status=#{checkStatus}
+        </if>
+        </where>
+        ORDER BY  kc.id DESC
+    </select>
+
+    <select id="selectListId" resultType="java.lang.Integer">
+
+        SELECT
+            id
+        FROM
+            `kf_content`
+        WHERE
+            1 = 1
+        AND check_status = 1
+        AND content_state = 1
+        ORDER BY
+            id DESC
+        LIMIT #{start},#{size}
+    </select>
+    <select id="getNewIndex" resultType="com.kanfa.news.info.vo.admin.info.ContentInfo">
+        SELECT
+                    c.id,
+                    c.title,
+                    c.image,
+                    c.category,
+                    c.long_title longTitle,
+                    c.introduction,
+                    c.create_time createTime,
+                    c.content_type contentType,
+                    c.content_style contentStyle,
+                    c.source_type sourceType,
+
+                    bu.`name`,
+                    bu.head_portrait image,
+
+                    ca.source,
+                    ca.content contentDetail,
+                    ca.video,
+                    ca.video_img videoImage
+
+        FROM
+                kf_content c
+                LEFT JOIN kf_content_article ca ON  c.id=ca.cid AND ca.is_delete=1
+                LEFT JOIN base_user bu ON bu.id=c.create_uid
+        <where>
+            c.content_state = 1 AND c.check_status != 2
+            <if test="cid!=null">
+                AND c.id=#{cid} AND 1 &lt;= (SELECT COUNT(*) FROM kf_channel_content cc WHERE cc.content_id=#{cid} AND cc.is_publish=1)
+            </if>
+        </where>
+    </select>
+
+</mapper>

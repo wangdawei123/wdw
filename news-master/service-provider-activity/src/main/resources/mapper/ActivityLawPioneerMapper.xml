@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.activity.mapper.ActivityLawPioneerMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.activity.entity.ActivityLawPioneer" id="activityLawPioneerMap">
+        <result property="id" column="id"/>
+        <result property="activityLawId" column="activity_law_id"/>
+        <result property="cid" column="cid"/>
+        <result property="title" column="title"/>
+        <result property="icon" column="icon"/>
+        <result property="backgroundImage" column="background_image"/>
+        <result property="description" column="description"/>
+        <result property="createTime" column="create_time"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="sort" column="sort"/>
+    </resultMap>
+
+    <select id="getList" resultType="com.kanfa.news.activity.vo.info.ActivityLawPioneerInfo">
+        SELECT
+                id,
+                title
+        FROM
+                kf_activity_law_pioneer
+        <where>
+            <if test="entity.isDelete">
+               AND is_delete=#{entity.isDelete}
+            </if>
+        </where>
+    </select>
+
+    <select id="getLawList" resultMap="activityLawPioneerMap">
+        SELECT
+            alp.id,
+            alp.title,
+            alp.icon,
+            alp.background_image,
+            alp.description
+        FROM
+            kf_activity_law_pioneer alp
+        LEFT JOIN kf_activity a ON a.id = alp.activity_law_id
+        AND a.is_delete = 0
+        AND a.`status` = 1
+        WHERE
+            alp.is_delete = 1
+        ORDER BY
+            alp.sort ASC
+    </select>
+
+
+
+
+
+</mapper>

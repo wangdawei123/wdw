@@ -1,0 +1,79 @@
+.article-main{
+    min-height: 650px;
+    padding-top: 170px;
+}
+.article-main .wrap {
+    width: 1200px;
+    margin: 0 auto;
+}
+.article-main .wrap .nav {
+    width: 140px;
+    position: relative;
+}
+.article-main .wrap .nav .share-bar {
+    position: absolute;
+    top: 0;
+    width: 140px;
+    transition: all 0.5s;
+}
+.article-main .wrap .mainbox {
+    width: 1030px;
+}
+.article-main .wrap .mainbox .main {
+    width: 660px;
+}
+.article-main .wrap .mainbox .main .article-head {
+    margin-bottom: 15px;
+}
+.article-main .wrap .mainbox .main .article-head .tit {
+    margin-bottom: 5px;
+    font-weight: bold;
+    font-size: 26px;
+    line-height: 36px;
+}
+.article-main .wrap .mainbox .main .article-head .tip {
+    line-height: 16px;
+    color: #999999;
+}
+.article-main .wrap .mainbox .main .article-body {
+    font-size: 14px;
+    line-height: 26px;
+}
+.article-main .wrap .mainbox .side {
+    width: 340px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+/*分享开始*/
+.article-main .wrap .nav .share-bar{
+    padding-bottom:0;
+}
+.article-main .wrap .nav .share-bar li {
+    margin: 15px 24px 0;
+    float: none;
+}
+.article-main .wrap .nav .share-bar li a {
+    width: 92px;
+    height: 40px;
+    display: block;
+    font-size: 14px;
+    line-height: 40px;
+}
+.article-main .wrap .nav .share-bar li.qzone a .icon {
+    background: url(../images/qzone1.png) 0 0 no-repeat;
+}
+.article-main .wrap .nav .share-bar li.weixin a .icon {
+    background: url(../images/weixin.png) 0 0 no-repeat;
+}
+.article-main .wrap .nav .share-bar li.weibo a .icon {
+    background: url(../images/weibo.png) 0 0 no-repeat;
+}
+.article-main .wrap .nav .share-bar li a .icon {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    display: block;
+}
+/*分享结束*/

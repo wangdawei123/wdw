@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.activity.mapper.ActivityCouponMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.activity.entity.ActivityCoupon" id="activityCouponMap">
+        <result property="id" column="id"/>
+        <result property="activityId" column="activity_id"/>
+        <result property="merchant" column="merchant"/>
+        <result property="name" column="name"/>
+        <result property="content" column="content"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="code" column="code"/>
+        <result property="sendType" column="send_type"/>
+        <result property="acceptObject" column="accept_object"/>
+        <result property="extendChannel" column="extend_channel"/>
+        <result property="stat" column="stat"/>
+        <result property="deleted" column="deleted"/>
+        <result property="createdUid" column="created_uid"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="x5-orientation" content="portrait">
+	<meta name="screen-orientation"content="portrait">
+	<script src=/static/js/flexble-main.js></script>
+	<script src="/static/js/jquery/jquery-1.9.1.min.js"></script>
+	<script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+	<link rel="stylesheet" href="/static/css/news.css?v=2900">
+	<link rel="stylesheet" href="/static/css/swiper.min-new.css">
+</head>
+<body>
+	<main id="news">
+
+		<header id="header" class="news-header">
+
+			<!-- 文章标题 -->
+			<h1 class="n-tit"></h1>
+
+			<!-- 来源+日期、时间 -->
+			<div class="source-date"></div>
+
+		</header>
+
+		<!-- 分隔线 -->
+		<hr class="hr hide">
+		
+		<!-- 文章内容 -->
+		<article id="article" class="news-con">
+
+			<!-- 文章中插入的视频 -->
+			<div id="video"></div>
+			<div id="img-text">
+
+				<div id="content"></div>
+
+				<!-- 展开阅读全文 -->
+				<section id="read-more" class="hide">
+					<a class="read-more" href="javascript:void(0)" title="展开阅读全文">
+						展开阅读全文
+						<i>
+							<img src="/static/img/share/show-red.png">
+						</i>
+					</a>
+				</section>
+
+			</div>
+
+		</article>
+		
+		<!-- 打开看法新闻，发现身边的热点 -->
+		<section class="openApp hide" id="videoOpenAPPSection">
+			<a class="open-app" id="videoOpenAPP" href="javascript:void(0);" title="">
+				打开看法新闻，发现身边的热点
+				<i>
+					<img src="/static/img/share/r-arrow-3x.png">
+				</i>
+			</a>
+		</section>
+
+		<!-- 评论区域 -->
+		<section id="comment" class="clearfix"></section>
+
+		<!-- 打开看法新闻，发现身边的热点 -->
+		<section class="openApp hide" id="commentOpenAppSection">
+			<a class="open-app" id="commentOpenApp" href="javascript:void(0);" title="">
+				打开看法新闻，发现身边的热点
+				<i>
+					<img src="/static/img/share/r-arrow-3x.png">
+				</i>
+			</a>
+		</section>
+			
+		<!-- 推荐列表	 -->
+		<section id="recommend"></section>
+
+		<!-- 打开看法新闻，发现身边的热点 -->
+		<section class="openApp hide" id="recommendOpenAppSection">
+			<a class="open-app" id="recommendOpenApp" href="javascript:void(0);" title="">
+				打开看法新闻，发现身边的热点
+				<i>
+					<img src="/static/img/share/r-arrow-3x.png">
+				</i>
+			</a>
+		</section>
+
+	</main>
+
+	<section id="back-top" onclick="navClick();" class="hide">
+		<a href="javascript:;" title="返回顶部">
+			<img src="/static/img/share/back-top-3x.png">
+		</a>
+	</section>
+
+	<!-- 底部唤起App模块 -->
+	<section class="footer-wraper hide">
+        <a id="btnOpenApp" href="javascript:void(0);" class="footer-download">打开</a>
+    </section>
+
+	<!-- <section class="loading hide">
+		<img src="/static/img/share/loading.gif">
+	</section> -->
+
+</body>
+
+<script src="/static/js/swiper.min-new.js"></script>
+<script src="/static/js/global.js?v=101915"></script>
+<script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="/js/libs/weixin.js"></script>
+<script src="https://static.mlinks.cc/scripts/dist/mlink.min.js"></script>
+<script src="/static/js/share/news/index.js?v=2020"></script>
+
+
+<!-- 百度统计代码 -->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f629854132f3cfafdb620261198d53b0";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+</html>

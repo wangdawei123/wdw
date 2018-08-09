@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.ChannelContentCardMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.ChannelContentCard" id="channelContentCardMap">
+        <result property="id" column="id"/>
+        <result property="channelId" column="channel_id"/>
+        <result property="contentId" column="content_id"/>
+        <result property="cardType" column="card_type"/>
+        <result property="image" column="image"/>
+    </resultMap>
+
+    <select id="selectByContentIdChannelId" resultType="map">
+        SELECT
+            image,
+            card_type cardType
+        FROM
+            kf_channel_content_card
+        WHERE
+            1 = 1
+        AND content_id = #{contentId}
+        AND channel_id = #{channelId}
+
+    </select>
+
+</mapper>

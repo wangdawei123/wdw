@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>{{data['title']}}</title>
+    <link rel="stylesheet" type="text/css" href="../../../static/app/assets/web/2017-5-8/style.css?v=2345">
+    <script type="text/javascript" src="../../../static/app/assets/web/2017-5-8/jq172.js"></script>
+    <script type="text/javascript" src="../../../static/js/libs/jquery.min.js"></script>
+
+
+    <!--图片相关插件-->
+    <link rel="stylesheet" type="text/css" href="../../../static/app/js/plugins/image/css/jquery.fancybox.css">
+    <script type="text/javascript" src="../../../static/app/js/plugins/image/js/jquery.fancybox.js"></script>
+    <!-- lazyload -->
+    <script type="text/javascript" src="../../../static/app/js/plugins/jquery.lazyload.js"></script>
+    <script>
+        $(function() {
+            $("img").lazyload({effect: "fadeIn", threshold :180});
+        });
+    </script>
+    <style type="text/css">
+        .main_body .img .video {
+            position: relative;
+            text-align: center;
+            margin: 15px 0;
+        }
+        .main_body .img .video .icon{
+            position: absolute;
+            width: 20%;
+            left: 40%;
+            top: 30%;
+        }
+        .main_body .img .video img{
+            margin: 0 0 5px;
+        }
+        .main_body .img .video .icon_t{
+            font-size: 12px;
+            color: #fff;
+            background: rgba(0,0,0,.6);
+            border-radius: 4px;
+            padding: 3px 5px;
+        }
+        .video .video_ico {
+            width: 100%;
+            height: 100%;
+            background: url(http://i2.sinaimg.cn/qc/subject/2016/0614/vbtn.png) center center/ auto no-repeat;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        .flash {
+            position: absolute;
+            display: none;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+        .p img{
+            margin: 10px 0 10px 0;
+        }
+        .img{
+            border-radius: 50%;
+        }
+        .main_body{
+            margin-bottom: 10px;
+        }
+        .h3,.h2{
+            width: 70%;
+        }
+        .h3:before,.h2:before,.h2:after,.h3:after{
+            background: white;
+        }
+        .ft-size-2 .main_body p{
+            text-align: justify;
+        }
+        .module_5 .li .reply{
+            margin-top: 20px;
+        }
+        .p>div p{
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body class="ft-size-2">
+    <div class="main_body">
+    	<div class="title">${contentInfo.title!}</div>
+    	<div class="resouce">${contentInfo.createTime!}  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ${contentInfo.source!}</div>
+    	<div class="desc">
+            ${contentInfo.intruduction!}
+    	</div>
+        <#if (contentInfo.video)!=null>
+        <div class="img">
+            <div class="video">
+                <#if (contentInfo.videoImge)!=null>
+                <img src="${contentInfo.videoImge!}" alt="" class="i">
+                <#else>
+                <img src="{{url('assets/web/2017-5-8/')}}img/14972560621436.jpg" alt="" class="i">
+                </#if>
+            <div class="video_ico" data-id="flash"></div>
+                <div class="flash" id="flash">
+                    <video style="background:#000;" src="${contentInfo.video!}" poster="" controls="" preload="true"></video>
+                </div>
+            </div>
+        </div>
+        </#if>
+        <div class="p">
+            <div style="height: auto;text-align:justify;">
+                ${contentInfo.contentDetail!}
+            </div>
+            <div style="width: 100%;height: auto;border: 1px solid red;visibility: hidden">
+                <div>gfd</div>
+            </div>
+        </div>
+        <!--<div class="circle" data-id="{{data['id']}}">-->
+            <!--<div>赞</div>-->
+            <!--<div id="circle_num">{{data['loves']}}</div>-->
+        <!--</div>-->
+    </div>
+
+    <script>
+        'use strict';
+        var _CONST_ = {
+            cid: "{{params['cid']}}",
+            maxnum: "{{data['comment_allnum']}}",
+            commentsMore: true,
+            refresh: "10",
+            likeUrl: "{{url('web/love/ajaxAdd')}}",
+            uid: "{{data['uid']}}",
+            is_love: "{{data['is_love']}}",
+            devid:"{{data['deveid']}}",
+            uuid:"{{data['uuid']}}"
+        };
+//        console.debug(_CONST_.devid);
+//        console.debug(_CONST_.uuid);
+        //调节字号
+        var font = function(type){
+            $('body').removeClass('ft-size-2 ft-size-3 ft-size-4').addClass('ft-size-'+type);
+        };
+        //视频处理
+        $('.video_ico').on('click', function () {
+            var that = $(this);
+            $('#'+that.attr('data-id')).show();
+            $(this).parent().find('img').attr('style', 'visibility: hidden;')
+            setTimeout(function () {
+                $('#'+that.attr('data-id')+' video').attr('autoplay', 'true').attr('preload', 'true').get(0).play();
+            }, 100);
+        });
+
+    </script>
+</body>
+</html>

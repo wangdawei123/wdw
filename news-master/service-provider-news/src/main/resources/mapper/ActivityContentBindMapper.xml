@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.ActivityContentBindMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.ActivityContentBind" id="activityContentBindMap">
+        <result property="id" column="id"/>
+        <result property="contentId" column="content_id"/>
+        <result property="type" column="type"/>
+        <result property="activityId" column="activity_id"/>
+        <result property="top" column="top"/>
+        <result property="orderNumber" column="order_number"/>
+        <result property="isDelete" column="is_delete"/>
+    </resultMap>
+
+    <select id="findByid" resultMap="activityContentBindMap">
+        SELECT
+            *
+        FROM
+            kf_activity_content_bind
+        <where>
+            type = 2
+            <if test="lawId != null">
+                AND activity_id = #{lawId}
+            </if>
+        </where>
+        order by 'order'
+        limit #{offset} ,#{pcount}
+    </select>
+
+    <!-- 政法先锋 关联内容 -->
+    <select id="getActivityContentBindPage" resultType="com.kanfa.news.info.vo.admin.activity.ActivityContentBindPageInfo">
+        SELECT
+        kacb.id id,
+        kc.id contentId,
+        kc.title,
+        kd.contentType contentType,
+        kau.nickname updateUser,
+        kc.update_time updateTime
+        FROM kf_activity_content_bind kacb
+        LEFT JOIN kf_activity ka ON kacb.activity_id = ka.id
+        LEFT JOIN kf_content kc ON kc.id = kacb.content_id
+        LEFT JOIN kf_admin_user kau ON kau.id = kc.update_uid
+        LEFT JOIN kf_dictionary kd ON kd.id = kacb.type
+        <where>
+            <if test="isDelete!=null ">
+                AND kacb.is_delete=#{isDelete}
+            </if>
+            <if test="activityId!=null">
+                AND kacb.activity_id=#{activityId}
+            </if>
+        </where>
+    </select>
+
+    <select id="getSearchPage" resultType="com.kanfa.news.info.entity.Content">
+            SELECT
+                kc.id,
+                kc.title,
+                kc.content_type contentType
+            FROM
+                kf_content kc
+            WHERE
+                kc.content_type = 2
+            AND kc.id NOT IN (
+                SELECT
+                    kacb.activity_id
+                FROM
+                    kf_activity_content_bind kacb
+                WHERE
+                    kacb.activity_id = #{activityId}
+            )
+            AND kc.title LIKE CONCAT('%', #{title}, '%')
+            AND kc.content_state = 1
+            ORDER BY
+                kc.update_time DESC
+    </select>
+
+
+    <select id="getMaxOrderNum" resultType="java.lang.Integer">
+        SELECT
+            MAX(kacb.order_number)
+        FROM
+            kf_activity_content_bind kacb
+        WHERE
+            kacb.activity_id = #{activityId}
+    </select>
+
+</mapper>

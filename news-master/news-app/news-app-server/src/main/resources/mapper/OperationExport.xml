@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.app.mapper.OperationExportMapper">
+
+	<select id="list" resultType="com.kanfa.news.app.vo.admin.kpicount.OperationExportDataInfo">
+        SELECT
+        CASE result.type
+        WHEN 0 THEN
+        "无"
+        WHEN 2 THEN
+        "文章咨询"
+        WHEN 4 THEN
+        "视频"
+        WHEN 9 THEN
+        "直播"
+        END type,
+        result.type_id typeId,
+        result.title,
+        CASE result.article_type
+        WHEN 0 THEN
+        "无"
+        WHEN 1 THEN
+        "文本类型"
+        WHEN 2 THEN
+        "文本＋图片"
+        WHEN 3 THEN
+        "文本＋视频"
+        WHEN 4 THEN
+        "文本＋图片＋视频"
+        WHEN 5 THEN
+        "图集"
+        WHEN 6 THEN
+        "视频"
+        END articleType,
+        CASE result.ctype
+        WHEN 1 THEN
+        "专题"
+        WHEN 2 THEN
+        "文章"
+        WHEN 3 THEN
+        "图集"
+        WHEN 4 THEN
+        "视频"
+        WHEN 9 THEN
+        "直播"
+        WHEN 11 THEN
+        "VR"
+        WHEN 12 THEN
+        "问答"
+        WHEN 13 THEN
+        "活动"
+        WHEN 14 THEN
+        "判决"
+        WHEN 15 THEN
+        "公告"
+        WHEN 22 THEN
+        "直播"
+        END ctype,
+        result.cid,
+        result.views,
+        CASE result.source_type
+        WHEN 0 THEN
+        "无"
+        WHEN 1 THEN
+        "原创"
+        WHEN 2 THEN
+        "转载"
+        WHEN 3 THEN
+        "抓取"
+        END sourceType,
+        result.wtype,
+        result. NAME,
+        result.create_time createTime,
+        result.count,
+        round(result.views / result.count) mePv
+        FROM
+        (
+        SELECT
+        k.type,
+        k.type_id,
+        c.title,
+        k.article_type,
+        c.category ctype,
+        c.id cid,
+        c.view_count views,
+        c.source_type,
+        tc. NAME AS wtype,
+        k. NAME,
+        c.create_time,
+        (
+        SELECT
+        count(*)
+        FROM
+        kf_kpi_count
+        WHERE
+        `type` = k.type
+        AND `type_id` = k.type_id
+        LIMIT 1
+        ) count
+        FROM
+        kf_kpi_count AS k
+        INNER JOIN kf_content AS c ON c.id = k.type_id
+        INNER JOIN kf_kpi_type_config AS tc ON tc.id = k.work_type
+        WHERE
+        k.type = 2
+        AND k.first_check_time IS NOT NULL
+        UNION
+        SELECT
+        k.type,
+        k.type_id,
+        c.title,
+        k.article_type,
+        c.category ctype,
+        c.id cid,
+        c.view_count views,
+        c.source_type,
+        tc. NAME AS wtype,
+        k. NAME,
+        c.create_time,
+        (
+        SELECT
+        count(*)
+        FROM
+        kf_kpi_count
+        WHERE
+        `type` = k.type
+        AND `type_id` = k.type_id
+        GROUP BY
+        uid
+        LIMIT 1
+        ) count
+        FROM
+        kf_kpi_count AS k
+        INNER JOIN kf_content_video AS cv ON cv.did = k.type_id
+        LEFT JOIN kf_content AS c ON c.id = cv.cid
+        LEFT JOIN kf_kpi_type_config AS tc ON tc.id = k.work_type
+        WHERE
+        k.type = 4
+        AND k.first_check_time IS NOT NULL
+        UNION
+        SELECT
+        k.type,
+        k.type_id,
+        l.title,
+        k.article_type,
+        22 ctype,
+        l.id cid,
+        l.view_count views,
+        0 source_type,
+        tc. NAME AS wtype,
+        k. NAME,
+        l.create_time,
+        (
+        SELECT
+        count(*)
+        FROM
+        kf_kpi_count
+        WHERE
+        `type` = k.type
+        AND `type_id` = k.type_id
+        GROUP BY
+        uid
+        LIMIT 1
+        ) count
+        FROM
+        kf_kpi_count AS k
+        LEFT JOIN kf_live AS l ON l.id = k.type_id
+        INNER JOIN kf_kpi_type_config AS tc ON tc.id = k.work_type
+        WHERE
+        k.type = 9
+        AND k.first_check_time IS NOT NULL
+        ) result
+        WHERE
+        1 = 1
+        <if test="startDate !=null and startDate != '' ">
+            AND result.create_time &gt;= #{startDate}
+        </if>
+        <if test="endDate !=null and endDate != ''">
+            AND result.create_time &lt;= #{endDate}
+        </if>
+
+    </select>
+
+</mapper>

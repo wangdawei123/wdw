@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.activity.mapper.ContentMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.activity.entity.Content" id="contentMap">
+        <result property="id" column="id"/>
+        <result property="category" column="category"/>
+        <result property="contentType" column="content_type"/>
+        <result property="title" column="title"/>
+        <result property="longTitle" column="long_title"/>
+        <result property="introduction" column="introduction"/>
+        <result property="image" column="image"/>
+        <result property="coverImg" column="cover_img"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="likeCount" column="like_count"/>
+        <result property="collectCount" column="collect_count"/>
+        <result property="tag" column="tag"/>
+        <result property="channels" column="channels"/>
+        <result property="commentCount" column="comment_count"/>
+        <result property="commentCheckedCount" column="comment_checked_count"/>
+        <result property="updateUid" column="update_uid"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="contentState" column="content_state"/>
+        <result property="deleteTime" column="delete_time"/>
+        <result property="deleteUid" column="delete_uid"/>
+        <result property="activityId" column="activity_id"/>
+        <result property="activityVoteId" column="activity_vote_id"/>
+        <result property="customBtn" column="custom_btn"/>
+        <result property="customUrl" column="custom_url"/>
+        <result property="scoreTaskId" column="score_task_id"/>
+        <result property="isCheck" column="is_check"/>
+        <result property="checkStatus" column="check_status"/>
+        <result property="checkTime" column="check_time"/>
+        <result property="mongoId" column="mongo_id"/>
+        <result property="author" column="author"/>
+        <result property="contentStyle" column="content_style"/>
+        <result property="sourceType" column="source_type"/>
+        <result property="isLegal" column="is_legal"/>
+        <result property="platform" column="platform"/>
+        <result property="videoType" column="video_type"/>
+        <result property="videoView" column="video_view"/>
+        <result property="appvideoView" column="appvideo_view"/>
+        <result property="firstCheckTime" column="first_check_time"/>
+        <result property="isRelation" column="is_relation"/>
+    </resultMap>
+
+
+    <select id="selectByIds" resultType="com.kanfa.news.activity.vo.info.ContentInfo">
+          SELECT
+                c.id,
+                c.category,
+                c.content_type contentType,
+                c.source_type sourceType,
+                c.content_style contentStyle,
+                c.title,
+                c.introduction,
+                c.image,
+                c.view_count viewCount,
+                c.tag,
+                c.comment_count commentCount,
+                c.comment_checked_count commentCheckedCount,
+                c.custom_url customUrl,
+               cc.publish_time
+          FROM
+          kf_content c
+          LEFT JOIN kf_channel_content cc ON c.id = cc.content_id
+          <where>
+              <if test="list != null and list.size() > 0">
+                  c.id IN
+                  <foreach collection="list" separator="," open="(" close=")" item="id">
+                      #{id}
+                  </foreach>
+              </if>
+          </where>
+            GROUP BY
+            c.id
+    </select>
+
+
+    <select id="findImages" resultType="com.kanfa.news.activity.entity.ContentImageGroup">
+        SELECT
+        cig.image
+        FROM
+        kf_content_image_group cig
+        <where>
+            <if test="cid != null">
+                cig.cid = #{cid}
+            </if>
+        </where>
+        ORDER BY cig.`order` asc
+        <if test="pcount != null">
+            limit #{pcount}
+        </if>
+    </select>
+
+
+
+
+</mapper>

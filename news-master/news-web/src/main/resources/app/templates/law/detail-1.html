@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="x5-orientation" content="portrait">
+	<meta name="screen-orientation"content="portrait">
+	<script src="../static/js/flexble-main.js"></script>
+	<script src="../static/js/jquery-1.11.1.min.js"></script>
+	<link rel="stylesheet" href="../static/css/law.css">
+	<title>青春微普法</title>
+</head>
+<body>
+
+	<main id="home">
+		<!-- 头部 -->
+		<header class="header">
+			<img src="../static/image/law/bg-detail.png">
+			<img class="head" src="../static/image/law/head.png">
+		</header>
+		
+		<div class="info">
+			<div class="info-ranking-list">
+				<span>
+					<i>NO.3</i>
+					<i>总排行榜</i>
+				</span>
+			</div>
+			<div class="info-heat">
+				<span>
+					<i>12436</i>
+					<i>热力值</i>
+				</span>
+			</div>
+			<div class="mechanism-name">
+				北京航空航天大学
+			</div>
+			<div class="btn">
+				<a class="v-btn" href="javascript:void(0)">冲榜</a>
+			</div>
+		</div>
+		
+		<!-- 双引号内的内容 -->
+		<div class="declaration">
+			<div></div>
+			<div>
+				在你为自己的不坚持和在困难面前低头而感到失落时，是不是忘了先从自身找问题
+			</div>
+			<div></div>
+		</div>
+
+		<!-- 横线 -->
+		<div class="hr"><hr></div>
+
+		<!-- 介绍 -->
+		<div class="introduce">
+			<div class="in-tit">介绍</div>
+			<div class="in-timeline">
+				<div class="in-con">
+					<div id="left-arrow"></div> 
+					<span>
+						在你为自己的不坚持和在困难面前低头而感到失落时，是不是忘了先从自身找问题，并且去解决这个问时，是不是忘了先从自身找问题，并且去解决这个问时，是不是忘了先从自身找问题，并且去解决这个问时，是不是忘了先从自身。
+					</span>
+				</div>
+			</div>
+		</div>
+
+		<!-- 作品 -->
+		<div class="works">
+			<div class="w-tit">作品</div>
+			<div class="w-timeline">
+				<div class="w-con">
+					<img src="../static/image/law/video.png">
+					<img class="playBtn" src="../static/image/law/big-play-2x.png">
+
+					<span class="v-time">12:30</span>
+
+					<video style="display:none" src="http://cdn.vrcdkj.cn/Act-ss-mp4-hd/1695545f16264484a79cbea4fe921af0/1517533526453qoihdcjklv.mp4" autobuffer="" autoloop="" controls="" poster="https://kanfaimage.oss-cn-beijing.aliyuncs.com/20180202/video_151753383353588.jpg?x-oss-process=image/resize,m_fill,w_750,h_422"></video>
+				</div>
+			</div>
+		</div>
+
+		<!-- 图集 -->
+		<div class="atlas">
+			<div class="a-tit">图集</div>
+			<div class="a-timeline">
+				<div class="a-con">
+					<ul class="a-length">
+						<li>
+							<img src="../static/image/law/atlas.png">
+						</li>
+						<li>
+							<img src="../static/image/law/atlas.png">
+						</li>
+						<li>
+							<img src="../static/image/law/atlas.png">
+						</li>
+						<li>
+							<img src="../static/image/law/atlas.png">
+						</li>
+						<li>
+							<img src="../static/image/law/atlas.png">
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<script>
+			$(function(){
+				var len = $(".a-length li").length;
+				var w = len * 3.92 - 0.18667;
+				$(".a-length").css("width",w+'rem');
+			})
+		</script>
+		<!-- 评论 -->
+		<section id="comment" class="clearfix">
+			<h3>评论</h3>
+
+			<div id="go-top" class="msg-main">
+				<div id="message" class="message">
+					<textarea data-to="go-top" name="msg" id="msg" cols="50" rows="4" maxlength="300" placeholder=""></textarea>
+				</div>
+				<button class="msg-btn" type="button">提交</button>
+			</div>
+			<script>
+		        $('#message').on('click','textarea',function(e){
+		            var target = e.target;
+		            var id = $(target).data("to");
+		            $('html,body').animate({scrollTop:$('#'+id).offset().top}, 400);
+		        });
+		    </script>
+
+		    <section class="baseline-1">
+		    	<div class="base-tit-1">
+		    		<span>最新留言</span>
+		    	</div>
+		    </section>
+
+			<div class="c-box" id="commentList">
+				<a href="javascript:void(0);">
+					<div class="box-top">
+						<img class="user-head" src="http://kanfatest.oss-cn-beijing.aliyuncs.com/jpg/KFXN_User_280.jpg">
+						<div class="name-reg">
+							<span class="nick-name">清墨浅染</span>
+						</div>
+						<time class="c-time">2018-02-08 17:45</time>
+					</div>
+					<span class="c-con">喵吃了仓鼠：@Ka卡酱</span>
+				</a>
+				<hr class="hr-1 w-100">
+			</div>
+			<div class="c-box" id="commentList">
+				<a href="javascript:void(0);">
+					<div class="box-top">
+						<img class="user-head" src="http://kanfatest.oss-cn-beijing.aliyuncs.com/jpg/KFXN_User_280.jpg">
+						<div class="name-reg">
+							<span class="nick-name">清墨浅染</span>
+						</div>
+						<time class="c-time">2018-02-08 17:45</time>
+					</div>
+					<span class="c-con">喵吃了仓鼠：@Ka卡酱</span>
+				</a>
+				<hr class="hr-1 w-100">
+			</div>
+			<div class="c-box" id="commentList">
+				<a href="javascript:void(0);">
+					<div class="box-top">
+						<img class="user-head" src="http://kanfatest.oss-cn-beijing.aliyuncs.com/jpg/KFXN_User_280.jpg">
+						<div class="name-reg">
+							<span class="nick-name">清墨浅染</span>
+						</div>
+						<time class="c-time">2018-02-08 17:45</time>
+					</div>
+					<span class="c-con">喵吃了仓鼠：@Ka卡酱</span>
+				</a>
+				<hr class="hr-1 w-100">
+			</div>
+			<div class="c-box" id="commentList">
+				<a href="javascript:void(0);">
+					<div class="box-top">
+						<img class="user-head" src="http://kanfatest.oss-cn-beijing.aliyuncs.com/jpg/KFXN_User_280.jpg">
+						<div class="name-reg">
+							<span class="nick-name">清墨浅染</span>
+						</div>
+						<time class="c-time">2018-02-08 17:45</time>
+					</div>
+					<span class="c-con">喵吃了仓鼠：@Ka卡酱</span>
+				</a>
+				<hr class="hr-1 w-100">
+			</div>
+			<div class="c-box" id="commentList">
+				<a href="javascript:void(0);">
+					<div class="box-top">
+						<img class="user-head" src="http://kanfatest.oss-cn-beijing.aliyuncs.com/jpg/KFXN_User_280.jpg">
+						<div class="name-reg">
+							<span class="nick-name">清墨浅染</span>
+						</div>
+						<time class="c-time">2018-02-08 17:45</time>
+					</div>
+					<span class="c-con">喵吃了仓鼠：@Ka卡酱</span>
+				</a>
+				<hr class="hr-1 w-100">
+			</div>
+			<div class="c-box" id="commentList">
+				<a href="javascript:void(0);">
+					<div class="box-top">
+						<img class="user-head" src="http://kanfatest.oss-cn-beijing.aliyuncs.com/jpg/KFXN_User_280.jpg">
+						<div class="name-reg">
+							<span class="nick-name">清墨浅染</span>
+						</div>
+						<time class="c-time">2018-02-08 17:45</time>
+					</div>
+					<span class="c-con">喵吃了仓鼠：@Ka卡酱</span>
+				</a>
+				<hr class="hr-1 w-100">
+			</div>
+			<div class="c-box" id="commentList">
+				<a href="javascript:void(0);">
+					<div class="box-top">
+						<img class="user-head" src="http://kanfatest.oss-cn-beijing.aliyuncs.com/jpg/KFXN_User_280.jpg">
+						<div class="name-reg">
+							<span class="nick-name">清墨浅染</span>
+						</div>
+						<time class="c-time">2018-02-08 17:45</time>
+					</div>
+					<span class="c-con">喵吃了仓鼠：@Ka卡酱</span>
+				</a>
+			</div>
+		</section>
+		
+
+		<section class="baseline">
+			<div class="base-tit">
+				<span>已显示全部评论</span>
+			</div>
+		</section>
+	</main>
+</body>
+</html>

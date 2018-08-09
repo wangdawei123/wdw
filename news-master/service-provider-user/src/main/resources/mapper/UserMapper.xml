@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.user.mapper.UserMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.user.entity.User" id="userMap">
+        <result property="id" column="id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="phone" column="phone"/>
+        <result property="image" column="image"/>
+        <result property="introduction" column="introduction"/>
+        <result property="gender" column="gender"/>
+        <result property="commentNum" column="comment_num"/>
+        <result property="createTime" column="create_time"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="password" column="password"/>
+        <result property="saltEncrypt" column="salt_encrypt"/>
+        <result property="isBlock" column="is_block"/>
+        <result property="updateId" column="update_id"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+
+    <insert id="insertBaseUser" parameterType="com.kanfa.news.user.vo.admin.UserAuthInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into kf_user(
+                    nickname,
+                    image,
+                    gender,
+                    create_time
+                    )
+            values( #{nickname},
+                    #{image},
+                    #{gender},
+                    #{createTime}
+                   )
+    </insert>
+
+    <insert id="insertUser" parameterType="com.kanfa.news.user.entity.User" useGeneratedKeys="true" keyProperty="id">
+      insert into kf_user(
+                                  nickname,
+                                  phone,
+                                  image,
+                                  introduction,
+                                  gender,
+                                  comment_num,
+                                  create_time,
+                                  is_delete,
+                                  password,
+                                  salt_encrypt,
+                                  is_block,
+                                  update_id,
+                                  update_time)
+        values(#{nickname},
+                #{phone},
+                #{image},
+                #{introduction},
+                #{gender},
+                #{commentNum},
+                #{createTime},
+                #{isDelete},
+                #{password},
+                #{saltEncrypt},
+                #{isBlock},
+                #{updateId},
+                #{updateTime})
+    </insert>
+</mapper>

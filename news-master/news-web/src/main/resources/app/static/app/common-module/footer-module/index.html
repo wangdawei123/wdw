@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,minimum-scale=1,user-scalable=no" />
+    <!--  清除缓存  -->
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="format-detection" content="telephone=no">
+    <!-- 禁用自动识别页面中的电话号码 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <title>底部引流模块</title>
+    <link rel="stylesheet" href="../css/swiper.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <script src="https://static.mlinks.cc/scripts/dist/mlink.min.js"></script>
+    <script src="../js/jquery-1.9.1.min.js"r></script>
+    <script src="../js/swiper.min.js"></script>
+</head>
+<body>
+   <div class="footer-wraper">
+        <!-- Swiper -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="../img/slide.png" alt="">
+                    <span>我是文章标题一，我是文章标题一，我是文章标题一。</span>
+                </div>
+                <div class="swiper-slide">
+                    <img src="../img/slide.png" alt="">
+                    <span>我是文章标题二，我是文章标题二，我是文章标题二。</span>
+                </div>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <a id="btnOpenApp" href="javascript:void(0);" class="download">打开</a>
+    </div>
+</body>
+<script>
+
+    //打开APP
+    // var link='https://aih3gj.mlinks.cc/A0Eh?articleDetail?cid=:cid&url=:url&from=h5';//短链地址
+    // var options = [
+    //     {
+    //         mlink: "A060",
+    //         button: document.querySelector('a#btnOpenApp'),
+    //         autoLaunchApp : false,
+    //         autoRedirectToDownloadUrl: true,
+    //         downloadWhenUniversalLinkFailed: false,
+    //         inapp : false,
+    //         params: {
+    //             cid:'{{params['cid']}}',
+    //             url:'{{appUrl}}',
+    //             from:'h5'
+    //         },
+    //     }
+    // ];
+    // new Mlink(options);
+
+
+    //原创：轮播图
+    var swiper = new Swiper('.swiper-container', {
+        pagination: {
+            el: '.swiper-pagination',
+            clickable: true,
+            renderBullet: function(index, className){
+                return '<span class="' + className + '"></span>';
+            }
+        },
+        direction : 'horizontal',
+        loop: true,
+        autoplay: {
+            delay: 2500,
+            disableOnInteraction: false,
+        },
+        speed: 300,
+    })
+
+    function addSwiperHtml(data){
+        var newHtml = '';
+        newHtml += '<div class="swiper-container">';
+        newHtml += '    <div class="swiper-wrapper">';
+        data.each(function (index, item) {
+            newHtml += '    <div class="swiper-slide">';
+            newHtml += '        <img src="../img/slide.png" alt="">';
+            newHtml += '        <span>我是文章标题一，我是文章标题一，我是文章标题一。</span>';
+            newHtml += '    </div>';
+        });
+
+        newHtml += '    </div>';
+        if(data.length > 1){
+            newHtml += '    <div class="swiper-pagination"></div>';
+        }
+        newHtml += '</div>';
+
+        $('.footer-wraper').append(newHtml);
+    };
+
+</script>
+</html>

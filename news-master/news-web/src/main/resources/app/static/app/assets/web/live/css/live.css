@@ -1,0 +1,406 @@
+@charset "UTF-8";
+body, blockquote, fieldset, textarea, button, legend, select,
+input, label, table, thead, tbody, tfoot, form, img, pre,
+ul, ol, li, dl, dt, dd, tr, th, td, h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+  padding: 0; }
+
+body, button, input, select, textarea {
+  font: 14px/16px "PingFang","\5FAE\8F6F\96C5\9ED1","\5B8B\4F53","Arial Narrow";
+  -webkit-text-size-adjust: 100%; }
+
+address, cite, code, var, em, th {
+  font-weight: normal;
+  font-style: normal; }
+  
+video::-webkit-media-controls-start-playback-button {
+   display: none;
+}
+
+input[type="text"]:focus, input[type="password"]:focus {
+  outline: none; }
+
+button, input, select, textarea {
+  font-size: 100%; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%; }
+
+select, input, img {
+  vertical-align: middle; }
+
+input, button {
+  -webkit-appearance: none; }
+
+input, textarea, button {
+  outline: none; }
+
+fieldset, img {
+  border: 0; }
+
+ul, ol {
+  list-style: none; }
+
+li {
+  list-style-type: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+p {
+  word-wrap: break-word; }
+
+a {
+  text-decoration: none; }
+
+a:link, a:visited, a:hover, a:active, a:focus {
+  text-decoration: none; }
+
+a {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-background: transparent; }
+
+textarea {
+  box-shadow: 0px 0px 0px transparent;
+  -webkit-background: transparent;
+  -webkit-appearance: none; }
+
+html, body {
+  max-width: 750px;
+  margin: 0 auto; }
+
+/* ------------------------------------------- 
+* HTML5 Display-Role Reset For Older Browsers 
+--------------------------------------------*/
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+img{
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+#wrapper {
+  -webkit-transform-origin: top;
+  transform-origin: top;
+  width: 320px;
+  margin: 0px auto;
+  max-width: 750px; }
+.live-iframe{
+  width: 100%;
+  height: 10rem;
+  border:none;
+  z-index: 999;
+}
+.source{
+  float:left;
+  width: 100%;
+  height:auto;
+  overflow: hidden;
+}
+.s-title{
+  width: 93%;
+  height: 2.4rem;
+  line-height:2.4rem;
+  font-family: 'PingFangSC-Medium','Source Han Sans CN-Medium';
+  font-size: .95rem;
+  color:#000;
+  margin-left: 3.5%;
+  overflow: hidden;
+}
+.s-content{
+  float:left;
+  width: 93%;
+  height:auto;
+  margin: .3rem 3.5% .6rem;
+  overflow: hidden;
+}
+.s-head{
+  display: block;
+  width: 16%;
+  height:3rem;
+  float:left;
+}
+.s-head img{
+  width: 2.3rem;
+  height: 2.3rem;
+  margin: .25rem 0 0 0.07rem;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1px #EFEEEF ;
+}
+.s-c-tit{
+  float:left;
+  display: inline-block;
+  width: 80%;
+  height: 1rem;
+  line-height: 1rem;
+  font-family: 'PingFangSC-Regular';
+  font-size: .78rem;
+  color: #000;
+  margin-top: .3rem;
+}
+.s-c-num{
+  float:left;
+  display: inline-block;
+  width: 80%;
+  height: 1rem;
+  line-height: 1rem;
+  font-family: 'PingFangSC-Regular';
+  font-size: .75rem;
+  color: #000;
+  margin-top: .16rem;
+  margin-left: -7%;
+  -webkit-transform: scale(0.82, 0.82);
+}
+.stall{
+  float: left;
+  width: 100%;
+  height:.3rem;
+  background: #F4F4F4;
+}
+
+/*案件信息*/
+.case,.rial{
+  float: left;
+  width: 93%;
+  height: auto;
+  overflow: hidden;
+  margin:.8rem 3.5%;
+  position: relative;
+}
+.case-tit,.rial-tit{
+  float: left;
+  display: inline-block;
+  width: 100%;
+  height: 1.2rem;
+  line-height: 1.2rem;
+  font-family: 'PingFangSC-Regular','Source Han Sans CN-Medium';
+  font-size: .76rem;
+  margin-bottom: .2rem;
+  color:#000;
+}
+
+.case span{
+  float:left;
+  display: inline-block;
+  width: 120%;
+  line-height: 1rem;
+  font-family: 'PingFangSC-Regular';
+  font-size: .75rem;
+  color: #919191;
+  margin-left:-10.67%;
+  -webkit-transform: scale(0.82, 0.82);
+}
+
+
+.case span.case-btn{
+  position: relative;
+  width: 14%;
+  bottom: 0;
+  right: 0;
+  float: right;
+  background-image: url(../img/show.png);
+  background-repeat: no-repeat;
+  text-align: left;
+  background-size: 27% 40%;
+  background-position: right 40%;
+  color: #000;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  background-color: transparent;
+}
+
+.case span.case-btnc{
+  background-image: url(../img/hide.png);
+}
+.case span.case-btn img{
+  width: 100%;
+  height: auto;
+}
+.case span.case-con{
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/*1px横线*/
+.w-line {
+  display: block;
+  float: left;
+  width: 100%;
+  height: 2px;
+  border-bottom: 1px solid #f4f4f4;
+}
+
+/*庭审信息*/
+
+.basic{
+  float: left;
+  display: inline-block;
+  width: 100%;
+  height: 1.2rem;
+  line-height: 1.2rem;
+  font-family: 'PingFangSC-Regular';
+  font-size: .75rem;
+  color: #1e1e1e;
+  -webkit-transform: scale(0.82, 0.82);
+  margin:.2rem 0 .3rem -10.9%;
+}
+.rial p{
+  width: 100%;
+  height: .8rem;
+  line-height: .8rem;
+  display: inline-block;
+  font-family: 'PingFangSC-Regular';
+  font-size: .75rem;
+  color: #919191;
+  -webkit-transform: scale(0.82, 0.82);
+  margin-left:-8.97%;
+}
+.rial p span{
+  float: left;
+  display: inline-block;
+  width: auto;
+}
+.rial p em{
+  float: left;
+  display: inline-block;
+  width: auto;
+}
+
+.download{
+  width: 100%;
+  height: 63px;
+  background: rgba(0,0,0,.7);
+  display: -webkit-box;
+  box-sizing: border-box;
+  padding: 8px 23px 10px 3.5%;
+  position: fixed;
+  bottom: 0;
+  z-index: 999;
+  max-width: 750px;
+  margin: 0 auto;
+}
+.download .img{
+  width: 40px;
+  height: 40px;
+  margin: 4px 6px 0 0;
+}
+.download .box_con{
+  -webkit-box-flex:1;
+  color: #fff;
+  overflow: hidden;
+  margin-top: 4px;
+}
+.download .box_con .box_t{
+  color: #fff;
+  font-size: 16px;
+  padding: 5px 0 0 0;
+  letter-spacing: .05rem;
+}
+
+.download .box_con .box_txt{
+  color: #fff;
+  padding: 1px 0 0 0;
+  font-size: 12px;
+  overflow: hidden;
+  letter-spacing: .05rem;
+  display: block;
+  position: relative;
+  left:-24px;
+  -webkit-transform: scale(.74);
+}
+@media (device-height:568px) and (-webkit-min-device-pixel-ratio:2){
+  /* 兼容iphone5 */
+  .download .box_con .box_txt{
+    color: #fff;
+    padding: 1px 0 0 0;
+    font-size: 12px;
+    overflow: hidden;
+    letter-spacing: .05rem;
+    display: block;
+    position: relative;
+    left:-18px;
+    -webkit-transform: scale(.74);
+  }
+}
+ 
+
+@media (min-device-width : 375px) and (max-device-width : 667px) and (-webkit-min-device-pixel-ratio : 2){
+/*6*/
+  .download .box_con .box_txt{
+    color: #fff;
+    padding: 1px 0 0 0;
+    font-size: 12px;
+    overflow: hidden;
+    letter-spacing: .05rem;
+    display: block;
+    position: relative;
+    left:-25px;
+    -webkit-transform: scale(.74);
+  }
+} 
+ 
+
+@media (min-device-width : 414px) and (max-device-width : 736px) and (-webkit-min-device-pixel-ratio : 3){
+/*6+*/ 
+  .download .box_con .box_txt{
+    color: #fff;
+    padding: 1px 0 0 0;
+    font-size: 12px;
+    overflow: hidden;
+    letter-spacing: .05rem;
+    display: block;
+    position: relative;
+    left:-30px;
+    -webkit-transform: scale(.74);
+  }
+} 
+ 
+/*魅族*/ 
+@media only screen and (min-device-width :1080px) and (-webkit-min-device-pixel-ratio : 2.5){ } 
+ 
+/*mate7*/ 
+@media only screen and (min-device-width :1080px) and (-webkit-min-device-pixel-ratio : 3){ } 
+ 
+/*4 4s*/ 
+@media only screen and (device-height :480px) and (-webkit-device-pixel-ratio:2){
+  .download .box_con .box_txt{
+    color: #fff;
+    padding: 1px 0 0 0;
+    font-size: 12px;
+    overflow: hidden;
+    letter-spacing: .05rem;
+    display: block;
+    position: relative;
+    left:-16px;
+    -webkit-transform: scale(.74);
+  }
+} 
+
+.download .box_btn{
+  margin: 4px 0 0 0;
+  font-size: 15px;
+  background: #CE2524;
+  color: #fff;
+  border-radius: 8px;
+  text-align: center;
+  width: 90px;
+  height: 39px;
+  line-height: 39px;
+  display: inline-block;
+}
+.download .close{
+  position: absolute;
+  right: 5px;
+  top: 5px;
+  width: 15px;
+}
+
+
+
+
+

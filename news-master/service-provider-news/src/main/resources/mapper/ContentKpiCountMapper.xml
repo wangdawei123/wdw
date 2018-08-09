@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.ContentKpiCountMapper">
+
+        <!-- 可根据自己的需求，是否要使用 -->
+        <resultMap type="com.kanfa.news.info.entity.ContentKpiCount" id="contentKpiCountMap">
+            <result property="id" column="id"/>
+            <result property="cid" column="cid"/>
+            <result property="did" column="did"/>
+            <result property="title" column="title"/>
+            <result property="createDate" column="create_date"/>
+            <result property="createUid" column="create_uid"/>
+            <result property="createName" column="create_name"/>
+            <result property="firstCheckTime" column="first_check_time"/>
+            <result property="type" column="type"/>
+            <result property="sourceType" column="source_type"/>
+            <result property="contentType" column="content_type"/>
+            <result property="works" column="works"/>
+            <result property="imgNum" column="img_num"/>
+            <result property="appPv" column="app_pv"/>
+            <result property="appUv" column="app_uv"/>
+            <result property="allPv" column="all_pv"/>
+            <result property="allUv" column="all_uv"/>
+            <result property="worktypeNum" column="worktype_num"/>
+            <result property="workuserNum" column="workuser_num"/>
+        </resultMap>
+
+<select id="getContentList" resultType="com.kanfa.news.info.vo.admin.kpicount.ContentKpiCountInfo">
+
+    SELECT
+        first_check_time firstCheckTime,
+        cid,
+        title,
+        create_name createName,
+        (
+            CASE source_type
+                WHEN 1 THEN
+                  '是'
+                WHEN 0 and (type =22) THEN
+                  '是'
+                ELSE
+                  '否'
+            END
+        ) sourceType,
+        IF (did = 0, "否", "是") isConnectVideo,
+        did videoId,
+        works,
+        content_type contentType,
+        img_num imgNum,
+        app_pv appPv,
+        app_uv appUv
+    FROM
+        `kf_content_kpi_count`
+    WHERE 1=1
+    <if test="startDate != null and endDate != null">
+        AND ( create_date &gt;=#{startDate} AND create_date &lt;=#{endDate})
+    </if>
+    <if test="sourceType == 1">
+        AND  source_type &lt;= #{sourceType}
+    </if>
+    <if test="sourceType == 2">
+        AND  source_type &gt;= #{sourceType}
+    </if>
+    <if test="viewType == 1">
+        ORDER BY create_date,cid
+    </if>
+    <if test="viewType == null">
+        ORDER BY app_pv DESC
+    </if>
+</select>
+    
+    <select id="getContent" resultType="com.kanfa.news.info.entity.ContentKpiCount">
+        SELECT
+            c.id cid,
+            c.title,
+            c.first_check_time firstCheckTime,
+            c.category type,
+            c.source_type sourceType,
+            c.create_uid createUid,
+            a.realname createName
+        FROM
+            kf_content c
+        LEFT JOIN kf_admin_user a ON c.create_uid = a.id
+        WHERE
+            1 = 1
+        AND c.first_check_time &gt;= #{startDate}
+        AND c.first_check_time &lt;= #{endDate}
+        AND c.category IN (2, 3, 4)
+        <if test="contentId != null">
+            AND c.id = #{contentId}
+        </if>
+    </select>
+
+    <select id="getLive" resultType="com.kanfa.news.info.entity.ContentKpiCount">
+
+        SELECT
+            l.id cid,
+            l.title,
+            l.create_time firstCheckTime,
+            22 `type`,
+            0 sourceType,
+            l.create_uid createUid,
+            a.realname createName
+        FROM
+          kf_live l
+        LEFT JOIN kf_admin_user a ON l.create_uid = a.id
+        WHERE
+          1 = 1
+        AND l.start_time  &gt;= #{startDate}
+        AND l.start_time  &lt;= #{endDate}
+        AND l.live_type_id != 1
+        <if test="liveId != null">
+            AND l.id = #{liveId}
+        </if>
+    </select>
+
+    <select id="getOneContentArticle" resultType="com.kanfa.news.info.entity.ContentArticle">
+        SELECT
+            *
+        FROM
+            kf_content_article
+        WHERE
+            1 = 1
+        AND cid = #{contentId}
+        limit 0,1
+
+    </select>
+    <select id="getOneContentImage" resultType="com.kanfa.news.info.entity.ContentImage">
+        SELECT
+            *
+        FROM
+            kf_content_image
+        WHERE
+            1 = 1
+        AND cid = #{contentId}
+        limit 0,1
+    </select>
+
+    <select id="getOneContentVideo" resultType="com.kanfa.news.info.entity.ContentVideo">
+        SELECT
+            *
+        FROM
+            kf_content_video
+        WHERE
+            1 = 1
+        AND cid = #{contentId}
+        limit 0,1
+    </select>
+    <select id="getKpiCountList" resultType="com.kanfa.news.info.vo.admin.kpicount.KpiCountListInfo">
+        SELECT
+            tc. NAME AS wtype,
+            k. NAME,
+            k.uid
+        FROM
+            kf_kpi_count AS k
+        LEFT JOIN kf_kpi_type_config AS tc ON tc.id = k.work_type
+        WHERE
+            1 = 1
+        AND k.type = #{type}
+        AND k.type_id = #{typeId}
+    </select>
+
+</mapper>

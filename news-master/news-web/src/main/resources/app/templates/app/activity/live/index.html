@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="x5-orientation" content="portrait">
+	<meta name="screen-orientation" content="portrait">
+	<script src="../../../../static/js/flexble-main.js"></script>
+	<script src="../../../../static/js/jquery/jquery-1.9.1.min.js"></script>
+	<script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+	<link rel="stylesheet" href="../../../../static/css/live.css?v=4800">
+	<link rel="stylesheet" href="../../../../static/css/swiper.min.css">
+	<link rel="stylesheet" href="https://g.alicdn.com/de/prismplayer/2.4.0/skins/default/aliplayer-min.css"/>
+</head>
+<body>
+<div id="wrapper">
+
+	<div class="video" id="video"></div>
+
+	<!-- 打开看法新闻，发现身边的热点 -->
+	<section class="openApp openApp-new hide">
+		<a class="open-app" id="openApp" href="javascript:void(0);">
+			打开看法新闻，发现身边的热点
+			<i>
+				<img src="../../../../static/img/share/r-arrow-3x.png">
+			</i>
+		</a>
+	</section>
+
+	<!-- 主播信息 -->
+	<div class="anchors-info hide">
+		<a href="javascript:void(0);">
+            <span class="anchors-head" id="anchorsHead">
+                <img src="" alt="">
+            </span>
+			<span class="anchors-name" id="anchorsName"></span>
+		</a>
+	</div>
+
+	<!-- 灰色的隔栏 -->
+	<div class="stall hide"></div>
+	<span class="hint-info">网络暂时不通畅，请稍后再试。</span>
+
+	<!-- 聊天室&节目介绍 -->
+	<div class="content">
+
+		<!-- 选项卡 -->
+		<div class="tab clearfix" id="tab" style="display: none;">
+            <span class="focus" id="tab1">
+                <img src="../../../../static/img/live/chat-room-focus.png" alt="">
+                <i>聊天互动</i>
+            </span>
+            <span id="tab2">
+                <img src="../../../../static/img/live/play.png" alt="">
+                <i>节目介绍</i>
+            </span>
+		</div>
+
+		<!-- 底部唤起App模块 -->
+		<section class="footer-wraper hide"></section>
+
+		<!-- 聊天室 -->
+		<div class="chat-room">
+
+			<div id="chatList" class="chat-list">
+				<div class="broadcast" style=""></div>
+			
+			</div>
+
+			<!-- 发送模块 -->
+			<div class="chat-send">
+				<!-- 查看的新消息 -->
+				<div class="new-msg" id="newMsg" style="display: none;">
+					<i>查看的新消息</i>
+					<img src="../../../../static/img/live/new-msg.png" alt="">
+				</div>
+
+				<div class="send">
+					
+					<!-- 微信中显示 -->
+					<div class="send-box clearfix chatSendBox" style="display: none;">
+	                    <span class="expression" id="expression">
+	                        <img src="../../../../static/img/live/expression.png" alt="">
+	                    </span>
+	                    <form action="" id="form">
+	                        <textarea type="text" rows="1"  placeholder="吐个泡呗～" id="msgInput" contenteditable="true"></textarea>
+	                    </form>
+	                    <a class="send" id="send">发送</a>
+					</div>
+					<!-- 浏览器中显示 -->
+
+					<!-- 底部唤起App模块 -->
+					<section class="footer-wraper">
+					    <!-- Swiper -->
+					    <div class="swiper-container">
+					        <div class="swiper-wrapper">
+
+					            <div class="swiper-slide">
+					                <img src="/static/img/share/app-icon-2x.png" alt="">
+					                <span>更多独家内容请打开或下载继续观看。</span>
+					            </div>
+
+					        </div>
+					        <!-- Add Pagination -->
+					        <div class="swiper-pagination"></div>
+					    </div>
+
+					    <a id="btnOpenApp2" href="javascript:void(0);" class="footer-download">打开</a>
+					</section>
+
+				</div>
+
+				<!--emoji库-->
+				<div id="emoji" style="position: relative;"></div>
+
+			</div>
+
+		</div>
+
+		<!-- 节目介绍 -->
+		<div class="introduce" id="introduce">
+
+                <div style="display:none" class="share-box" id="shareBox">
+                    <div class="share">
+                            <span>
+                                <img src="/static/img/live/Wechat3x.png"  id="shareWeixin">
+                                <i>微信</i>
+                            </span>
+                        <span>
+                                <img src="/static/img/live/Friends.png" id="shareTimeline">
+                                <i>朋友圈</i>
+                            </span>
+                        <span>
+                                <img src="/static/img/live/qq3x.png" alt="" id="shareQQ">
+                                <i>QQ</i>
+                            </span>
+                        <span>
+                                <img src="/static/img/live/QZone3x.png" alt="" id="shareQZone">
+                                <i>QQ空间</i>
+                            </span>
+                        <span>
+                                <img src="/static/img/live/Weibo3x.png" alt="" id="shareSina">
+                                <i>新浪微博</i>
+                            </span>
+                        <span>
+                                <img src="/static/img/live/share-Icon.png" alt="" id="copyLink" data-clipboard-target="#copyTarget">
+                                <i>复制链接</i>
+                                <input type="text" value="" id="copyTarget" style="display: none;">
+                            </span>
+                    </div>
+                    <div class="remove" id="cancle">
+                        取消
+                    </div>
+                </div>
+
+
+		</div>
+
+		<!-- 分享引导 -->
+		<div ontouchmove="event.preventDefault()" class="sharing-box" id="sharingBox" style="display:none;">
+			<div class="prompt">
+				<img src="../../../../static/img/live/sharing-2x-1.png">
+			</div>
+			<div class="figure">
+				<img src="../../../../static/img/live/sharing-2x-2.png">
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+
+<script src="../../../../static/js/global.js?v=101915"></script>
+<script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="../../../../static/js/libs/weixin.js"></script>
+<!--<script src="https://cdn.ronghub.com/RongIMLib-2.2.9.min.js"></script>-->
+<!--<script src="https://cdn.ronghub.com/RongEmoji-2.2.6.js"></script>-->
+<!--<script src="/static/js/lib/fingerprint2.min.js"></script>-->
+<!--<script src="/static/js/lib/swiper.min.js"></script>-->
+<script src="https://static.mlinks.cc/scripts/dist/mlink.min.js"></script>
+<script src="../../../../static/js/activity/live.js?v=1320"></script>
+
+
+<!-- 百度统计代码 -->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?f629854132f3cfafdb620261198d53b0";
+      var s = document.getElementsByTagName("script")[0]; 
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+</body>
+</html>

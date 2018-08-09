@@ -1,0 +1,1033 @@
+body {
+  background: $bgColor;
+}
+
+#wrapper {
+  -webkit-transform-origin: top;
+  transform-origin: top;
+  width: 320px;
+  margin: 0px auto;
+  max-width: 750px;
+}
+
+.head-pic {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  margin: 0 auto;
+  float: left;
+  min-height:20rem;
+  background:$listBgColor;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.head-pic-other {
+  width: 100%;
+  border: 0;
+  padding: 0;
+  margin: 0 auto;
+  float: left;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.tap {
+  width: 96%;
+  height: auto;
+  display: inline-block;
+  float: left;
+  margin: -35% 2% 0;
+  padding-bottom: .4rem;
+}
+
+.tap-title {
+  width: 100%;
+  height: 33px;
+  background: rgba(0, 0, 0, 0.7);
+
+  span {
+    float: left;
+    width: 20%;
+    height: 33px;
+    line-height: 33px;
+    font-family: 'PingFang';
+    letter-spacing: 1px;
+    font-size: .8rem;
+    font-weight: 200;
+    padding-left: .5rem;
+    color: #8b8b8b;
+    cursor: pointer;
+
+    &.show {
+      color: $white;
+   
+    }
+  }
+}
+
+.tap-content {
+  float: left;
+  width: 100%;
+  height: auto;
+  background: $white;
+}
+
+.date-rule {
+  float: left;
+  width: 100%;
+  height: 30px;
+
+  span {
+    display: inline-block;
+    font-family: 'PingFangSC-Regular';
+    font-size: .75rem;
+    line-height: 30px;
+    color: #7E7E7E;
+    -webkit-transform: scale(0.92,0.92);
+
+    &:first-child {
+      float: left;
+      color: #7E7E7E;
+      margin-left: .32rem;
+      text-align: left;
+    }
+
+    &:last-child {
+      float: right;
+      margin-right: .32rem;
+      text-align: right;
+      cursor: pointer;
+      -webkit-tap-highlight-color:transparent;
+      background:transparent;
+    }
+  }
+}
+
+// 排名列表
+
+.ranking-list {
+  width: 100%;
+  margin: 3% 0 0;
+  height: auto;
+  overflow: hidden;
+
+  ul {
+    width: 100%;
+    height: auto;
+
+    li {
+      width: 100%;
+      margin: 0 auto;
+      height: 3.8rem;
+      line-height: 3.8rem;
+      clear: both;
+      .up{
+        background-image:url(../../../static/img/bluesky/show.png);
+        display: block;
+        width: 11px;
+        height: 7px;
+        position: absolute;
+        right: 1rem;
+        margin-top: 1.6rem;
+      }
+      .down{
+        background-image:url(../../../static/img/bluesky/hide.png);
+        display: block;
+        width: 11px;
+        height: 7px;
+        position: absolute;
+        right: 1rem;
+        margin-top: 1.6rem;
+      }
+    }
+  }
+}
+
+.renews {
+  width: 94%;
+  margin: 0 auto;
+  clear: both;
+}
+
+.ranking-list ul li span {
+  float: left;
+  display: inline-block;
+  width: 7%;
+  height: auto;
+  height: 3.8rem;
+  line-height: 3.75rem;
+
+  &:nth-child(1) img {
+    width: 2.43rem;
+    height: 2.43rem;
+    border-radius: 50%;
+
+    &.other-b-color {
+          box-shadow:0 0 0 2px rgb(255,255,255),0 0 0 3px rgb(255,90,0);
+    }
+  }
+
+  &:nth-child(2) {
+    display: block;
+    width: 20%;
+    color: $mainColor;
+    font-size: .75rem;
+  }
+}
+
+.ranking-list ul li a span:nth-child(1){
+    display: block;
+    width: 12.3%;
+}
+
+.ranking-list ul li a span:nth-child(2){
+    display: block;
+    width: 28%;
+    margin-left: 4%;
+    color: $mainColor;
+    font-size: .8rem;
+    font-family: 'PingFangSC-Regular';
+}
+
+.hide-show {
+  display: block;
+  width: 11px;
+  height: 7px;
+  position: absolute;
+  right: .4rem;
+  margin-top: 1rem;
+  cursor: pointer;
+  border:10px solid rgba(0,0,0,0);
+  -webkit-tap-highlight-color:transparent;
+  background:transparent;
+}
+
+.ranking-list ul li span:nth-child(2) img {
+  width: 11px;
+  height: 11px;
+  margin-top:-1px;
+
+  &.other-style {
+    width: 11px;
+    height: 2px;
+    margin-top: 1px;
+  }
+}
+
+.vote-num {
+  font-size: .75rem;
+  display: block;
+  float: right;
+  color: $auxiliaryColor;
+  font-family: "PingFangSC-Regular";
+  font-style: normal;
+  margin-right: 1.2rem;
+  font-weight:300;
+  -webkit-transform: scale(0.9,0.9);
+}
+
+.tab-professional,.tab-common{
+  -moz-tap-highlight-color:transparent;
+  -ms-tap-highlight-color:transparent;
+  -webkit-tap-highlight-color:transparent;
+  background:transparent;
+}
+
+// 个人简介
+
+.ranking-list ul li .resume {
+  float: left;
+  width: 100%;
+  height: 4.3rem;
+  background: $listBgColor;
+  display:none;
+
+  p {
+    display: block;
+    height: 100%;
+    float: left;
+
+    span {
+      display: block;
+      width: 100%;
+      height: 1.2rem;
+      line-height: 1.2rem;
+      margin-top: .8rem;
+      float: left;
+      font-family: 'PingFangSC-Regular';
+      font-size: .75rem;
+      color: $auxiliaryColor;
+      font-weight: 200;
+      text-align: left;
+      text-indent: .32rem;
+      -webkit-transform: scale(0.92,0.92);
+
+      &:nth-child(2) {
+        margin: .5rem 0 0 0;
+      }
+    }
+
+    &:nth-child(1) {
+      width: 30%;
+    }
+
+    &:nth-child(2) {
+      width: 40%;
+    }
+
+    &:nth-child(3) {
+      width: 30%;
+      text-align: right;
+    }
+  }
+}
+
+.vote-btn {
+  display: inline-block;
+  width: 4rem;
+  height: 1.6rem;
+  line-height: 1.6rem;
+  text-align: center;
+  background: $buttonBgColor;
+  font-family: 'PingFang';
+  font-weight: 200;
+  font-size: .75rem;
+  color: $white;
+  border-radius: .8rem;
+  margin: 1.35rem .6rem 0 0;
+}
+
+.sub-btn {
+  background: #d8d8d8;
+  color: #818181;
+}
+
+// 榜单规则
+
+.cd-popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  visibility: hidden;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  z-index: 999;
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
+    -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
+    transition: opacity 0.3s 0s, visibility 0s 0s;
+    z-index: 9999;
+  }
+}
+
+.cd-popup-container {
+  position: fixed;
+  width: 100%;
+  height: auto;
+  background: #fff;
+  text-align: center;
+  -webkit-transform: translateY(-40px);
+  -moz-transform: translateY(-40px);
+  -ms-transform: translateY(-40px);
+  -o-transform: translateY(-40px);
+  transform: translateY(-40px);
+
+  /* Force Hardware Acceleration in WebKit */
+  -webkit-backface-visibility: hidden;
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  bottom: -40px; 
+  -webkit-overflow-scrolling: touch;
+}
+
+.bg-up {
+  float: left;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.7);
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.activity-detail-title {
+  float: left;
+  width: 100%;
+  height: 1.6rem;
+  display: block;
+  color: #0e0e0e;
+  font-size: 1rem;
+  font-family: "PingFangSC-Regular";
+  text-align: center;
+  font-weight: 400;
+  line-height: 1.1;
+  letter-spacing: 1px;
+}
+
+.cd-popup-container {
+  p {
+    display: inline-block;
+    width: 92%;
+    font-family: "PingFangSC-Light";
+    color: #0e0e0e;
+    font-size: .85rem;
+    line-height: 1.3rem;
+    margin: 3px 4% 0;
+    letter-spacing: .1rem;
+    text-align: justify;
+    word-break: break-word;
+
+    &:last-child {
+      margin-bottom: .8rem;
+    }
+  }
+
+  .cd-popup-close {
+    position: absolute;
+    left: 50%;
+    top: -2.15rem;
+    margin-left: -1.6rem;
+    width: 3.2rem;
+    height: 3.2rem;
+    background: url(../img/bluesky/close.png) no-repeat;
+    background-size: 100% 100%;
+  }
+}
+.hrstyle {
+    float: left;
+    height: 1px;
+    border: none;
+    border-top: 1px solid #F3F3F3;
+    width: 94%;
+    margin: .8rem 3% ;
+    padding: 0;
+}
+
+// 志在蓝天个人主页
+
+#homepage {
+  background: $white;
+}
+
+.logo {
+  position: relative;
+  top: -2.3rem;
+  left: 50%;
+  width: 4.6rem;
+  height: 4.6rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  display: block;
+  margin-left: -2.3rem;
+  overflow: hidden;
+}
+
+.head-img {
+  background-color: #e1e1e1;
+  height: 100%;
+  width: 100%;
+}
+
+.avatar {
+  width: 4.6rem;
+  height: 4.6rem;
+}
+
+.name {
+  float: left;
+  width: 100%;
+  font-size: .9rem;
+  font-family: 'PingFang';
+  color: $mainColor;
+  text-align: center;
+  margin: -1.8rem auto 0;
+}
+
+.vote-sub {
+  width: 100%;
+  height: 1.6rem;
+  line-height: 1.6rem;
+  text-align: center;
+}
+
+.margin-none {
+  margin: 0;
+}
+
+.p-info {
+  width: 100%;
+  height: auto;
+  float: left;
+  margin: .75rem 0 3rem;
+
+  ul li {
+    float: left;
+    width: 94%;
+    height: 1.8rem;
+    margin: 0 3%;
+
+    i {
+      float: left;
+      width: 9%;
+      height: auto;
+      margin-top: .45rem;
+
+      img {
+        width: 1.2rem;
+        height: 1.2rem;
+        border: 0;
+        padding: 0;
+      }
+    }
+
+    span {
+      float: left;
+      display: inline-block;
+      width: 91%;
+      margin-top: .575rem;
+      font-family: 'PingFangSC-Light';
+      font-size: 1px;
+      letter-spacing: .075rem;
+      color: #0e0e0e;
+      font-weight: 100;
+      font-size: .78rem;
+    }
+  }
+}
+
+// 精选照片
+
+.select-photo {
+  position: relative;
+  left: 0;
+  top: -1.2rem;
+  width: 4.2rem;
+  height: 2.75rem;
+  z-index: 999;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    padding: 0;
+  }
+}
+
+// 才艺展示视频
+
+.talent-show {
+  position: relative;
+  left: 0;
+  top: 1.75rem;
+  width: 4.2rem;
+  height: 2.75rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    padding: 0;
+  }
+}
+
+.advice-video {
+  width: 100%;
+  height: 14.3rem;
+  border: 0;
+  padding: 0;
+  float: left;
+  z-index: 998;
+  display: block;
+  margin-top: -.5rem;
+
+  video {
+    width: 100%;
+    height: 12rem;
+    z-index: 999;
+  }
+}
+
+video::-webkit-media-controls-fullscreen-button {
+   display: none;
+}
+video::-moz-media-controls-fullscreen-button {
+   display: none;
+}
+video::-ms-media-controls-fullscreen-button {
+   display: none;
+}
+video::-o-media-controls-fullscreen-button {
+   display: none;
+}
+
+// 留言处样式
+
+.recommend {
+  width: 100%;
+  height: 2.325rem;
+  line-height: 2.325rem;
+  text-indent: .65rem;
+  text-align: left;
+  font-family: 'PingFangSC-Regular';
+  font-size: .8rem;
+  color: #000;
+  float: left;
+  border: $listBgColor;
+  background: #f3f3f3;
+}
+
+.col-icon {
+  display: block;
+  border: 0;
+  width: 2px;
+  height: .7rem;
+  background: #ce2524;
+  float: left;
+  position: absolute;
+  left: 0;
+  margin: .8125rem 0 0 0;
+}
+
+.msg-main {
+  width: 100%;
+  height: 100%;
+  padding-top: .05rem;
+  float: left;
+}
+
+.message {
+  width: 94%;
+  margin: 1.3rem auto 0;
+  background: #fff;
+  border: 1px solid #d9d9d9;
+  border-radius: .5rem;
+
+  textarea {
+    width: 94%;
+    margin: .533rem;
+    border: none;
+    resize: none;
+    font-size: .7rem;
+    line-height: .9rem;
+    color: $mainColor;
+    font-family: "PingFang";
+    font-weight: 300;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+}
+
+// @media screen and (-webkit-min-device-pixel-ratio: 2) {
+//     .message { border: 0.5px solid #d9d9d9; }
+// }
+// @media screen and (-webkit-min-device-pixel-ratio: 3) {
+//     .message { border: 0.5px solid #d9d9d9; }
+// }
+
+.msg-btn {
+  display: block;
+  width: 94%;
+  height: 1.973rem;
+  background: #ce2524;
+  border-radius: .985rem;
+  color: #fff;
+  font-weight: 400;
+  font-size: .9rem;
+  -webkit-appearance: none;
+  border: 0;
+  text-align: center;
+  margin: 1.3rem auto 0;
+  cursor: pointer;
+}
+
+.select-msg {
+  width: 100%;
+  margin: 0 auto;
+  clear: both;
+  font: 0.75rem/0.75rem "PingFang";
+  color:  #9A9A9A;
+  text-align: center;
+  padding: 2rem 0 0;
+
+  em {
+    display: block;
+    position: absolute;
+    margin-top: 4px;
+    width: 38.8%;
+    height: 2px;
+    border-bottom: 1px solid #f4f4f4;
+
+    &:nth-child(1) {
+      left: 2.5%;
+    }
+
+    &:nth-child(2) {
+      position: relative;
+      left: 59%;
+      top: -12px;
+    }
+  }
+}
+
+/* 设置移动端1px边框显示 */
+// @media screen and (-webkit-min-device-pixel-ratio: 2) {
+//   .select-msg em {
+//     border-bottom: 0.5px solid #d9d9d9;
+//   }
+// }
+
+// @media screen and (-webkit-min-device-pixel-ratio: 3) {
+//   .select-msg em {
+//     border-bottom: 0.5px solid #d9d9d9;
+//   }
+// }
+
+.write-msg {
+  float: left;
+  width: 94%;
+  height: auto;
+  margin: 0 3% 0;
+  margin-bottom: 2.4rem;
+
+  ul {
+    width: 100%;
+    height: auto;
+    margin: 0 auto;
+
+    li {
+      width: 100%;
+      min-height: 4rem;
+      height: auto;
+      float: left;
+      // border-bottom: 1px solid #d9d9d9;
+    }
+  }
+}
+
+.w-line{
+  display: block;
+  float:left;
+  width: 100%;
+  height: 2px;
+  border-bottom: 1px solid #f4f4f4;
+}
+// @media screen and (-webkit-min-device-pixel-ratio: 2) {
+//   .w-line {
+//     border-bottom: 0.5px solid #d9d9d9;
+//   }
+// }
+
+// @media screen and (-webkit-min-device-pixel-ratio: 3) {
+//   .w-line {
+//     border-bottom: 0.5px solid #d9d9d9;
+//   }
+// }
+
+.msg-head {
+  width: 1.6rem;
+  height: 1.6rem;
+  border-radius: 50%;
+  border: none;
+  float: left;
+  margin: .53rem 0 0 .16rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: none;
+  }
+}
+
+.msg-box {
+  width: 87%;
+  min-height: 3.9rem;
+  height: auto;
+  float: left;
+  margin: .6rem 0 .5rem .43rem;
+}
+
+.msg-name {
+  width: 100%;
+  text-align: left;
+  color: $auxiliaryColor;
+  font-size: .75rem;
+}
+
+.msg-content {
+  width: 100%;
+  margin: .3rem 0 .3rem 0;
+  height: auto;
+  color: #0e0e0e;
+  font-size: .7rem;
+  font-weight: 300;
+  line-height: 1rem;
+
+  /*实现多行文字超出显示省略号*/
+  display: -webkit-box;
+}
+
+.no-border {
+  border: 0 !important;
+}
+
+// 轮播图
+
+.container {
+  max-width: 750px;
+  margin: 0 auto;
+}
+
+.slide {
+  width: 100%;
+  overflow: hidden;
+  min-height:180px;
+  position: relative;
+
+  .img {
+    overflow: hidden;
+    position: absolute;
+    transition: width 0.4s,height 0.4s,top 0.4s,left 0.4s,z-index 0.4s;
+    text-align:center;
+    // background:#1e1e1e;
+
+    img {
+      width: auto%;
+      height: 100%;
+    }
+  }
+
+  .img1 {
+    width: 40%;
+    height: 40%;
+    top: 30%;
+    left: -50%;
+    z-index: 1;
+  }
+
+  .img2 {
+    width: 60%;
+    height: 90%;
+    top: 5%;
+    left: -20%;
+    z-index: 2;
+  }
+
+  .img3 {
+    width: 96%;
+    height: 100%;
+    top: 0%;
+    left: 2%;
+    z-index: 3;
+  }
+
+  .img4 {
+    width: 60%;
+    height: 90%;
+    top: 5%;
+    left: 60%;
+    z-index: 2;
+  }
+
+  .img5 {
+    width: 40%;
+    height: 40%;
+    top: 30%;
+    left: 110%;
+    z-index: 1;
+  }
+}
+
+.slide-bt {
+  position: absolute;
+  left: 52%;
+  bottom: 5%;
+  z-index: 10;
+
+  span {
+    width: 6px;
+    height: 6px;
+    background: rgba(201,202,202,.3);
+    float: left;
+    margin: 5px;
+    border-radius: 50%;
+  }
+}
+
+.slide .slide-bt .on {
+  background: #fff;
+}
+
+// 404页面
+.error{
+  position:fixed;
+  top:0;
+  left:0;
+  background:$white;
+  width:100%;
+  min-height:1000px;
+}
+.network-fault{
+  width: 6rem;
+  height:3.5rem;
+  margin:8rem auto 0;
+
+  img{
+    width:100%;
+    height:100%;
+  }
+}
+.prompt{
+  float:left;
+  width: 100%;
+  text-align:center;
+  margin-top:.5rem;
+  color:#979797;
+  font-size:.75rem;
+  font-family:'PingFangSC-Regular';
+  letter-spacing:1px;
+}
+
+// 页面加载样式
+/* Absolute Center Spinner */
+
+.hideLoading{
+
+}
+.showLoading {
+  position: fixed;
+  z-index: 999;
+  height: 2em;
+  width: 2em;
+  overflow: show;
+  margin: auto;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+/* Transparent Overlay */
+.showLoading:before {
+  content: '';
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.3);
+}
+
+/* :not(:required) hides these rules from IE9 and below */
+.showLoading:not(:required) {
+  /* hide "loading..." text */
+  font: 0/0 a;
+  color: transparent;
+  text-shadow: none;
+  background-color: transparent;
+  border: 0;
+}
+
+.showLoading:not(:required):after {
+  content: '';
+  display: block;
+  font-size: 10px;
+  width: 1em;
+  height: 1em;
+  margin-top: -0.5em;
+  -webkit-animation: spinner 1500ms infinite linear;
+  -moz-animation: spinner 1500ms infinite linear;
+  -ms-animation: spinner 1500ms infinite linear;
+  -o-animation: spinner 1500ms infinite linear;
+  animation: spinner 1500ms infinite linear;
+  border-radius: 0.5em;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.5) -1.5em 0 0 0, rgba(0, 0, 0, 0.5) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+  box-shadow: rgba(0, 0, 0, 0.75) 1.5em 0 0 0, rgba(0, 0, 0, 0.75) 1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) 0 1.5em 0 0, rgba(0, 0, 0, 0.75) -1.1em 1.1em 0 0, rgba(0, 0, 0, 0.75) -1.5em 0 0 0, rgba(0, 0, 0, 0.75) -1.1em -1.1em 0 0, rgba(0, 0, 0, 0.75) 0 -1.5em 0 0, rgba(0, 0, 0, 0.75) 1.1em -1.1em 0 0;
+}
+
+/* Animation */
+
+@-webkit-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-moz-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes spinner {
+  0% {
+    -webkit-transform: rotate(0deg);
+    -moz-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    -moz-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}

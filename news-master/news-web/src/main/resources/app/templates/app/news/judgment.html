@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,minimum-scale=1,user-scalable=no;"
+    />
+	<title>判决书</title>
+	<script src="https://static.mlinks.cc/scripts/dist/mlink.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="../../../static/app/assets/KF-97/css/reset.css?v=107">
+	<link rel="stylesheet" type="text/css" href="../../../static/app/assets/KF-97/css/main.css?v=2888">
+	<script type="text/javascript" src="../../../static/app/assets/KF-97/js/jquery-1.9.1.min.js"></script>
+
+	<!-- lazyload -->
+	<script type="text/javascript" src="../../../static/app/js/plugins/jquery.lazyload.js"></script>
+
+	<!--底部打开APP相关-->
+	<link rel="stylesheet" type="text/css" href="../../../static/app/common-module/css/swiper.min.css">
+	<link rel="stylesheet" type="text/css" href="../../../static/app/common-module/css/style.css?v=100">
+    <script>
+        $(function() {
+            $("img").lazyload({effect: "fadeIn", threshold :180});
+        });
+    </script>
+    <!-- 屏蔽a标签跳转 -->
+    <script>
+        $(document).ready(function(){  
+            $('a').click(function(event){  
+                return false;  
+            });  
+        })  
+    </script>
+    <style type="text/css">
+    	.article a{
+    		color:#1E1E1E;
+    	}
+    	a{color:#1E1E1E;}
+    </style>
+</head>
+<body>
+
+	<!-- 背景图片 -->
+	<div class="bg-fixed"></div>
+	
+	<div id="wrapper">
+
+	<!-- 头部模块 -->
+	<!--{%if (_GET['share']==1) %}
+	<div id="header-wrapper">
+	    &lt;!&ndash; 头部引流模块 &ndash;&gt;
+	    <div class="modular-header">
+	        <div class="modular-content">
+	            <div class="left-side">
+	                <img src="http://kanfatest.oss-cn-beijing.aliyuncs.com/png/1114/logo_2x.png">
+	            </div>
+	            <div class="right-side">
+	                <a id="btnOpenApp1" href="javascript:void(0);" title="">下载App</a>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+	{%endif%}-->
+	<script>    
+        var link='https://aih3gj.mlinks.cc/A0pz?judgmentAndNoticeDetail?cid=:cid&url=:url&type=14&from=h5';//短链地址
+
+        var options = [
+            {
+                mlink: "A0pz",
+                button: document.querySelector('a#btnOpenApp1'),
+                autoLaunchApp : false,
+                autoRedirectToDownloadUrl: true,
+                downloadWhenUniversalLinkFailed: false,
+                inapp : false,
+                params: {
+                    cid:'{{cid}}',
+                    url:'{{appUrl}}',
+                    type:'14',
+                    from:'h5'
+                },
+            }
+        ];
+        //new Mlink(options);
+    </script>
+
+
+		<div class="container">
+
+			<div class="header">
+
+				<div class="title">
+					${contentDetailInfo.title!}
+				</div>
+
+				<div class="source-date">
+					${contentDetailInfo.source!}&nbsp;&nbsp;&nbsp;
+					发布时间：${contentDetailInfo.createTime!}
+				</div>
+
+			</div>
+
+			<div class="main-cont">
+
+				<div class="h2-tit">${contentDetailInfo.sourceTile!}</div>
+
+				<div class="">
+					${contentDetailInfo.contentDetail!}
+				</div>
+
+			</div>
+
+		</div>
+		
+	</div>
+
+	<!--{%if (_GET['share']==1) %}
+	<div class="footer-wraper">
+		&lt;!&ndash; Swiper &ndash;&gt;
+		<div class="swiper-container">
+			<div class="swiper-wrapper">
+				{%for k,v in data['activitys']%}
+				<div class="swiper-slide">
+					<img src="{{v['ico']}}" alt="">
+					<span>{{v['title']}}</span>
+				</div>
+				{%endfor%}
+			</div>
+		</div>
+
+		<a id="btnOpenApp2" href="javascript:void(0);" class="footer-download">打开</a>
+	</div>
+	{%endif%}-->
+
+	<script>
+
+        if("{{_GET['share']}}" == 1){
+            var link='https://aih3gj.mlinks.cc/A0pz?judgmentAndNoticeDetail?cid=:cid&url=:url&type=14&from=h5';//短链地址
+
+	        var options = [
+	            {
+	                mlink: "A0pz",
+	                button: document.querySelector('a#btnOpenApp2'),
+	                autoLaunchApp : false,
+	                autoRedirectToDownloadUrl: true,
+	                downloadWhenUniversalLinkFailed: false,
+	                inapp : false,
+	                params: {
+	                    cid:'{{cid}}',
+	                    url:'{{appUrl}}',
+	                    type:'14',
+	                    from:'h5'
+	                },
+	            }
+	        ];
+	        //new Mlink(options);
+        }
+
+    </script>
+
+    <script>
+	    //关闭下载框
+	    $(function(){
+	        $('.download .close').on('click', function (evt) {
+	        evt.stopPropagation();
+	        $('.download').remove();
+	        });
+	    })
+	</script>
+	<!-- 百度统计代码 -->
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?f629854132f3cfafdb620261198d53b0";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+
+</body>
+</html>
+<script type="text/javascript" src="../../../static/app/assets/KF-97/js/main.js?v=103"></script>

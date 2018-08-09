@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="x5-orientation" content="portrait">
+    <meta name="screen-orientation"content="portrait">
+    <!--  清除缓存  -->
+    <meta http-equiv="X-UA-Compatible" content="IE=8">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <script src="../static/js/flexble-main.js"></script>
+    <script src="../static/js/jquery-1.11.1.min.js"></script>
+    <script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+    <link rel="stylesheet" href="../static/css/law.css?v=10200">
+    <link rel="stylesheet" href="../static/js/jquery/fancybox/jquery.fancybox.css">
+    <title>个人主页</title>
+</head>
+<body>
+
+<a href="javascript:void(0);" id="btnOpenApp" style="display: none;"></a>
+<span class="hint-info"></span>
+<div id="home"></div>
+<!-- 评论 -->
+<section id="comment" class="clearfix" style="display: none;">
+    <h3>评论</h3>
+
+    <div id="go-top" class="msg-main" style="display: none;">
+        <div id="message" class="message">
+            <textarea data-to="go-top" name="msg" id="msg" cols="50" rows="4" maxlength="300" placeholder=""></textarea>
+        </div>
+        <button class="msg-btn" type="button">提交</button>
+    </div>
+
+    <section class="baseline-1">
+        <div class="base-tit-1">
+            <span>最新评论</span>
+        </div>
+    </section>
+
+    <div class="c-box" id="commentList">
+        <div class="commentWraper"></div>
+    </div>
+
+</section>
+<div id="wapListImage" class="wapList-Image"></div>
+
+<script id="wapListImage_template" type="text/html">
+    <ul>
+        <%for(var i=0;i<image.length;i++){%>
+            <li class="wapLi">
+                <!--<img src="<%= image[i] %>" alt="" onclick="closePicture();">-->
+                <img src="<%= image[i] %>" alt="">
+            </li>
+        <%}%>
+    </ul>
+
+    <div id="imGcontent" class="content"></div>
+
+</script>
+
+<script id="detail_template" type="text/html">
+
+    <!-- 头部 -->
+    <header class="header">
+        <img src="../static/images/law/bg-detail.png">
+        <img class="head" src="<%= base.headimage %>">
+    </header>
+
+    <div class="info" id="info">
+        <div class="info-ranking-list">
+            <span>
+                <i>NO.<%= top %></i>
+                <i>总排行榜</i>
+            </span>
+        </div>
+        <div class="info-heat">
+            <span>
+                <i id="voteTotal"><%= base.vote_total %></i>
+                <i>热力值</i>
+            </span>
+        </div>
+        <div class="mechanism-name"><%= base.name %></div>
+        <div class="btn">
+            <a class="v-btn <% if(is_vote){ %>bg-gray<% } %>" data-target="<%= vote_people %>" href="javascript:void(0)"><% if(is_vote){ %>已完成<% }else{ %>冲榜<% } %></a>
+        </div>
+    </div>
+
+    <!-- 双引号内的内容 -->
+    <div class="declaration">
+        <div></div>
+        <div><%= base.declaration %></div>
+        <div></div>
+    </div>
+
+    <!-- 横线 -->
+    <div class="hr"><hr></div>
+
+    <!-- 介绍 -->
+    <div class="introduce">
+        <div class="in-tit">介绍</div>
+        <div class="in-timeline">
+            <div class="in-con">
+                <!-- <div id="left-arrow"></div> -->
+				<span><%= base.desc %></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 作品 -->
+
+    <% if(base.url && base.videoimage){ %>
+        <div class="works">
+            <div class="w-tit">作品</div>
+            <div class="w-timeline">
+                <div class="w-con">
+                    <img class="video-image" src="<%= base.videoimage %>">
+                    <img class="playBtn" src="../static/images/law/big-play-2x.png">
+                    <span class="v-time"><%= base.duration %></span>
+                    <video class="video" style="display:none" src="<%= base.url %>" autobuffer="" autoloop="" controls="" poster="<%= base.videoimage %>"></video>
+                </div>
+            </div>
+        </div>
+    <% } %>
+
+    <!-- 图集 -->
+    <% if(base.simage.length>0 && base.simage.length == base.image.length){ %>
+        <div class="atlas">
+            <div class="a-tit">图集</div>
+            <div class="a-timeline">
+                <div class="a-con" id="scroller">
+                    <ul class="a-length">
+                        <%for(var i=0;i<base.image.length;i++){%>
+                            <li data-index="<%= i %>">
+                                <img src="<%=base.image[i]%>" onclick="viewPicture(this)">
+                                <!--<img src="<%=base.image[i]%>">-->
+                            </li>
+                        <%}%>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    <% } %>
+
+
+</script>
+<script id="comment_list_template", type="text/html">
+
+    <% for(var i=0; i<list.length; i++){ %>
+        <a href="javascript:void(0);">
+            <div class="box-top">
+                <%if (list[i].image){ %>
+                    <img class="user-head" src="<%=list[i].image%>" alt="<%=list[i].nick%>" />
+                <%}else{%>
+                    <img class="user-head" src="/assets/img/default_head.jpg" alt="" />
+                <% } %>
+                <div class="name-reg">
+                    <span class="nick-name"><%= list[i].nick %></span>
+                </div>
+                <time class="c-time"><%= list[i].create_time %></time>
+            </div>
+            <span class="c-con"><%= list[i].comment %></span>
+        </a>
+    <hr class="hr-1 w-100">
+    <% } %>
+</script>
+<script id="notice_template" type="text/html">
+    <div class="error">
+        <div class="network-fault">
+            <img src="../static/image/bluesky/404.png" alt="网络出错了" title="网络出错了">
+        </div>
+        <div class="prompt">
+            <%=error%>
+        </div>
+    </div>
+</script>
+
+<script src="https://static.mlinks.cc/scripts/dist/mlink.min.js"></script>
+<script src="../static/js/global.js?v=1005"></script>
+<script src="../static/js/activity/law.js?v=1070"></script>
+<!-- <script src="/static/js/lib/iscroll.js"></script> -->
+<script src="../static/js/autoImages.js"></script>
+<script src="../static/js/lib/dropload.min.js"></script>
+<script src="../static/js/template-web.js"></script>
+<script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="../js/libs/weixin.js"></script>
+<script src="../static/js/jquery/fancybox/jquery.fancybox.pack.js"></script>
+<script>
+
+//    var top = 0;
+    // 点击查看大图
+    function viewPicture(target) {
+        console.log($(window).scrollTop());
+        kf.top = $(window).scrollTop();
+        $('#wapListImage').show();
+        $('#home').css('opacity',0);
+        $('html,body').addClass('ovfHiden');
+        wapListImage($('#scroller li').length, parseInt($(target).parent('li').attr('data-index'))+1);
+    }
+
+    function wapListImage(imageCount, index) {
+
+        (function(w,d){
+            var limitNum = 0;// 默认停止轮播的张数为0
+            var obj = {
+                dom:document.getElementById('wapListImage'),
+                isupdate: false,
+                time:3000,
+                isfor:false,
+                leftOrright:'left',
+                limit:limitNum,
+                allowClick:false,
+                callBack:function(obj){
+                    $('#imGcontent').html(obj.index+'/'+imageCount);
+
+                }
+            };
+            WapImage.start(obj);
+            WapImage.position(index);
+        })();
+    }
+
+
+    $(function () {
+
+        FastClick.attach(document.body);
+        var activity_id=kf.getSearchParam("aid");
+        var vote_people=kf.getSearchParam("people_id");
+        var law = new Law("detail",{activity_id:activity_id,vote_btn:".v-btn",message_btn:".msg-btn",vote_people:vote_people});
+        law.detail(vote_people,function(data) {
+            if(data.error_code==-1){
+                var error=template("notice_template",{error:data.error_msg});
+                $("#home").html(error);
+                return;
+            }
+            document.title = data.base.name;
+
+            var html = template("detail_template", {base:data.base,top:data.Top,is_vote:data.is_vote,vote_people:vote_people});
+            $("#home").html(html);
+
+            if(data.base.simage.length>0 && data.base.simage.length == data.base.image.length){
+                $('#scroller ul').width((data.base.simage.length*294+30)/75 + 'rem');
+
+                // 左右滑动
+//                var options = { scrollX: true, scrollY: false, mouseWheel: true, click: true };
+//                if(clientType().isPhone){
+//                    options.click = false;
+//                }
+//                var myScroll = new IScroll('#scroller', options);
+//                $('#scroller')[0].addEventListener('touchmove', function (e) {
+//                        //e.preventDefault();
+//                    }, isPassive() ? {
+//                    capture: false,
+//                    passive: false
+//                } : false);
+
+
+                var wapList = template("wapListImage_template", { image: data.base.image});
+                $("#wapListImage").html(wapList);
+                
+                // 点击查看大图
+                $('#wapListImage li').height($('#wapListImage').height());
+
+            }
+
+            // 视频播放
+            $('.playBtn').on('click', function () {
+                $('.video-image, .v-time').hide();
+                $('.video').show();
+                setTimeout(function () {
+                    $('video').attr('autoplay', 'true').attr('preload', 'true').get(0).play();
+                }, 100);
+            })
+
+
+            // 渲染评论
+            $('#comment').show();
+
+            if(clientType().isAndroid){
+                if((typeof(window.kfApp) == 'object') || kf.App){
+                    $("#go-top").show();
+                }
+            }else{
+                setTimeout(function () {
+                    if((typeof(window.kfApp) == 'object') || kf.App){
+                        $("#go-top").show();
+                    }
+                }, 2000)
+            }
+
+
+            $(document).on('click',function(e){
+                if($("#wapListImage").css('display') == 'block' && ($(e.target).hasClass('wapLi') || $(e.target).parent('li').hasClass('wapLi'))){
+                    $('#wapListImage').hide();
+                    $('html,body').removeClass('ovfHiden');
+                    $('#home').css('opacity',1);
+                    $(window).scrollTop(kf.top);
+                }
+            })
+
+
+            // 页数
+            var page = 0;
+            droplist(law, vote_people, page);
+
+            // 分享：iOS的webview加载机制不同，刚进页面取不到值
+            if(clientType().isAndroid){
+                kf.appShare(0,data.base.name,"提高广大青少年法律素质，营造普法良好的校园氛围和社会氛围。",'http://kanfatest.oss-cn-beijing.aliyuncs.com/jpg/law-share.png',document.location.href+'&share=1');
+            }else{
+                setTimeout(function () {
+                    kf.appShare(0,data.base.name,"提高广大青少年法律素质，营造普法良好的校园氛围和社会氛围。",'http://kanfatest.oss-cn-beijing.aliyuncs.com/jpg/law-share.png',document.location.href+'&share=1');
+                }, 2000);
+            }
+            kf.get("/web/weixin/sign",{url:document.location.href},null,function(package){
+                var wxshare=new wechat(package.appId,package.timestamp,package.nonceStr,package.signature);
+                wxshare.share(data.base.name,"提高广大青少年法律素质，营造普法良好的校园氛围和社会氛围。",document.location.href+'&share=1','http://kanfatest.oss-cn-beijing.aliyuncs.com/jpg/law-share.png');
+            });
+
+        });
+
+
+        var droplist = function(law, vote_people, page){
+            // dropload
+            $('#commentList').dropload({
+                scrollArea : window,
+                domDown : {
+                    domClass   : 'dropload-down',
+                    domRefresh : '<div class="dropload-refresh"><span class="tips text">↑上拉加载更多</span></div>',
+                    domLoad    : '<div class="dropload-load"><span class="loading"></span><span class="tips text-1">加载中...</span></div>',
+                    domNoData  : '<div class="dropload-noData"><span class="tips text">已显示所有评论</span></div>'
+                },
+                loadDownFn : function(me){
+                    page++;
+
+                    law.commentlist(vote_people, page, function(res) {
+//                        console.log(res);
+                        if(res.error_code == -1){
+                            me.resetload();
+                            return;
+                        }
+
+                        if(res.comment.length > 0){
+                            var html = template("comment_list_template", {list:res.comment, page: page});
+                            $(".commentWraper").append(html);
+                        } else {
+                            // 锁定
+                            me.lock();
+                            // 无数据
+                            me.noData();
+                        }
+                        me.resetload();
+                        if(res.comment.length<10){
+                            $('.commentWraper .hr-1.w-100:nth-last-child(1)').remove();
+                        }
+
+                        if(res.comment.length == 0 && page == 1){
+                            $('#commentList .dropload-noData .tips').addClass('text-1').text('暂无评论');
+                        }
+                    });
+                }
+            });
+        }
+
+        /*
+        * 判断客户端类型
+        * */
+        function clientType() {
+            var ua = window.navigator.userAgent,
+                isWindowsPhone = /(?:Windows Phone)/.test(ua),
+                isSymbian = /(?:SymbianOS)/.test(ua) || isWindowsPhone,
+                isAndroid = /(?:Android)/.test(ua),
+                isFireFox = /(?:Firefox)/.test(ua),
+                isChrome = /(?:Chrome|CriOS)/.test(ua),
+                isTablet = /(?:iPad|PlayBook)/.test(ua) || (isAndroid && !/(?:Mobile)/.test(ua)) || (isFireFox && /(?:Tablet)/.test(ua)),
+                isPhone = /(?:iPhone)/.test(ua) && !isTablet,
+                isPc = !isPhone && !isAndroid && !isSymbian;
+            return {
+                isTablet: isTablet,
+                isPhone: isPhone,
+                isAndroid : isAndroid,
+                isPc : isPc
+            };
+        }
+
+
+        function isPassive() {
+            var supportsPassiveOption = false;
+            try {
+                addEventListener("test", null, Object.defineProperty({}, 'passive', {
+                    get: function () {
+                        supportsPassiveOption = true;
+                    }
+                }));
+            } catch(e) {}
+            return supportsPassiveOption;
+        }
+
+    })
+</script>
+
+<!-- 百度统计代码 -->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f629854132f3cfafdb620261198d53b0";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+</body>
+</html>

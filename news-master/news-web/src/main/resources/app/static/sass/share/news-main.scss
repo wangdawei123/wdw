@@ -1,0 +1,160 @@
+body {
+  background: $White;
+}
+
+// 文章详情页面样式
+#news{
+	@include box-sizing(border-box);
+	width:100%;
+	height:auto;
+	overflow:hidden;
+	padding-bottom:px2rem(55px);
+
+	// 头部
+	.news-header{
+		@include box-sizing(border-box);
+		width:100%;
+		padding:px2rem(9px) px2rem(14px) px2rem(11px);
+
+		// 文章标题
+		.n-tit{
+			width:100%;
+			height:auto;
+			display:block;
+			font-family:'PingFangSC-Semibold','Source Han Sans CN-Medium';
+			font-size:px2rem(22px);
+			font-weight:700;
+			color:$Cod-Gray;
+			line-height:px2rem(28px);
+			text-align:justify;
+		}
+
+		// 来源+日期、时间
+		.source-date{
+			width:100%;
+			height:px2rem(17px);
+			line-height:px2rem(17px);
+			margin-top:px2rem(8px);
+			font-family:'PingFangSC-Regular';
+			font-size:px2rem(12px);
+			color:$Gray;
+			letter-spacing:px2rem(-0.25px);
+		}
+	}
+
+	// 文章内容
+	.news-con{
+		@include box-sizing(border-box);
+		width:100%;
+		height:auto;
+		padding:px2rem(12px) px2rem(14px) 0;
+		position:relative;
+		p{
+			@include box-sizing(border-box);
+			// text-indent:px2rem(28px);
+			font-family:'PingFangSC-Regular';
+			font-size:px2rem(16.5px);
+			color:$Cod-Gray;
+			letter-spacing:px2rem(0.2px);
+			line-height:px2rem(26px);
+			text-align:justify;
+			margin-top:px2rem(8.5px);
+		}
+		:first-child{
+			margin-top:0;
+		}
+		.p-img{
+			text-indent:0 !important;
+		}
+		img{
+			@include box-sizing(border-box);
+			width:100%;
+			height:auto;
+			margin:px2rem(14px) 0;
+			display:block;
+		}
+		video{
+			@include box-sizing(border-box);
+			position:relative;
+			width:100%;
+			height:100%;
+			margin:0 0 px2rem(14px);
+		}
+		.video{
+			@include box-sizing(border-box);
+			position:relative;
+			width:100%;
+			height:px2rem(217px);
+			margin:0 0 px2rem(14px);
+			.cover{
+				@include box-sizing(border-box);
+				width:100%;
+				height:100%;
+				margin:0;
+			}
+			.btn-play{
+				@include box-sizing(border-box);
+				width:px2rem(50px);
+				height:px2rem(50px);
+				position:absolute;
+				top:50%;
+				left:50%;
+				margin:px2rem(-25px) 0 0 px2rem(-25px);
+			}
+			.controlbar{
+				@include box-sizing(border-box);
+				// width:100%;
+				height:px2rem(48px);
+				position:absolute;
+				bottom:0;
+				margin:0;
+			}
+			.v-time{
+				@include box-sizing(border-box);
+				position:absolute;
+				bottom:0;
+				right:0;
+				display:block;
+				font-family:'PingFangSC-Regular';
+				font-size:px2rem(12px);
+				color:$White;
+				line-height:px2rem(20px);
+				padding-right:px2rem(5px);
+				font-style:normal;
+			}
+		}
+		// 展开阅读全文
+		#read-more{
+			@include box-sizing(border-box);
+			width:100%;
+			position:absolute;
+			left:0;
+			bottom:0;
+			z-index:1;
+		}
+		.read-more{
+			@include box-sizing(border-box);
+			display:block;
+			width:100%;
+			height:px2rem(80px);
+			line-height:px2rem(110px);
+			font-family:'PingFangSC-Regular';
+			font-size:px2rem(12px);
+			color:$Cardinal;
+			text-align:center;
+			background-image: -webkit-linear-gradient(top, rgba(255, 255,255, 0), rgba(255, 255, 255, 0.9) 28%, #FFF 49.1%, #fff);
+			background-image: -moz-linear-gradient(top, rgba(255, 255,255, 0), rgba(255, 255, 255, 0.9) 28%, #FFF 49.1%, #fff);
+			background-image: -ms-linear-gradient(top, rgba(255, 255,255, 0), rgba(255, 255, 255, 0.9) 28%, #FFF 49.1%, #fff);
+			background-image: -o-linear-gradient(top, rgba(255, 255,255, 0), rgba(255, 255, 255, 0.9) 28%, #FFF 49.1%, #fff);
+			background-image: linear-gradient(top, rgba(255, 255,255, 0), rgba(255, 255, 255, 0.9) 28%, #FFF 49.1%, #fff);
+			img{
+				width:px2rem(11px);
+				height:px2rem(6px);
+				display:inline;
+			}
+		}
+	}
+
+	
+	
+}

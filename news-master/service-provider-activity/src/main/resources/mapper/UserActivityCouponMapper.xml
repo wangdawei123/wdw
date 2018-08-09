@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.activity.mapper.UserActivityCouponMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.activity.entity.UserActivityCoupon" id="userActivityCouponMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="userPhone" column="user_phone"/>
+        <result property="activityCouponId" column="activity_coupon_id"/>
+        <result property="activityCouponCode" column="activity_coupon_code"/>
+        <result property="activityCouponStartTime" column="activity_coupon_start_time"/>
+        <result property="activityCouponEndTime" column="activity_coupon_end_time"/>
+        <result property="activityMerchant" column="activity_merchant"/>
+        <result property="couponCodeName" column="coupon_code_name"/>
+        <result property="extendChannel" column="extend_channel"/>
+        <result property="stat" column="stat"/>
+        <result property="deleted" column="deleted"/>
+        <result property="createTime" column="create_time"/>
+        <result property="activityId" column="activity_id"/>
+    </resultMap>
+
+    <select id="appGetUserCouponAvailableLis" resultType="com.kanfa.news.activity.vo.info.UserActivityCouponInfo">
+        SELECT * FROM
+            (SELECT
+                DATE_FORMAT(
+                activity_coupon_start_time, '%Y-%m-%d') AS activityCouponStartTime,
+                DATE_FORMAT( activity_coupon_end_time,'%Y-%m-%d') AS activityCouponEndTime,
+                a.activity_merchant activityMerchant,
+                a.coupon_code_name couponCodeName,
+                a.activity_coupon_code activityCouponCode,
+                a.id,
+                a.activity_coupon_id activityCouponId,
+                p.content,
+                IF (
+                (a.activity_coupon_start_time <![CDATA[ <= ]]> DATE_FORMAT(NOW(), '%Y-%m-%d 23:59:59')),1,0) AS stat
+            FROM
+                kf_user_activity_coupon a
+            LEFT JOIN kf_activity_coupon p ON a.activity_coupon_id = p.id
+            <where>
+                a.activity_coupon_end_time >= DATE_FORMAT(NOW(),'%Y-%m-%d 00:00:00')
+                and a.is_delete = 0
+                <if test="uid != null">
+                    AND a.user_id = #{uid}
+                </if>
+            </where>
+            ORDER BY
+              a.id DESC
+        ) t0
+        LIMIT #{offset},#{pcount}
+    </select>
+
+
+    <select id="appGetUserCouponList" resultType="com.kanfa.news.activity.vo.info.UserActivityCouponInfo">
+        SELECT * FROM
+            (SELECT
+                DATE_FORMAT(
+                activity_coupon_start_time, '%Y-%m-%d') AS activityCouponStartTime,
+                DATE_FORMAT( activity_coupon_end_time,'%Y-%m-%d') AS activityCouponEndTime,
+                a.activity_merchant activityMerchant,
+                a.coupon_code_name couponCodeName,
+                a.activity_coupon_code activityCouponCode,
+                a.id,
+                a.activity_coupon_id activityCouponId,
+                p.content,
+                -1 AS stat
+            FROM
+                kf_user_activity_coupon a
+            LEFT JOIN kf_activity_coupon p ON a.activity_coupon_id = p.id
+            <where>
+                a.activity_coupon_end_time >= DATE_FORMAT(NOW(),'%Y-%m-%d 00:00:00')
+                and a.is_delete = 0
+                <if test="uid != null">
+                    AND a.user_id = #{uid}
+                </if>
+            </where>
+            ORDER BY
+              a.id DESC
+        ) t0
+        LIMIT #{offset},#{pcount}
+    </select>
+
+</mapper>

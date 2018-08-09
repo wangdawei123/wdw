@@ -1,0 +1,17 @@
+spring:
+    cloud:
+      config:
+           label: master
+           profile: dev
+           name: service-user
+           uri: http://47.94.8.143:8750
+      bus:
+        trace:
+          enabled: true
+    profiles:
+      active: dev
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh

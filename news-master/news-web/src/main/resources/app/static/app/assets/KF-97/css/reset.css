@@ -1,0 +1,100 @@
+/* ------------------------------------------- 
+* Reset CSS v1.0 By Nexiy
+* 
+* 2016-12-20
+---------------------------------------------*/
+
+body, blockquote, fieldset, textarea, button, legend, select,
+input, label, table, thead, tbody, tfoot, form, img, pre,
+ul, ol, li, dl, dt, dd, tr, th, td, h1, h2, h3, h4, h5, h6, p {
+    margin:0;
+    padding:0;
+}
+
+body, button, input, select, textarea {
+    font:14px/16px "PingFang","\5FAE\8F6F\96C5\9ED1","\5B8B\4F53","Arial Narrow";
+    -webkit-text-size-adjust:100%;
+}
+address, cite, code, var, em, th { font-weight:normal; font-style:normal; }
+input[type="text"]:focus, input[type="password"]:focus { outline:none; }
+button, input, select, textarea { font-size:100%; }
+h1, h2, h3, h4, h5, h6 { font-size:100%; }
+select, input, img { vertical-align:middle; }
+input,button{-webkit-appearance : none ;}
+input,textarea,button{outline:none;}
+fieldset, img { border:0; }
+ul, ol { list-style:none; }
+li { list-style-type:none; }
+table { border-collapse:collapse; border-spacing:0; }
+p { word-wrap:break-word }
+a { text-decoration:none; }
+a:link, a:visited, a:hover, a:active, a:focus { text-decoration:none; }
+
+a{
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-background: rgba(0, 0, 0, 0);
+}
+textarea{
+    box-shadow:0px 0px 0px rgba(0,0,0,0);
+    -webkit-background: rgba(0, 0, 0, 0);
+    -webkit-appearance:none;
+}
+
+html,body{
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+/* ------------------------------------------- 
+* HTML5 Display-Role Reset For Older Browsers 
+--------------------------------------------*/
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+p{
+    width: 100%;
+    height: auto;
+    overflow: hidden;
+    text-align:justify;  
+    font-size: .75rem;
+    line-height: 1.3rem;
+    font-family: 'PingFangSC-Regular';
+    background: rgba(0,0,0,0) !important;
+}
+table{
+    font-family: 'PingFangSC-Regular';
+    font-size: .75rem;
+    color: #1E1E1E;
+    border-width: 1px;
+    border-color: #666;
+    border-collapse: collapse; 
+    background: rgba(0,0,0,0) !important;
+}
+table th{
+    border-width: 1px;
+    padding: .5rem;
+    border-style: solid;
+    border-color: #666;
+    background: rgba(0,0,0,0) !important;
+}
+table td{
+    border-width: 1px;
+    padding: .5rem;
+    border-style: solid;
+    border-color: #666;
+    background: rgba(0,0,0,0) !important;
+}
+strong{
+    font-weight: 500;
+    font-size: .75rem;
+    color: #1E1E1E;
+    line-height: 1rem;
+    background: rgba(0,0,0,0) !important;
+}
+h1, h2, h3, h4, h5, h6{
+    font-size: 100%;
+    color: #1E1E1E;
+}

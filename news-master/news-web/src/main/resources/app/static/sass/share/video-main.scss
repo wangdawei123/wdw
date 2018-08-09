@@ -1,0 +1,223 @@
+body {
+  background: $White;
+}
+
+// 视频详情页面样式
+video{
+	@include box-sizing(border-box);
+	position:relative;
+	width:100%;
+	height:100%;
+	margin:0 0 px2rem(12px);
+}
+
+#video{
+	@include box-sizing(border-box);
+	width:100%;
+	height:auto;
+	overflow:hidden;
+	padding-bottom:px2rem(55px);
+	// 头部
+	.v-con{
+		@include box-sizing(border-box);
+		width:100%;
+		float:left;
+		padding:0 px2rem(14px) px2rem(9px);
+
+		// 文章标题
+		.v-tit{
+			width:100%;
+			height:auto;
+			display:block;
+			font-family:'PingFangSC-Medium','Source Han Sans CN-Medium';
+			font-size:px2rem(18px);
+			font-weight:700;
+			color:$Cod-Gray;
+			line-height:px2rem(25px);
+			text-align:justify;
+		}
+
+		// 来源+日期、时间
+		.source-date{
+			width:100%;
+			height:px2rem(17px);
+			line-height:px2rem(17px);
+			margin-top:px2rem(5px);
+			font-family:'PingFangSC-Regular';
+			font-size:px2rem(12px);
+			color:$Gray;
+			letter-spacing:px2rem(-0.25px);
+			display:-webkit-flex;
+			display:-moz-flex;
+			display:flex;
+			-webkit-align-items:center;
+			-moz-align-items:center;
+			align-items:center;
+			-webkit-justify-content:space-between;
+			-moz-justify-content:space-between;
+			justify-content:space-between;
+			justify-content:space-between;
+			.info-show{
+				cursor:pointer;
+				font-family:'PingFangSC-Regular';
+				font-size:px2rem(13px);
+				color:$Mine-Shaft;
+				i{
+					img{
+						width:px2rem(12px);
+						height:px2rem(7px);
+						margin-top:px2rem(-2px);
+					}
+				}
+			}
+		}
+		.show-box{
+			@include box-sizing(border-box);
+			width:100%;
+			height:auto;
+			padding-top:px2rem(14px);
+			// 作者及视频简介
+			.anchors{
+				@include box-sizing(border-box);
+				width:100%;
+				line-height:px2rem(74px);
+				display:-webkit-flex;
+				display:-moz-flex;
+				display:flex;
+				-webkit-align-items:center;
+				-moz-align-items:center;
+				align-items:center;
+				-webkit-justify-content:space-between;
+				-moz-justify-content:space-between;
+				justify-content:space-between;
+				.a-anchor{
+					@include box-sizing(border-box);
+					width:100%;
+					height:100%;
+					display:block;
+					.anchors-head{
+						@include box-sizing(border-box);
+						width:px2rem(50px);
+						height:px2rem(50px);
+						img{
+							@include border-radius(50%);
+							width:px2rem(50px);
+							height:px2rem(50px);
+							margin-top:px2rem(-1px);
+						}
+					}
+					.anchors-name{
+						width:auto;
+						margin-left:px2rem(8px);
+						font-family:'PingFangSC-Medium';
+						font-size:px2rem(16px);
+						color:$Cod-Gray;
+					}
+				}
+				.follow{
+					@include box-sizing(border-box);
+					display:block;
+					width:px2rem(77px);
+					height:px2rem(30px);
+					line-height:px2rem(30px);
+					font-family:'PingFangSC-Regular';
+					font-size:px2rem(14px);
+					color:#D13636;
+					color:$Cardinal;
+					border:1px solid $Cardinal;
+					border-radius:px2rem(3px);
+					text-align:center;
+					i{
+						img{
+							width:px2rem(12px);
+							height:px2rem(12px);
+							margin-top:px2rem(-2px);
+						}
+					}
+				}
+			}
+			.info{
+				@include box-sizing(border-box);
+				width:100%;
+				height:auto;
+				.info-con{
+					@include box-sizing(border-box);
+					display:block;
+					width:100%;
+					height:auto;
+					font-family:'PingFangSC-Regular';
+					font-size:px2rem(14px);
+					color:$Mine-Shaft;
+					line-height:px2rem(19px);
+				}
+				.info-hide{
+					@include box-sizing(border-box);
+					display:block;
+					width:100%;
+					height:auto;
+					font-family:'PingFangSC-Regular';
+					font-size:px2rem(13px);
+					color:$Mine-Shaft;
+					line-height:px2rem(18px);
+					text-align:right;
+					margin-top:px2rem(12px);
+					i{
+						img{
+							width:px2rem(12px);
+							height:px2rem(7px);
+							margin-top:px2rem(-2px);
+						}
+					}
+				}
+			}
+		}
+		
+	}
+	
+
+
+	.video{
+		@include box-sizing(border-box);
+		position:relative;
+		width:100%;
+		height:px2rem(217px);
+		margin:0 0 px2rem(12px);
+		.cover{
+			@include box-sizing(border-box);
+			width:100%;
+			height:100%;
+			margin:0;
+		}
+		.btn-play{
+			@include box-sizing(border-box);
+			width:px2rem(50px);
+			height:px2rem(50px);
+			position:absolute;
+			top:50%;
+			left:50%;
+			margin:px2rem(-25px) 0 0 px2rem(-25px);
+		}
+		.controlbar{
+			@include box-sizing(border-box);
+			// width:100%;
+			height:px2rem(48px);
+			position:absolute;
+			bottom:0;
+			margin:0;
+		}
+		.v-time{
+			@include box-sizing(border-box);
+			position:absolute;
+			bottom:0;
+			right:0;
+			display:block;
+			font-family:'PingFangSC-Regular';
+			font-size:px2rem(12px);
+			color:$White;
+			line-height:px2rem(20px);
+			padding-right:px2rem(5px);
+			font-style:normal;
+		}
+	}	
+	
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.activity.mapper.ActivityVoteMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.activity.entity.ActivityVote" id="activityVoteMap">
+        <result property="id" column="id"/>
+        <result property="activityId" column="activity_id"/>
+        <result property="bgcolor" column="bgcolor"/>
+        <result property="needLogin" column="need_login"/>
+        <result property="voteMulti" column="vote_multi"/>
+        <result property="voteMultiNum" column="vote_multi_num"/>
+        <result property="stat" column="stat"/>
+        <result property="voteOnce" column="vote_once"/>
+        <result property="votePeriod" column="vote_period"/>
+        <result property="showNum" column="show_num"/>
+        <result property="voteTotal" column="vote_total"/>
+        <result property="commentTotal" column="comment_total"/>
+        <result property="flushVoteNum" column="flush_vote_num"/>
+    </resultMap>
+
+</mapper>

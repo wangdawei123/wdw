@@ -1,0 +1,331 @@
+html{
+    height: 100%;
+}
+body{
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    display: block;
+    min-height: 100%;
+    max-height: 100%;
+    overflow: hidden;
+    -webkit-user-select: none;
+    font-family: 'microsoft yahei';
+}
+img, ul, li, a{
+    display: block;
+}
+img{
+    width: 100%;
+}
+body>div{
+    position: absolute;
+    display: -webkit-box;
+    -webkit-box-pack: center;
+    -webkit-box-align: center;
+    width: 100%;
+    height: 100%;
+    /*-webkit-transition: all .6s ease;*/
+    overflow: hidden;
+    opacity: 0;
+}
+.body-content{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    /*-webkit-transition: all .6s ease;*/
+    
+}
+body>div .ms0, body>div.ms0{
+    -webkit-transition: all .0s ease !important;
+}
+
+
+.visible{
+    visibility: hidden;
+}
+.none{
+    display: none;
+}
+body>div .body-content{
+    -webkit-transition: all .6s ease;
+}
+body>div.pre .body-content{
+    -webkit-transition: all .6s ease;
+}
+body>div.next .body-content{
+    -webkit-transition: all .6s ease;
+}
+body>div .ms0{
+    -webkit-transition: all .0s ease;
+}
+.bg{
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+body>div.on{
+    display: -webkit-box;
+    opacity: 1;
+    z-index: 10;
+}
+.loading{
+    background: #fff;
+    z-index: 9;
+}
+.load {
+    width: 15%;
+    position: absolute;
+    top: 42.5%;
+    left: 42.5%;
+    /*-webkit-animation: loading 3s infinite linear;*/
+}
+@-webkit-keyframes loading {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}
+.logo{
+    position: absolute;
+    width: 51%;
+    top: 6%;
+    right: 4%;
+}
+.bottom{
+    position: fixed;
+    width: 23%;
+    left: 40%;
+    bottom: 3%;
+    -webkit-animation: bottom 2s infinite linear;
+}
+@-webkit-keyframes bottom {
+  from {
+    -webkit-transform: translate3d(0, -1.5em, 0);
+    opacity: 1;
+  }
+  to {
+    -webkit-transform: translate3d(0, 0em, 0);
+    opacity: 0.5;
+  }
+}
+.up-box {
+    opacity: 1;
+    height: auto;
+    position: fixed;
+    display: block;
+    left: 45%;
+    bottom: 3%;
+    width: 10%;
+    display: none;
+    z-index: 11;
+}
+.up{
+    position: relative;
+    display: block;
+    -webkit-animation: down_animation 1.4s linear infinite;
+}
+@-webkit-keyframes down_animation{
+    0%{
+        opacity:0.4;
+        /*-webkit-transform:translate3d(0,0,0)*/
+    }
+    100%{
+        opacity:1;
+        /*-webkit-transform:translate3d(0,-8px,0)*/
+    }
+}
+.bg{
+    display: none;
+}
+.section1.qt{
+
+    background: url("{{url('assets/web/img1/')}}bg1.jpg")  center center;
+    background-size: 100% auto;
+}
+.section1.scb{
+    background:  url("{{url('assets/web/img1/')}}bg2.jpg") center center;
+    background-size: 100% auto;
+}
+.section1.w{
+    background:  url("{{url('assets/web/img1/')}}bg3.jpg") center center;
+    background-size: 100% auto;
+}
+.section1.x{
+    background:  url("{{url('assets/web/img1/')}}bg4.jpg") center center;
+    background-size: 100% auto;
+}
+.section1.yt{
+    background:  url("{{url('assets/web/img1/')}}bg5.jpg") center center;
+    background-size: 100% auto;
+}
+.section1.y{
+    background: u url("{{url('assets/web/img1/')}}bg6.jpg") center center;
+    background-size: 100% auto;
+}
+.section1 .title{
+    left: 15%;
+    width: 70%;
+    position: absolute;
+    top: 9%;
+    -webkit-transform: scale(2);
+    -webkit-transition: all .5s ease .1s;
+}
+.section1.on .title{
+    -webkit-transform: scale(1);
+}
+.section1 .text2{
+    left: 23%;
+    width: 54%;
+    position: absolute;
+    top: 62%;
+    opacity: 0;
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-transition: all .6s ease 1.2s;
+}
+.section1.on .text2{
+    -webkit-transform: translate3d(0, 0, 0);
+    opacity: 1;
+}
+.section1 .body-content{
+    /*background: url(img/s1_4.png) 10% top no-repeat;*/
+    /*background-size: 54% auto;*/
+}
+.section1 .loc{
+    position: absolute;
+    top: 5%;
+    left: 24px;
+}
+.section1 .loc span{
+    display: block;
+    color: #fff;
+    font-size: 0.18rem;
+    padding: 0 0 0 0.24rem;
+    line-height: 20px;
+    background: url(img/map.png) left center/0.15rem auto no-repeat;
+}
+.section1 .main{
+    position: absolute;
+    top: 16%;
+    left: 0%;
+    width: 100%;
+    display: -webkit-box;
+    display: box;
+}
+
+.section1 .main .left{
+    width: 50%;
+    text-align: right;
+
+}
+.section1 .main .left img{
+    display: inline-block;
+    margin: 0px 0.24rem 0 0;
+    width: 1.05rem;
+    height: 1.05rem;
+}
+
+.section1 .main .right{
+    width: 50%;
+    margin: 0.1rem 0 0;
+    padding: 0 0 0 0.24rem;
+    border-left: 1px solid #fff;
+    color: #fff;
+}
+.section1 .main .right .num{
+    font-size: 0.6rem;
+    line-height: 0.45rem;
+}
+.section1 .main .right .pm{
+    font-size: 0.15rem;
+    margin: 0.15rem 0 0 ;
+}
+.section1 .main .right .health{
+    font-size: 0.15rem;
+    margin: 3px 0 0 ;
+}
+.section1  .info{
+    position: absolute;
+    top: 40%;
+    left: 0%;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    font-size: 0.2rem;
+}
+.section1 .warn{
+    position: absolute;
+    top: 51%;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+.section1 .warn span{
+    color: #fff;
+    font-size: 0.18rem;
+    padding: 0 0 0 0.3rem;
+    line-height: 20px;
+    background: url(img/icon_notice.png) left center/0.2rem auto no-repeat;
+}
+.section1 .text {
+    height: 12%;
+    position: absolute;
+    top: 56%;
+    left: 0;
+    width: 100%;
+    color: #fff;
+    line-height: 0.22rem;
+    font-size: 0.12rem;
+    text-align: center;
+    overflow: auto;
+}
+.section1 .btm{
+    position: absolute;
+    bottom: 1%;
+    left: 0;
+    width: 100%;
+    color: #fff;
+    text-align: center;
+    display: -webkit-box;
+    display: box;
+}
+.section1 .btm .li{
+    width: 33.3%;
+}
+.section1 .btm .li .day{
+    font-size: 0.18rem;
+}
+.section1 .btm .li .img{
+    margin: 15px auto 0;
+    width: 55px;
+    height: 55px;
+}
+.section1 .btm .li .txt{
+    margin: 12px auto 0;
+    font-size: 0.16rem;
+}
+.section1 .btm .li .num{
+    margin: 10px auto 0;
+    font-size: 0.16rem;
+}
+
+
+
+.share.on {
+    z-index: 100;
+    display: block;
+    -webkit-animation: on .8s 1 linear;
+}
+.share {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,.6);
+    display: none;
+}

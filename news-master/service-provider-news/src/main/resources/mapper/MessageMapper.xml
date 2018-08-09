@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.MessageMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.Message" id="messageMap">
+        <result property="id" column="id"/>
+        <result property="targetType" column="target_type"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="createTime" column="create_time"/>
+        <result property="adCode" column="ad_code"/>
+        <result property="iosCode" column="ios_code"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="errmsg" column="errmsg"/>
+        <result property="type" column="type"/>
+    </resultMap>
+
+    <!--is_delete isDelete,-->
+    <select id="getMessagePage" resultType="com.kanfa.news.info.entity.Message">
+      SELECT
+                id,
+                target_type targetType,
+                title,
+                create_time createTime,
+                ad_code adCode,
+                ios_code iosCode,
+                errmsg,
+                type
+      FROM
+                kf_message
+      ORDER BY id DESC,create_time DESC
+    </select>
+</mapper>

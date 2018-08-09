@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.admin.mapper.CorpDeptMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.admin.entity.CorpDept" id="corpDeptMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="level" column="level"/>
+        <result property="parentId" column="parent_id"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUid" column="update_uid"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="stat" column="stat"/>
+    </resultMap>
+
+    <select id="page" resultType="java.util.Map">
+		SELECT
+		t.id,
+		t.leve1,
+		t.leve2,
+		t.update_time,
+		t.creator,
+		t.modifier
+		FROM
+		(
+		SELECT
+		cd.id,
+		cd.parent_id,
+		cd1. NAME AS leve1,
+		cd. NAME AS leve2,
+		cd.update_time,
+
+		IF (
+		cd.stat = 1,
+		'正常',
+		'停用'
+		) AS stat,
+		bu.username AS creator,
+		bu1.username AS modifier
+		FROM
+		kf_corp_dept cd
+		LEFT JOIN base_user bu ON cd.create_uid = bu.id
+		LEFT JOIN base_user bu1 ON cd.update_uid = bu1.id
+		LEFT JOIN kf_corp_dept cd1 ON cd1.id = cd.parent_id
+		) AS t
+		WHERE
+		1 = 1
+		AND t.id NOT IN (
+		SELECT
+		parent_id
+		FROM
+		kf_corp_dept cd
+		WHERE
+		parent_id IN (
+		SELECT
+		id
+		FROM
+		kf_corp_dept cd
+		WHERE
+		parent_id = 0
+		)
+		GROUP BY
+		parent_id
+		)
+		<if test="level1!=0">
+			AND t.parent_id=#{level1}
+		</if>
+		<if test="level2!=0">
+			AND t.id=#{level2}
+		</if>
+    </select>
+</mapper>

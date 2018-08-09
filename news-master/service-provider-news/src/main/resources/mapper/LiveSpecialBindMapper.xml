@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.LiveSpecialBindMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.LiveSpecialBind" id="liveSpecialBindMap">
+        <result property="id" column="id"/>
+        <result property="liveSpecialId" column="live_special_id"/>
+        <result property="liveId" column="live_id"/>
+        <result property="sort" column="sort"/>
+    </resultMap>
+
+
+    <!-- 提供liveSpecialId 查询直播专题下的 关联内容 -->
+    <select id="getPage"  resultType="com.kanfa.news.info.vo.admin.live.LiveSpecialBindInfo">
+            SELECT
+                xl.id,
+                xl.title,
+                xau.`name` updateName,
+                xl.update_time updateTime
+            FROM
+                kf_live_special_bind xlsb
+            LEFT JOIN kf_live xl ON xlsb.live_id = xl.id
+            LEFT JOIN kf_live_special xls ON xlsb.live_special_id = xls.id
+            LEFT JOIN base_user xau ON xl.update_uid = xau.id
+            WHERE
+                xls.id = #{liveSpecialId}
+            ORDER BY
+              xlsb.sort DESC ,
+              xl.id DESC,
+              xl.update_time DESC
+    </select>
+
+    <!-- 直播专题下的关联内容的按标题搜索  -->
+    <select id="getSearchPage" resultType="com.kanfa.news.info.vo.admin.live.LiveSpecialBindInfo">
+                SELECT
+                    kl.id,
+                    kl.live_type liveType,
+                    kl.title
+                FROM
+                    kf_live kl
+                WHERE
+                    kl.id NOT IN (
+                        SELECT
+                            klsb.live_id
+                        FROM
+                            kf_live_special_bind klsb
+                        WHERE
+                            klsb.live_special_id = #{liveSpecialId}
+                    )
+                AND kl.title LIKE CONCAT('%',#{title},'%' )
+    </select>
+
+
+    <!-- 查询绑定内容 -->
+    <select id="getLiveSpecialBind" resultType="com.kanfa.news.info.entity.LiveSpecialBind">
+        SELECT
+        kcb.id,
+        kcb.sort sort
+        FROM
+        kf_live_special_bind kcb
+        <where>
+            <if test="ids!=null and ids.size()>0">
+                kcb.live_id IN
+                <foreach collection="ids" item="liveId" open="(" close=")" separator=",">
+                    #{liveId}
+                </foreach>
+            </if>
+            <if test="contentId!=null">
+                AND kcb.live_special_id=#{contentId}
+            </if>
+        </where>
+        ORDER BY field
+        <foreach collection="ids" item="liveId" open="(kcb.live_id," close=")" separator=",">
+            #{liveId}
+        </foreach>
+    </select>
+
+
+    <!-- 根据liveSpecialId查找最大的排序值 -->
+    <select id="getMaxSort" resultType="java.lang.Integer">
+    SELECT
+    MAX(kl.sort)
+    FROM kf_live_special_bind kl
+    WHERE kl.live_special_id = #{liveSpecialId}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,218 @@
+@charset "UTF-8";
+
+/* ------------------------------------------- 
+* Reset CSS v1.0 By Nexiy
+* 
+* 2016-12-20
+---------------------------------------------*/
+
+body, blockquote, fieldset, textarea, button, legend, select,
+input, label, table, thead, tbody, tfoot, form, img, pre,
+ul, ol, li, dl, dt, dd, tr, th, td, h1, h2, h3, h4, h5, h6, p {
+    margin:0;
+    padding:0;
+}
+
+body, button, input, select, textarea {
+    font:14px/16px "PingFang","\5FAE\8F6F\96C5\9ED1","\5B8B\4F53","Arial Narrow";
+    -webkit-text-size-adjust:100%;
+}
+
+address, cite, code, var, em, th { font-weight:normal; font-style:normal; }
+
+input[type="text"]:focus, input[type="password"]:focus { outline:none; }
+
+button, input, select, textarea { font-size:100%; }
+
+h1, h2, h3, h4, h5, h6 { font-size:100%; }
+
+select, input, img { vertical-align:middle; }
+
+input,button{ -webkit-appearance : none ; }
+
+input,textarea,button{ outline:none; }
+
+fieldset, img { border:0; }
+
+ul, ol { list-style:none; }
+
+li { list-style-type:none; }
+
+table { border-collapse:collapse; border-spacing:0; }
+
+p { word-wrap:break-word }
+
+a { text-decoration:none; }
+
+a:link, a:visited, a:hover, a:active, a:focus { text-decoration:none; }
+
+a{
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-background: rgba(0, 0, 0, 0);
+}
+
+textarea{
+    box-shadow:0px 0px 0px rgba(0,0,0,0);
+    -webkit-background: rgba(0, 0, 0, 0);
+    -webkit-appearance:none;
+}
+
+html,body{
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+/* ------------------------------------------- 
+* HTML5 Display-Role Reset For Older Browsers 
+--------------------------------------------*/
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+
+#header-wrapper {
+    -webkit-transform-origin: top;
+    transform-origin: top;
+    margin: 0 auto;
+    min-width: 320px;
+    width: 320px;
+    max-width: 750px; 
+    margin-bottom: .7rem;
+}
+
+.modular-header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 2.4rem;
+    background: rgba(250,250,250,1);
+    border-bottom: 1px solid #f4f4f4;
+}
+.modular-content{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    width: 93%;
+}
+
+.left-side{
+    width: 4.8rem;
+    height: 1.56rem;
+    /*当作背景引入的方法 **背景引入此元素宽度要设置为4.9rem** */
+    /*background:  rgba(250,250,250,0.90) url(../img/logo@2x.png) no-repeat;
+    background-size: cover;*/
+}
+
+.left-side img{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.right-side a{
+    color: #CD2525;
+    font-family: 'PingFangSC-Regular';
+    font-size: .728rem;
+    border: .3rem solid rgba(0,0,0,0);
+    border-right: none;
+    cursor: pointer;
+}
+
+/*footer-开始*/
+.footer-wraper {
+    position: fixed;
+    bottom: 0;
+    margin: 0 auto;
+    min-width: 320px;
+    width: 100%;
+    max-width: 750px;
+    height: 3.8rem;
+    background: rgba(0,0,0,.8);
+    z-index: 99999;
+}
+.footer-wraper .swiper-container {
+    width: 72%;
+    height: 100%;
+    margin-left: 0;
+}
+
+.footer-wraper .swiper-container .swiper-slide {
+}
+.footer-wraper .swiper-container .swiper-slide img {
+    font-size: 0;
+    width: 2.5rem;
+    height: 2.5rem;
+    vertical-align: middle;
+    float: left;
+    margin-top: .6rem;
+    margin-left: 6%;
+    margin-right: 5%;
+}
+.footer-wraper .swiper-container .swiper-slide span {
+
+    font-size: .933333rem;
+    line-height: 1.2rem;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -moz-box-orient: vertical;
+    -ms-box-orient: vertical;
+    -o-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    -moz-line-clamp: 2;
+    -ms-line-clamp: 2;
+    -o-line-clamp: 2;
+    overflow: hidden;
+    text-align: justify;
+    color: #FFFFFF;
+    vertical-align: middle;
+    font-family: 'PingFang';
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-top: .65rem;
+}
+.swiper-container-horizontal>.swiper-pagination-bullets {
+    left: 20%;
+    bottom: .25rem;
+}
+.swiper-pagination-bullet {
+    width: 1.3rem;
+    height:2px;
+    line-height: 2px;
+    background: rgba(255,255,255,0.5);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+}
+.swiper-pagination-bullet-active {
+    background: rgba(255,255,255,0.5);
+}
+.footer-wraper .footer-download {
+    position: absolute;
+    right: 3.8%;
+    top: .75rem;
+    font-family: 'PingFang';
+    font-weight: 300;
+    font-size: .933333rem;
+    background: #CE2524;
+    color: #fff;
+    text-align: center;
+    width: 20%;
+    height: 2.1rem;
+    line-height: 2.1rem;
+    border-radius: 2.399999rem;
+    display: block;
+    cursor: pointer;
+}
+/*footer-结束*/
+
+
+
+
+
+
+
+

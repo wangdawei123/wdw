@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>用户直播间</title>
+	<script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.4/??flexible_css.js,flexible.js"></script>
+	<script src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+	
+	<script type="text/javascript" src="//g.alicdn.com/de/prismplayer/2.4.0/aliplayer-min.js"></script>
+	<link rel="stylesheet" href="/static/css/web.css?v=2019">
+    <link rel="stylesheet" href="/static/css/swiper.min.css">
+    <link rel="stylesheet" href="//g.alicdn.com/de/prismplayer/2.4.0/skins/default/aliplayer-min.css">
+</head>
+<body>
+	<div id="wrapper">
+
+		<div  class="prism-player" id="J_prismPlayer"></div>
+
+		<script>
+		    var player = new Aliplayer({
+		    id: "J_prismPlayer",
+		         autoplay: false,
+		         isLive:false,
+		         playsinline:true,
+		         width:"100%",
+		         height:"400px",
+		         controlBarVisibility:"always",
+		         useH5Prism:false,
+		         useFlashPrism:false,
+		         source:"http://fawanappout.oss-cn-hangzhou.aliyuncs.com/Act-ss-mp4-hd/84874effa0604d2bbe9a3768244e1c0c/15027593204971h8zv9b8c1e7j84snsdsll3di.mp4",
+		         cover:"/static/img/live/Bridge-3.jpg",
+		         skinLayout:[{"name":"bigPlayButton","align":"blabs","x":30,"y":80},
+		                {"name":"H5Loading","align":"cc"},
+		                {"name":"errorDisplay","align":"tlabs","x":0,"y":0},
+		                {"name":"infoDisplay","align":"cc"},
+		                {"name":"controlBar","align":"blabs","x":0,"y":0,"children":[{"name":"progress","align":"tlabs","x":0,"y":0},
+		                {"name":"playButton","align":"tl","x":15,"y":26},
+		                {"name":"fullScreenButton","align":"tr","x":20,"y":25},
+		                {"name":"timeDisplay","align":"tl","x":10,"y":24},
+		                {"name":"setButton","align":"tr","x":20,"y":25},
+		                {"name":"streamButton","align":"tr","x":20,"y":23},
+		                {"name":"volume","align":"tr","x":20,"y":25}]},
+		                {"name":"fullControlBar","align":"tlabs","x":0,"y":0,"children":[{"name":"fullTitle","align":"tl","x":25,"y":6},
+		                {"name":"fullNormalScreenButton","align":"tr","x":24,"y":13}]}]
+		         },function(player){
+		            console.log("播放器创建了。");
+		          }
+		    );
+		  </script>
+
+		<!-- 主播信息 -->
+		<div class="anchors-info">
+			<a href="#">
+				<span class="anchors-head" id="anchorsHead">
+					<img src="" alt="主播头像">
+				</span>
+				<span class="anchors-name" id="anchorsName"></span>
+			</a>
+		</div>
+
+		<!-- 灰色的隔栏 -->
+		<div class="stall"></div>
+		<span class="hint-info" style="display: none;">网络暂时不通畅，请稍后再试。</span>
+
+		<!-- 聊天室&节目介绍 -->
+		<div class="content">
+
+			<!-- 选项卡 -->
+			<div class="tab clearfix">
+				<span class="focus">
+					<img src="/static/img/live/chat-room-focus.png" alt="">
+					<i>聊天互动</i>
+				</span>
+				<span>
+					<img src="/static/img/live/play.png" alt="">
+					<i>节目介绍</i>
+				</span>
+			</div>
+	      	<script>
+	      	    $(document).ready(function() {
+	      	        $(".tab span").click(function() {
+	      	            $(".tab span").eq($(this).index()).addClass("focus").siblings().removeClass("focus");
+	      	            var srcImg = $(this).find('img').attr('src');
+	      	            if (srcImg == "/static/img/live/play.png") {
+	      	                $(this).find('img').attr('src', '/static/img/live/play-focus.png');
+	      	                $(this).prev().find('img').attr('src', '/static/img/live/chat-room.png');
+	      	                $('.chat-room').hide();
+	      	                $('.introduce').show();
+	      	            }
+	      	            if (srcImg == "/static/img/live/chat-room.png") {
+	      	                $(this).find('img').attr('src', '/static/img/live/chat-room-focus.png');
+	      	                $(this).next().find('img').attr('src', '/static/img/live/play.png');
+	      	                $('.chat-room').show();
+	      	                $('.introduce').hide();
+	      	            }
+	      	        });
+	      	    });
+	      	</script>
+
+			<!-- 聊天室 -->
+			<div class="chat-room">
+
+				<div id="chatList" class="chat-list">
+					<div class="broadcast">
+						<!--系统提示：看法新闻直播间倡导绿色直播、文明观看，如出现低俗涉黄、涉暴内容，欢迎举报，我们将对违规者进行封禁止！-->
+					</div>
+					<!--<p>-->
+						<!--<span>烟花再美～不过瞬间：</span>-->
+						<!--<span>青铜你都秀不了吗？</span>-->
+					<!--</p>-->
+					<!--<p>-->
+						<!--<span>看法用户5384y：</span>-->
+						<!--<span>一顿操作猛如虎</span>-->
+					<!--</p>-->
+					<!--&lt;!&ndash; 当前用户样式 &ndash;&gt;-->
+					<!--<p>-->
+						<!--<span class="current-user">看法新用户：</span>-->
+						<!--<span>这次直播内容不错。</span>-->
+					<!--</p>-->
+					<!--<p>-->
+						<!--<span>看法哦：</span>-->
+						<!--<span>希望以后能多出一些有意思的东西</span>-->
+					<!--</p>-->
+					<!--<p>-->
+						<!--<span>烟花再美～不过瞬间：</span>-->
+						<!--<span>青铜你都秀不了吗？</span>-->
+					<!--</p>-->
+					<!--<p>-->
+						<!--<span>看法用户5384y：</span>-->
+						<!--<span>一顿操作猛如虎</span>-->
+					<!--</p>-->
+					<!--&lt;!&ndash; 当前用户样式 &ndash;&gt;-->
+					<!--<p>-->
+						<!--<span class="current-user">看法新用户：</span>-->
+						<!--<span>这次直播内容不错。</span>-->
+					<!--</p>-->
+					<!--<p>-->
+						<!--<span>看法哦：</span>-->
+						<!--<span>希望以后能多出一些有意思的东西希望以后能多出一些有意思的东西</span>-->
+					<!--</p>-->
+					<!--<p>-->
+						<!--<span>烟花再美～不过瞬间：</span>-->
+						<!--<span>青铜你都秀不了吗？</span>-->
+					<!--</p>-->
+					<!--<p>-->
+						<!--<span>看法用户5384y：</span>-->
+						<!--<span>一顿操作猛如虎</span>-->
+					<!--</p>-->
+					<!--&lt;!&ndash; 当前用户样式 &ndash;&gt;-->
+					<!--<p>-->
+						<!--<span class="current-user">看法新用户：</span>-->
+						<!--<span>这次直播内容不错。</span>-->
+					<!--</p>-->
+					<!--<p>-->
+						<!--<span>看法哦：</span>-->
+						<!--<span>希望以后能多出一些有意思的东西</span>-->
+					<!--</p>-->
+				</div>
+
+				<!-- 查看的新消息 -->
+				<div class="new-msg" id="newMsg" style="display: none;">
+					<i>查看的新消息</i>
+					<img src="/static/img/live/new-msg.png" alt="">
+				</div>
+
+				<!-- 发送模块 -->
+				<div class="chat-send">
+
+                    <!--<div class="send-box clearfix" style="position: fixed;bottom: 0;">-->
+                    <div class="send-box clearfix">
+                        <span class="expression" id="expression">
+                            <img src="/static/img/live/expression.png" alt="">
+                        </span>
+                        <!--<span id="msgInput" style="with:100px;height: 50px;display:inline-block;border:1px solid #000"></span>-->
+                        <!--<textarea type="text" placeholder="吐个泡呗～" id="msgInput2" contenteditable="true"></textarea>-->
+                        <textarea type="text" rows="1"  placeholder="吐个泡呗～" id="msgInput" contenteditable="true"></textarea>
+                        <a class="send" id="send">发送</a>
+                    </div>
+
+                    <!--emoji库-->
+                    <!--<div id="emoji" style="position: fixed;bottom: 0; height: 0;"></div>-->
+                    <div id="emoji" style="position: relative;"></div>
+
+				</div>
+
+			</div>
+
+			<!-- 节目介绍 -->
+			<div class="introduce" id="introduce">
+                <div id="introduceTop">
+                    <!--&lt;!&ndash; 介绍 &ndash;&gt;-->
+                    <div class="intr-box">
+                        <div class="intr-tit">
+                            中国连续7个月增持美国国债
+                        </div>
+                    	<div class="intr-con">
+                            简介：中新社华盛顿10月17日电 美国财政部17日公布的数据显示，中国今年8月份增持345亿美元的美国国债。中国今年8月份增持345亿美元的美国国债。
+                        </div>
+                        <div class="show">
+                            <i>展开</i>
+                            <img src="/static/img/live/show.png" alt="">
+                        </div>
+                    </div>
+                    <!--&lt;!&ndash; 相关视频 &ndash;&gt;-->
+                    <!--<div class="relevant-video clearfix">-->
+                        <!--<div class="rele-tit">相关视频</div>-->
+                        <!--<div class="rele-con">-->
+                            <!--&lt;!&ndash; 关联视频 &ndash;&gt;-->
+                            <!--<div class="rele-item">-->
+                                <!--<a href="">-->
+								<!--<span class="left">-->
+									<!--<img src="/static/img/live/big-img.png" alt="">-->
+									<!--<i class="label">-->
+										<!--直播中-->
+									<!--</i>-->
+									<!--<i class="v-time">-->
+										<!--08:22-->
+									<!--</i>-->
+								<!--</span>-->
+                                    <!--<span class="right">-->
+									<!--中国又一款支付应用登陆英国主要面向中国游客支付应用-->
+								<!--</span>-->
+                                <!--</a>-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash; 分割线 &ndash;&gt;-->
+                            <!--<hr>-->
+                            <!--&lt;!&ndash; 关联视频 &ndash;&gt;-->
+                            <!--<div class="rele-item">-->
+                                <!--<a href="">-->
+								<!--<span class="left">-->
+									<!--<img src="/static/img/live/big-img.png" alt="">-->
+
+									<!--<i class="v-time">-->
+										<!--08:22-->
+									<!--</i>-->
+								<!--</span>-->
+                                    <!--<span class="right">-->
+									<!--中国又一款支付应用登陆英国主要面向中国游客支付应用-->
+								<!--</span>-->
+                                <!--</a>-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash; 分割线 &ndash;&gt;-->
+                            <!--<hr>-->
+                            <!--&lt;!&ndash; 关联视频 &ndash;&gt;-->
+                            <!--<div class="rele-item">-->
+                                <!--<a href="">-->
+								<!--<span class="left">-->
+									<!--<img src="/static/img/live/big-img.png" alt="">-->
+									<!--<i class="label">-->
+										<!--预告-->
+									<!--</i>-->
+								<!--</span>-->
+                                    <!--<span class="right">-->
+									<!--中国又一款支付应用登陆英国主要面向中国游客支付应用-->
+								<!--</span>-->
+                                <!--</a>-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash; 分割线 &ndash;&gt;-->
+                            <!--<hr>-->
+                            <!--&lt;!&ndash; 关联视频 &ndash;&gt;-->
+                            <!--<div class="rele-item">-->
+                                <!--<a href="">-->
+								<!--<span class="left">-->
+									<!--<img src="/static/img/live/big-img.png" alt="">-->
+									<!--<i class="label review">-->
+										<!--回顾-->
+									<!--</i>-->
+									<!--<i class="v-time">-->
+										<!--08:22-->
+									<!--</i>-->
+								<!--</span>-->
+                                    <!--<span class="right">-->
+									<!--中国又一款支付应用登陆英国主要面向中国游客支付应用-->
+								<!--</span>-->
+                                <!--</a>-->
+                            <!--</div>-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                </div>
+
+
+				<!-- 评论 -->
+				<div class="comment">
+					<div class="com-tit">评论</div>
+
+					<div id="com-list">
+						<!--<div class="com-con">-->
+							<!--<a href="">-->
+								<!--<span class="com-left">-->
+									<!--<img src="/static/img/live/head.png" alt="">-->
+								<!--</span>-->
+								<!--<div class="com-right">-->
+									<!--<div class="c-r-top">-->
+										<!--<span class="t-left">-->
+											<!--<i class="name">	看法用户-->
+											<!--</i>-->
+											<!--<i class="time">	1天前-->
+											<!--</i>-->
+										<!--</span>-->
+										<!--<span class="t-right">-->
+											<!--3楼-->
+										<!--</span>-->
+									<!--</div>-->
+									<!--<div class="c-r-bot">-->
+										<!--这标题应该叫：侯耀文带你玩儿佛系老牛吃嫩草。-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</a>-->
+						<!--</div>-->
+						<!--&lt;!&ndash; 分割线 &ndash;&gt;-->
+						<!--<hr>-->
+						<!--<div class="com-con">-->
+							<!--<a href="">-->
+								<!--<span class="com-left">-->
+									<!--<img src="/static/img/live/head.png" alt="">-->
+								<!--</span>-->
+								<!--<div class="com-right">-->
+									<!--<div class="c-r-top">-->
+										<!--<span class="t-left">-->
+											<!--<i class="name">	看法用户-->
+											<!--</i>-->
+											<!--<i class="time">	1天前-->
+											<!--</i>-->
+										<!--</span>-->
+										<!--<span class="t-right">-->
+											<!--2楼-->
+										<!--</span>-->
+									<!--</div>-->
+									<!--<div class="c-r-bot">-->
+										<!--这标题应该叫：侯耀文带你玩儿佛系老牛吃嫩草。-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</a>-->
+						<!--</div>-->
+						<!--&lt;!&ndash; 分割线 &ndash;&gt;-->
+						<!--<hr>-->
+						<!--<div class="com-con">-->
+							<!--<a href="">-->
+								<!--<span class="com-left">-->
+									<!--<img src="/static/img/live/head.png" alt="">-->
+								<!--</span>-->
+								<!--<div class="com-right">-->
+									<!--<div class="c-r-top">-->
+										<!--<span class="t-left">-->
+											<!--<i class="name">	看法用户-->
+											<!--</i>-->
+											<!--<i class="time">	1天前-->
+											<!--</i>-->
+										<!--</span>-->
+										<!--<span class="t-right">-->
+											<!--1楼-->
+										<!--</span>-->
+									<!--</div>-->
+									<!--<div class="c-r-bot">-->
+										<!--这标题应该叫：侯耀文带你玩儿佛系老牛吃嫩草。-->
+										<!--<div class="reply">-->
+											<!--<span class="item-1">看法用户1</span>-->
+											<!--<i class="item-2">回复</i>-->
+											<!--<span class="item-3">看法用户2:</span>-->
+											<!--<span class="item-4">-->
+												<!--说的对，支持。-->
+											<!--</span>-->
+										<!--</div>-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</a>-->
+						<!--</div>-->
+						<!--&lt;!&ndash; 分割线 &ndash;&gt;-->
+						<!--<hr>-->
+						<!--<span class="all-com clearfix">已显示全部评论</span>-->
+					</div>
+					<!-- 评论框 -->
+					<div class="review-box" style="display: none;">
+					    <span class="text">
+					    	<textarea id="myComment" type="text" rows="1"  placeholder="请输入你的评论" contenteditable="true"></textarea>
+					    </span>
+						<span class="com-icon" id="comIcon">
+							<img src="/static/img/live/comment.png">
+							<sup>3</sup>
+						</span>
+						<span class="col-icon" id="comIcon">
+							<img src="/static/img/live/collection.png">
+						</span>
+						<span class="sha-icon">
+							<img src="/static/img/live/share.png">
+						</span>
+					</div>
+
+				</div>
+
+				<div style="display:none" class="share-box">
+					<div class="share">
+						<span>
+							<img src="/static/img/live/Wechat3x.png">
+							<i>微信</i>
+						</span>
+						<span>
+							<img src="/static/img/live/Friends.png">
+							<i>朋友圈</i>
+						</span>
+						<span>
+							<img src="/static/img/live/qq3x.png" alt="">
+							<i>QQ</i>
+						</span>
+						<span>
+							<img src="/static/img/live/QZone3x.png" alt="">
+							<i>QQ空间</i>
+						</span>
+						<span>
+							<img src="/static/img/live/Weibo3x.png" alt="">
+							<i>新浪微博</i>
+						</span>
+						<span>
+							<img src="/static/img/live/share-Icon.png" alt="">
+							<i>复制链接</i>
+						</span>
+					</div>
+					<a href="#" class="remove">
+						取消
+					</a>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- 分享引导 -->
+		<div ontouchmove="event.preventDefault()" class="sharing-box" style="display:none;">
+			<div class="prompt">
+				<img src="/static/img/live/sharing-2x-1.png">
+			</div>
+			<div class="figure">
+				<img src="/static/img/live/sharing-2x-2.png">
+			</div>
+		</div>
+
+	</div>
+
+
+    <script src="/static/js/global.js?v=101915"></script>
+    <script src="https://cdn.ronghub.com/RongIMLib-2.2.9.min.js"></script>
+    <script src="https://cdn.ronghub.com/RongEmoji-2.2.6.js"></script>
+    <script src="/static/js/lib/fingerprint2.min.js"></script>
+    <script src="/static/js/lib/swiper.min.js"></script>
+	<script src="/static/js/activity/live.js"></script>
+	<script>
+//		function add() {
+//	            var now = new Date();
+//	            var div = document.getElementById('chatList');
+//	            div.innerHTML = div.innerHTML + 'time_' + now.getTime() + '<br />';
+//	            div.scrollTop = div.scrollHeight;
+//	        };
+	    $(document).ready(function(){
+	    	$('#chatList').scrollTop( $('#chatList')[0].scrollHeight);
+	    })
+	</script>
+</body>
+</html>

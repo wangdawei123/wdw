@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.user.mapper.ProblemMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.user.entity.Problem" id="problemMap">
+        <result property="id" column="id"/>
+        <result property="cid" column="cid"/>
+        <result property="content" column="content"/>
+        <result property="reason" column="reason"/>
+        <result property="ops" column="ops"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUid" column="update_uid"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="stat" column="stat"/>
+        <result property="isRead" column="is_read"/>
+    </resultMap>
+
+    <select id="getCount" resultType="long">
+        SELECT
+            count(*)
+        FROM
+            kf_problem p
+        <where>
+            <if test="createUid != null">
+                p.create_uid = #{createUid}
+            </if>
+            <if test="stat != null">
+             and   p.stat = #{stat}
+            </if>
+            <if test="ops != null">
+             and   p.ops = #{ops}
+            </if>
+            <if test="isRead != null">
+             and   p.is_read = #{isRead}
+            </if>
+        </where>
+    </select>
+
+    <update id="delMyProblem">
+        UPDATE kf_problem p
+        SET p.stat = 0
+        <where>
+            <if test="id != null">
+                p.id = #{id}
+            </if>
+            <if test="uid != null">
+            AND p.create_uid = #{uid}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateRead">
+        UPDATE kf_problem
+            SET is_read = '1'
+            WHERE
+                create_uid = #{ uid }
+            AND stat = 1
+            AND ops = 1
+            AND is_read = 0
+    </update>
+
+    <select id="selectProblem" resultMap="problemMap" >
+        SELECT
+          p.*
+          FROM
+          kf_problem p
+          <where>
+              p.stat = 1
+              <if test="id != null">
+              AND p.create_uid = #{id}
+              </if>
+          </where>
+        order by p.create_time desc
+        <if test="offset != null and pcount != null">
+            limit #{offset},#{pcount}
+        </if>
+    </select>
+
+</mapper>

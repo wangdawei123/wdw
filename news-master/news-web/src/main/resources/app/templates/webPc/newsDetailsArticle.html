@@ -1,0 +1,79 @@
+    <head>
+        <meta charset="UTF-8">
+        <!--每个页面都会有的-->
+
+    <link rel="stylesheet" type="text/css" href="/static/webPc/css/article.css">
+    </head>
+    <#include "head.html" />
+<!--------------头部代码结束-------------------------------->
+<!-- 其他 hearder-->
+<div class="header">
+    <div class="w1200">
+        <div class="logo fl">
+            <h1><a href="../../../">看法网</a></h1>
+        </div>
+        <div class="fl crumbs">
+            <a href="../../../">首页</a>&nbsp;/&nbsp;文章&nbsp;/&nbsp;正文
+        </div>
+        <div class="search fr">
+            <input type="email" class="form-control search-text" id="searchText" placeholder="请输入关键词">
+            <span class="glyphicon glyphicon-search btn"></span>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+
+<div class="article-main">
+    <div class="wrap clearfix">
+        <div class="nav fl">
+            <div class="share-bar share" >
+                <ul class="sbanc" id="share-1">
+                </ul>
+            </div>
+        </div>
+
+        <div class="mainbox fr clearfix">
+            <div class="main fl">
+                <div class="article-head">
+                    <p class="tit">${content.title!"敬请期待！"}</p>
+                    <p class="tip"> 来源：${content.source!"法制晚报"}  ${content.createTime?string("yyyy-MM-dd HH:mm:ss")}</p>
+                </div>
+                <div class="article-body">
+                   <p style="text-indent: 2em; text-align: justify;">${content.contentDetail!"暂无详细内容。敬请期待！"}</p>
+                    <div>阅读数：${content.viewCount!"88"}次</div>
+                 </div>
+            </div>
+           <div class="side fr recommend-chunk">
+                <h2>热门新闻</h2>
+                <ul>
+                    <!--<li class="small-new-line small-imagetext-news" title="男子撞死7旬等车人：获刑一年 自认有点重">
+                        <a class="image-box">
+                            <img src="https://kanfaimage.oss-cn-beijing.aliyuncs.com/20180203/video_151763821268286.png?x-oss-process=image/resize,m_fill,w_750,h_422">
+                        </a>
+                        <div class="new-line-info">
+                            <a href="newsDetailsArticle.html"><h4>男子撞死7旬等车人：获刑一年 自认有点重</h4></a>
+                        </div>
+                    </li>-->
+                    <#list hots! as content>
+                        <li class="small-new-line small-imagetext-news" title="${content.title!}">
+                            <a class="image-box">
+                                <img src="${content.image!}">
+                            </a>
+                            <div class="new-line-info">
+                                <a href="${'/detail/'+ content.id + '/' + content.contentType}"><h4>${content.title!}</h4></a>
+                            </div>
+                        </li>
+                    </#list>
+                </ul>
+            </div>
+        </div>
+    </div>
+    </div></div>
+</body>
+
+
+<script src="/static/webPc/js/jquery.share.js?v=3"></script>
+<script src="/static/webPc/js/newsDetailsArticle.js"></script>
+    <#include "detailFoot.html" />
+</html>

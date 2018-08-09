@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.user.mapper.UserAuthMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.user.entity.UserAuth" id="userAuthMap">
+        <result property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="platform" column="platform"/>
+        <result property="openid" column="openid"/>
+        <result property="unionid" column="unionid"/>
+        <result property="accessToken" column="access_token"/>
+        <result property="createTime" column="create_time"/>
+        <result property="status" column="status"/>
+        <result property="gzopenid" column="gzopenid"/>
+    </resultMap>
+
+    <insert id="insertUser" parameterType="com.kanfa.news.user.vo.admin.UserAuthInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into kf_user_auth(
+                    uid,
+                    platform,
+                    openid,
+                    access_token,
+                    create_time
+                    )
+            values( #{uid},
+                    #{platform},
+                    #{openid},
+                    #{accessToken},
+                    #{createTime}
+                   )
+    </insert>
+
+</mapper>

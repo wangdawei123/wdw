@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <script src="https://static.mlinks.cc/scripts/dist/mlink.min.js"></script>
+    <title>${contentDetailInfo.title!}</title>
+
+    <link rel="stylesheet" type="text/css" href="../../../static/app/assets/web/2017-5-8/style.css?v=5555s">
+    <script type="text/javascript" src="../../../static/app/assets/web/2017-5-8/jq172.js"></script>
+    <!--{{ javascript_include('js/libs/jquery.min.js')}}-->
+    <!--图片相关插件-->
+    <link rel="stylesheet" type="text/css" href="../../../static/app/js/plugins/image/css/jquery.fancybox.css">
+    <script type="text/javascript" src="../../../static/app/js/plugins/image/js/jquery.fancybox.js"></script>
+    <!-- lazyload -->
+    <script type="text/javascript" src="../../../static/app/js/plugins/jquery.lazyload.js"></script>
+    <!-- kf相关-->
+    <script type="text/javascript" src="../../../static/js/global.js?v=1006"></script>
+
+    <!--底部打开APP相关-->
+    <link rel="stylesheet" type="text/css" href="../../../static/app/common-module/css/swiper.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../static/app/common-module/css/style.css?v=200">
+    <script type="text/javascript" src="../../../static/app/common-module/js/swiper.min.js"></script>
+    <script>
+        $(function() {
+            $("img").lazyload({effect: "fadeIn", threshold :180});
+        });
+    </script>
+    <style type="text/css">
+        html,body, div, span, img, a {
+            overflow: visible;
+        }
+        body {
+            padding: 0;
+        }
+        .main_body .img .video {
+            position: relative;
+            text-align: center;
+            margin: 15px 0;
+        }
+        .main_body .img .video .icon{
+            position: absolute;
+            width: 20%;
+            left: 40%;
+            top: 30%;
+        }
+        .main_body .img .video img{
+            margin: 0 0 5px;
+        }
+        .main_body .img .video .icon_t{
+            font-size: 12px;
+            color: #fff;
+            background: rgba(0,0,0,.6);
+            border-radius: 4px;
+            padding: 3px 5px;
+        }
+        .video .video_ico {
+            width: 100%;
+            height: 100%;
+            background: url(http://i2.sinaimg.cn/qc/subject/2016/0614/vbtn.png) center center/ auto no-repeat;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+        /*2017-8-11 添加对视频设置单独样式*/
+        .video{
+            padding: 0 16px;
+        }
+        .flash {
+            position: absolute;
+            display: none;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            background: #000;
+        }
+        video{
+            width: 100%;
+            height: 100%;
+            margin:0 auto;
+        }
+        .circle{
+            position: absolute;
+            top:0;
+            left:0;
+            right: 0;
+            bottom: 0;
+            width: 60px;
+            height: 60px;
+            /*border: 4px solid rgba(255,79,82,.3);*/
+            border-radius: 30px;
+            background: #FF4F53;
+            transition: 2s;
+            overflow: hidden;
+            /*-webkit-transform: perspective(1000);
+            -moz-transform: perspective(1000); 
+            -o-transform: perspective(1000);  
+            transform: perspective(1000);  */
+        }
+        .circle>div:nth-child(1){
+            color: white;
+            font-size: 20px;
+            text-align: center;
+            padding-top: 10px;
+            overflow: hidden;
+            height:18px;
+        }
+        .circle>div:nth-child(2){
+            color: white;
+            font-size: 12px;
+            text-align: center;
+            margin-top: 5px;
+            overflow: hidden;
+        }
+        /*图片与正文间距*/
+        .p img{
+            margin: 10px 0 10px 0;
+        }
+        /*2017-8-11 修改 属性影响插入视频样式.img{
+            border-radius: 50%;
+        }*/
+        .box{
+            position: relative;
+            width: 60px;
+            height: 60px;
+            -webkit-box-shadow: 0 0 10px #ff706b,
+            0 0 10px #ff89ac,
+            0 0 10px #ffb8f5,
+            0 0 10px #ffd9ee;
+            -moz-box-shadow: 0 0 10px #ff706b,
+            0 0 10px #ff89ac,
+            0 0 10px #ffb8f5,
+            0 0 10px #ffd9ee;
+            -ms-box-shadow: 0 0 10px #ff706b,
+            0 0 10px #ff89ac,
+            0 0 10px #ffb8f5,
+            0 0 10px #ffd9ee;
+            -o-box-shadow: 0 0 10px #ff706b,
+            0 0 10px #ff89ac,
+            0 0 10px #ffb8f5,
+            0 0 10px #ffd9ee;
+            box-shadow: 0 0 10px #ff706b,
+            0 0 10px #ff89ac,
+            0 0 10px #ffb8f5,
+            0 0 10px #ffd9ee;
+            transition: 2s;
+            border-radius: 30px;
+            margin: 0 auto 60px;
+            overflow: hidden;
+            -webkit-transform: perspective(1000);
+            -moz-transform: perspective(1000); 
+            -o-transform: perspective(1000);  
+            transform: perspective(1000);  
+        }
+
+        .boxShadow_style{
+            position: relative;
+            width: 60px;
+            height: 60px;
+            -webkit-box-shadow: 0 0 10px #d5d5d2,
+            0 0 10px #e1e1e1,
+            0 0 10px #efefef,
+            0 0 10px #f4f4f4;
+            -moz-box-shadow: 0 0 10px #d5d5d2,
+            0 0 10px #e1e1e1,
+            0 0 10px #efefef,
+            0 0 10px #f4f4f4;
+            -ms-box-shadow: 0 0 10px #d5d5d2,
+            0 0 10px #e1e1e1,
+            0 0 10px #efefef,
+            0 0 10px #f4f4f4;
+            -o-box-shadow: 0 0 10px #d5d5d2,
+            0 0 10px #e1e1e1,
+            0 0 10px #efefef,
+            0 0 10px #f4f4f4;
+            box-shadow: 0 0 10px #d5d5d2,
+            0 0 10px #e1e1e1,
+            0 0 10px #efefef,
+            0 0 10px #f4f4f4;
+            transition: 2s;
+            border-radius: 30px;
+            margin: 0 auto 60px;
+            overflow: hidden;
+            -webkit-transform: perspective(1000);
+            -moz-transform: perspective(1000); 
+            -o-transform: perspective(1000);  
+            transform: perspective(1000); 
+
+        }
+        .main_body{
+            padding-bottom: 1.5rem;
+            background: rgba(0,0,0,0);
+        }
+        .h3,.h2{
+            width: 70%;
+        }
+        .h3:before,.h2:before,.h2:after,.h3:after{
+            background: white;
+        }
+        /*两端对齐*/
+        .ft-size-2 .main_body p{
+            text-align: justify;
+            word-break: break-word;
+        }
+        /*.ft-size-2 .main_body p{
+            margin-top: 20px;
+
+        }*/
+        .module_5 .li .reply{
+            margin-top: 20px;
+        }
+        /*段间距*/
+        .p>div p{
+            margin-top: 20px;
+        }
+
+        .iframe-style{
+            width: 100%;
+            height: 80px;
+            background: #81d8d0;
+            border: 0;
+        }
+        .footer-wraper{
+            height:0;
+        }
+        .readall_box {
+            position: relative;
+            z-index: 999;
+            text-align: center;
+            margin-top: -106px;
+            display: none;
+        }
+        .readall_box .read_more_mask{
+            height: 96px;
+            background: -moz-linear-gradient(bottom,rgba(238,238,238,0),rgba(255,255,255,1));
+            background: -webkit-gradient(linear,0 top,0 bottom,from(rgba(238,238,238,0)),to(#fff));
+            background: -o-linear-gradient(bottom,rgba(238,238,238,0),rgba(255,255,255,0));
+        }
+        .readall_box .read_more_btn{
+            font-size:14px !important;
+            color:#CD2525;
+            text-align: center;
+            padding-bottom: 50px;
+            background: rgba(0,0,0,0);
+        }
+        video::-webkit-media-controls-fullscreen-button {
+            display: none !important;
+        }
+    </style>
+</head>
+<body class="ft-size-${fontsize}">
+ <img src="../../../static/app/assets/web/img/temp12.jpg" alt="" style="display:none;" >
+    <!--{% autoescape true %}-->
+    <div class="main_body">
+        <!-- 头部模块 -->
+        <!--{%if (_GET['share']==1) %}
+        <div id="header-wrapper">
+            &lt;!&ndash; 头部引流模块 &ndash;&gt;
+            <div class="modular-header">
+                <div class="modular-content">
+                    <div class="left-side">
+                        <img src="http://kanfatest.oss-cn-beijing.aliyuncs.com/png/1114/logo_2x.png">
+                    </div>
+                    <div class="right-side">
+                        <a id="btnOpenApp1" href="javascript:void(0);" title="">下载App</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {%endif%}-->
+        <script>
+            var link='https://aih3gj.mlinks.cc/A0Eh?articleDetail?cid=:cid&url=:url&from=h5';//短链地址
+
+            var options = [
+                {
+                    mlink: "A060",
+                    button: document.querySelector('a#btnOpenApp1'),
+                    autoLaunchApp : false,
+                    autoRedirectToDownloadUrl: true,
+                    downloadWhenUniversalLinkFailed: false,
+                    inapp : false,
+                    params: {
+                        cid:'${contentDetailInfo.id!}',
+                        url:'',
+                        from:'h5'
+                    },
+                }
+            ];
+            //new Mlink(options);
+        </script>
+        <script>
+            // 页面缩放
+            /*fnViewScale();
+            function fnViewScale(){
+                var wrapper = $("#header-wrapper")[0];
+                var sreenWidth = document.body.clientWidth;
+                var iScale = sreenWidth/320;
+                console.info(wrapper);
+                wrapper.style.transform = "scale("+iScale+")";
+                wrapper.style.webkitTransform = "scale("+iScale+")";
+            }
+            window.onresize = function(){
+                fnViewScale();
+            }*/
+        </script>
+        <div class="title" style="font-size: 26px">
+
+            <#if (contentDetailInfo.longTitle)!="">
+                ${contentDetailInfo.longTitle!}
+            <#else>
+                ${contentDetailInfo.title!}
+            </#if>
+        </div>
+        <div class="resouce">${contentDetailInfo.source!}&nbsp;&nbsp;&nbsp;${contentDetailInfo.createTime!}</div>
+        <div class="desc" style="text-align: justify;width: 90%;height: 2px;border-bottom: 1px solid #EFEEEF;overflow: hidden;margin-left: 2%;">
+            ${contentDetailInfo.introduction!}
+        </div>
+        <!--{% endautoescape %}-->
+        <#list contentDetailInfo.extent as list>
+            <#if list.video!="">
+            <div class="img">
+                <div class="video">
+                        <img src="${list.video_img!}" alt="" class="i">
+                        <div class="video_ico" data-id="flash"></div>
+                        <div class="flash" id="flash">
+                            <video id="appVideo" style="background:#000;" src="${list.video!}" poster="" controls="" preload="true"></video>
+                        </div>
+                </div>
+            </div>
+            </#if>
+        </#list>
+        <div class="p news-content">
+            <div style="height: auto;text-align:justify;">
+                ${contentDetailInfo.contentDetail!}
+            </div>
+            <div style="width: 100%;height: auto;border: 1px solid red;visibility: hidden">
+                <div>New</div>
+            </div>
+        </div>
+
+        <!--分享页面且原创-->
+        <!-- {%if (_GET['share']==1) %}
+        {%if (_GET['original']==1) %}
+        <div class="readall_box">
+            <div class="read_more_mask"></div>
+            <div class="read_more_btn" id="btnOpenApp4">请前往看法新闻阅读全文 ></div>
+        </div>
+        {%endif%}
+        {%endif%} -->
+        <!-- <script>
+            $(function () {
+                if("{{_GET['share']}}" == 1 && "{{_GET['original']}}" == 1 ){
+                    var mainHeight = $('.main_body').height();
+                    if(mainHeight > $(window).height()){
+                        $('.main_body .p').css({
+                            'height': $(window).height() + 'px',
+                            'overflow': 'hidden'
+                        });
+                        $('.readall_box').show();
+
+                        // 打开app
+                        var link='https://aih3gj.mlinks.cc/A0Eh?articleDetail?cid=:cid&url=:url&from=h5';//短链地址
+                        var options = [
+                            {
+                                mlink: "A060",
+                                button: document.querySelector('#btnOpenApp4'),
+                                autoLaunchApp : false,
+                                autoRedirectToDownloadUrl: true,
+                                downloadWhenUniversalLinkFailed: false,
+                                inapp : false,
+                                params: {
+                                    cid:'{{params['cid']}}',
+                                    url:'{{appUrl}}',
+                                    from:'h5'
+                                },
+                            }
+                        ];
+                        new Mlink(options);
+
+                    }else {
+                        $('.main_body .p').css({
+                            'height': 'auto'
+                        });
+                        $('.readall_box').hide();
+                    }
+                }
+
+            })
+        </script> -->
+
+        <!--<div class="module_10">-->
+            <!--<div class="rx_btn center">-->
+                <!--<div class="con" data-id="{{data['id']}}" ></div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--{%if (_GET['share']!=1) %}-->
+        <#if (original==1)>
+        <!--  <div class="resouce">阅读数：{{data['views']}}</div> -->
+        <div style="overflow: hidden;" class="box">
+            <div class="circle" data-id="${contentDetailInfo.id}">
+                <div>赞</div>
+                <div id="circle_num">${contentDetailInfo.loveNum!}</div>
+            </div>
+        </div>
+        </#if>
+        <!--{%endif%}-->
+
+        <!-- 内容投诉 + 点赞 -->
+        <!-- <div class="footer-hr"></div>
+        <div class="footer-col-1">
+            <div class="footer-col-1-l">
+                <a href="javascript:">内容投诉</a>
+            </div>
+            <div class="footer-col-1-r">
+                <span id="heart" class=""></span>
+                <span id="heart_num">{{data['loves']}}<em>+</em></span>
+            </div>
+        </div> -->
+        <!-- <div class="stall"></div>
+        <div class="footer-col-2">
+            <div class="footer-col-2-t">
+                <a href="#">
+                   <img src="http://www.loveo.cc/wp-content/uploads/2017/07/advert.png" alt="">
+                </a>
+            </div>
+            <div class="footer-col-2-b">广告</div>
+        </div> -->
+        <!-- <div class="stall"></div> -->
+        <#if (contentDetailInfo.bindList)??  && ((contentDetailInfo.bindList)?size > 0)>
+        <div class="footer-col-3">
+            <div class="recommend">
+                <span class="col-icon"></span>
+                热门内容推荐
+            </div>
+            <ul>
+                <#list contentDetailInfo.bindList as bind>
+                <li>
+                    <a href="javascript:;" class="detail_link" content_id="${bind.id!}" content_url="${bind.url!}">${bind.title!}</a>
+                    <!-- <a href="{{v['url']}}">{{v['title']}}</a> -->
+                </li>
+                </#list>
+            </ul>
+        </div>
+        </#if>
+        <!-- <div class="stall"></div> -->
+        <!-- <div class="footer-col-4">
+            <div class="comment-col">
+                <span class="col-icon"></span>
+                评论
+            </div>
+        </div> -->
+
+
+
+
+        <!-- <div class="footer-other-hr"></div> -->
+        <!-- <div class="all-comment">已显示全部评论</div> -->
+
+        <!-- 内容投诉 + 点赞 - 完 -->
+
+    </div>
+    <div class="stall"></div>
+    <!--&lt;!&ndash; 判断链接中包含‘share’且为非原创文章 &ndash;&gt;
+    {%if (_GET['share']==1) %}
+     <div class="footer-wraper">
+         &lt;!&ndash; Swiper &ndash;&gt;
+         <div class="swiper-container">
+             <div class="swiper-wrapper">
+
+                 {%for k,v in data['activitys']%}
+                 <div class="swiper-slide">
+                     <img src="{{v['ico']}}" alt="">
+                     <span>{{v['title']}}</span>
+                 </div>
+                 {%endfor%}
+             </div>
+             &lt;!&ndash; Add Pagination &ndash;&gt;
+             <div class="swiper-pagination"></div>
+         </div>
+
+         <a id="btnOpenApp2" href="javascript:void(0);" class="footer-download">打开</a>
+     </div>
+    {%endif%}-->
+
+    <!--<script>
+
+        $(function () {
+
+            //打开APP
+            if("{{_GET['share']}}" == 1){
+                var link='https://aih3gj.mlinks.cc/A0Eh?articleDetail?cid=:cid&url=:url&from=h5';//短链地址
+
+                var options = [
+                    {
+                        mlink: "A060",
+                        button: document.querySelector('a#btnOpenApp2'),
+                        autoLaunchApp : false,
+                        autoRedirectToDownloadUrl: true,
+                        downloadWhenUniversalLinkFailed: false,
+                        inapp : false,
+                        params: {
+                            cid:'{{params['cid']}}',
+                            url:'{{appUrl}}',
+                            from:'h5'
+                        },
+                    }
+                ];
+                new Mlink(options);
+
+                var mainHeight = $('.main_body').outerHeight();
+                var winHeight = $(window).height();
+                if(mainHeight > winHeight){
+                    $('.footer-wraper').height(0);
+                    $(window).scroll(function () {
+                        if($(this).scrollTop() + window.screen.height >= $('.main_body').height()){
+                            $('.footer-wraper').height('3.8rem');
+                            $('.main_body').css({
+                                'padding-bottom': '4rem'
+                            })
+                        } else {
+                            $('body').css({
+                                'padding-bottom': '0'
+                            })
+                            $('.footer-wraper').height(0);
+                        }
+                    });
+
+                }else {
+                    $('.footer-wraper').height('3.8rem');
+                }
+
+                if("{{_GET['activity']}}" == 1){
+                    //原创：轮播图
+                    var swiper = new Swiper('.swiper-container', {
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true,
+                            renderBullet: function(index, className){
+                                return '<span class="' + className + '"></span>';
+                            }
+                        },
+                        direction : 'horizontal',
+                        loop: true,
+                        autoplay: {
+                            delay: 2500,
+                            disableOnInteraction: false,
+                        },
+                        speed: 300,
+                    })
+                }
+
+            }
+
+        })
+
+
+    </script>-->
+
+
+    <#if (contentDetailInfo.commentList)?? && ((contentDetailInfo.commentList)?size>0)>
+    <div class="module_5">
+        <div class="recommend">
+        <span class="col-icon"></span>
+        评论
+        </div>
+        <div class="footer-hr"></div>
+        <div class="ul module_5ul">
+            <#list contentDetailInfo.commentList as comment>
+            <!--<a href="fawan://detail/news/comment/{{data['id']}}?username={{v['user']['name']}}">-->
+            <!--<a href="javascript:void(0)" onclick="kf.addToAppComment(${contentDetailInfo.id!},'${comment.user.name!}')" style="display: block;">-->
+            <a href="javascript:void(0)" onclick="addToComment(${contentDetailInfo.id!},'${comment.user.name!}')" style="display: block;">
+                <div class="li">
+                    <div class="head">
+                        <div class="img" style="border-radius: 50%;;height: 30px">
+                            <img style="border-radius: 50%" src="${comment.user.image!}" alt="">
+                        </div>
+                        <div style="width: 300px;" class="name">${comment.user.name!}
+                            <div class="time">${comment.create_time!}</div>
+                        </div>
+                        <div class="rl">${contentDetailInfo.commentCount-comment_index!}楼</div>
+                    </div>
+                    <#if (comment.comment)?? && ((comment.comment)?size>0)>
+                        <#list comment.comment as pComment>
+                            <div class="reply">
+                                <a href="javascript:void(0)" class="other">@${pComment.user.name!}</a>：${pComment.user.content!}
+                            </div>
+                            <div class="reply">
+                                ${pComment.content!}
+                            </div>
+                        </#list>
+                    </#if>
+                    <div class="con" style="color:black;">
+                        ${comment.content!}
+                    </div>
+                </div>
+            </a>
+            </#list>
+        </div>
+        <a href="javascript:void(0);" class="more h3 more1" style="display:none;font-size:16px;">
+            查看更多评论
+        </a>
+        <!--<a href="javascript:void(0);" class="more h3 more2" style="display:none;">-->
+            <!--完-->
+        <!--</a>-->
+    </div>
+    </#if>
+
+    <script>
+        //相关内容跳转
+        $(function(){
+            function addToComment(id,name){
+                var tim = setInterval(function(){
+                    if(kf.addNewsComment){
+                        //结束循环调用评论接口更新评论数据以及更新数据
+                        window.flag_m2 = false;
+                        pinglun_m2(window.page_m2,1);
+                        kf.addNewsComment = false;
+                        clearInterval(tim);
+                    }
+                },1000)
+                kf.addToAppComment(id,name)
+            }
+
+            $(".detail_link").click(function(event){
+                var cid = $(this).attr('content_id');
+                var url = $(this).attr('content_url');
+                var title = $(this).text();
+
+                if((typeof(window.kfApp) == 'object') || kf.App){
+                    kf.relatedNews(parseInt(cid),url,title);
+                }else{
+                    window.location.href = url;
+                }
+            });
+        });
+        // alert({{ data['source_type'] }}); 输出是否原创文章
+    </script>
+
+    <script>
+        'use strict';
+        var _CONST_ = {
+            cid: "${contentDetailInfo.id!}",
+            maxnum: "${contentDetailInfo.commentCount!}",
+            commentsMore: true,
+            refresh: "10",
+            uid: "${contentDetailInfo.uid!}",
+            likeUrl: "/news/ajaxAdd",
+            is_love: "${contentDetailInfo.isLove!}",
+            devid:"${contentDetailInfo.devid!}",
+            uuid:"${contentDetailInfo.uuid!}"
+        };
+
+        // 心型点赞$(function(){
+        //     var Num = parseInt({{data['loves']}});
+        //     $("#heart").on("click",function(){
+        //         if($(this).hasClass("change")){
+        //             layer.msg('您已经点过赞了~')
+        //             return false;
+        //         }
+
+        //         var uuid = _CONST_.uuid;
+        //         $.ajax({
+        //             url: _CONST_.likeUrl,
+        //             type: 'POST',
+        //             data: {
+        //                 cid: _CONST_.cid,
+        //                 uuid: uuid,
+        //                 devID: _CONST_.devid
+        //             },
+        //             success: function (response) {
+        //                 if (response.error_code === 0) {
+        //                     Num=Num+1;
+        //                     $("#heart").next('span').html(Num);
+        //                     $("#heart").addClass("change");
+        //                 } else if (response.error_code == 2) {
+        //                     layer.msg(response.error_msg);
+        //                     $("#heart").removeClass("change");
+        //                 } else {
+        //                     layer.msg(response.error_msg);
+        //                     $("#heart").removeClass("change");
+        //                 }
+        //             }
+        //         });
+        //     })
+        // })
+        /* $(function(){
+         var Num = parseInt({{data['loves']}});
+         $("#heart").on("click",function(){
+         Num = Num + 1;
+         $(this).next('span').html(Num);
+         $(this).addClass("change");
+         })
+         })*/
+//        console.debug(_CONST_.devid);
+//        console.debug(_CONST_.uuid);
+        //调节字号
+        var font = function(type){
+            $('body').removeClass('ft-size-2 ft-size-3 ft-size-4').addClass('ft-size-'+type);
+        };
+        //视频处理
+        $('.video_ico').on('click', function () {
+            var that = $(this);
+            $('#'+that.attr('data-id')).show();
+            $(this).parent().find('img').attr('style', 'visibility: hidden;')
+            setTimeout(function () {
+                $('#'+that.attr('data-id')+' video').attr('autoplay', 'true').attr('preload', 'true').get(0).play();
+            }, 100);
+
+            var playCount = 0;
+            var inApp = (kf.isInApp() || kf.App)? 'in': 'out';
+            var obj = {id: "${contentDetailInfo.id!}", type: 1, locf: inApp};
+            if(kf.isInApp() || kf.App){
+                obj.fromApp = 1;
+            }
+            $('video')[0].addEventListener("play",function(){
+                playCount++;
+                console.log("playing");
+
+                if(playCount == 1){
+                    // 更新页面视频播放量 type:1视频 2直播  fromApp:1app
+                    kf.post('/web/content/videoView', obj, null, function (res) {
+                        console.log('videoplayupdate');
+                        if(res.error_code){
+                            console.log(res.error_msg);
+                            return;
+                        }
+                    }, null, function (err) {
+                        console.log(err);
+                    });
+                }
+            })
+        });
+
+        //分享页图片js放大，apph5页面schema放大
+        var share = "{{_GET['share']}}";
+        if(share){
+//            //图片放大相关插件
+//            $(document).ready(function () {
+//                $('img').fancybox();
+//            });
+//            $("[href^='fawan://']").attr("href", "javascript:void(0)");
+        }else{
+            //内容的所有图片
+//            var imgs = document.querySelectorAll('.p p img'),
+//                    len  = imgs.length,
+//                    str  = [];
+//            if(len){
+//                for (var i = 0; i < len; i++){
+//                    str.push(imgs[i].dataset['original']);
+//                }
+//                str = str.toString();
+//                for(var ix = 0; ix < len; ix++){
+//                    var frag = document.createDocumentFragment(),
+//                            a    = document.createElement('a'),
+//                            img  = imgs[ix],
+//                            p    = imgs[ix].parentNode;
+//                    a.href = 'fawan://detail/images/' + ix + '?url=['+ str +']';
+//                    a.appendChild(imgs[ix]);
+//                    frag.appendChild(a);
+//                    p.appendChild(frag);
+//                }
+//            }
+        }
+        // 心型点赞 $(function(){
+        //     var is_love = _CONST_.is_love;
+        //     if (is_love == 1) {
+        //         $('#heart').addClass("change");
+        //     }
+        // })
+        $(function(){
+            var is_love = _CONST_.is_love;
+            if (is_love == 2) {
+                $(".box").on("click",function(){
+                    $(".circle").css("background","#CCC");
+                    $(".circle").css("-webkit-transform","rotateY(360deg)");
+                    $(".circle").css("-moz-transform","rotateY(360deg)");
+                    $(".circle").css("-ms-transform","rotateY(360deg)");
+                    $(".circle").css("-o-transform","rotateY(360deg)");
+                    $(".circle").css("transform","rotateY(360deg)");
+                    $(this).addClass("boxShadow_style");
+                })
+            }
+        })
+
+    </script>
+    <script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script type="text/javascript" src="../../../static/js/libs/weixin.js"></script>
+    <script type="text/javascript">
+        var appId = "${contentDetailInfo.signPackage.appId!}";
+        var timestamp = "${contentDetailInfo.signPackage.timestamp!}";
+        var nonceStr = "${contentDetailInfo.signPackage.nonceStr!}";
+        var signature = "${contentDetailInfo.signPackage.signature!}";
+        var title = "${contentDetailInfo.share.title!}";
+        var desc = "${contentDetailInfo.share.desc!}";
+        var link = "${contentDetailInfo.share.link!}";
+        var imgUrl = "{${contentDetailInfo.share.imgUrl!}";
+        var wechat=new wechat(appId,timestamp,nonceStr,signature);
+            wechat.share(title,desc,link,imgUrl);
+    </script>
+    <script type="text/javascript">
+        var imgs_arr=[],imgs_obj={},domain='${domain!}';
+        $(".news-content img").each(function(i,e){
+            var src=$(e).data('original')?$(e).data('original'):$(e).attr('src');
+            if(!/^(http(s?):)?\/\//.test(src)){
+                src=domain+src;
+            }
+            Object.defineProperty(imgs_obj,src,{value:i,enumerable:true})
+            imgs_arr.push(src);
+        })
+        $(".news-content").on('click','img',function(){
+            var src=$(this).data('original')?$(this).data('original'):$(this).attr('src');
+            if(!/^(http(s?):)?\/\//.test(src)){
+                src=domain+src;
+            }
+//            if(typeof(window.kfApp)=='object' && typeof(kfApp.showPic)=='function'){
+//                kfApp.showPic(imgs_obj[src],JSON.stringify({urls:imgs_arr}));
+//            }
+            kf.showPic(imgs_obj[src],JSON.stringify({urls:imgs_arr}))
+        })
+
+    </script>
+    <script type="text/javascript" src="../../../static/app/assets/web/suyi/add_like.js?ver=${nowtime!}"></script>
+    <script type="text/javascript" src="../../../static/app/assets/web/layer/layer.js"></script>
+    <script type="text/javascript" src="../../../static/app/assets/web/suyi/comment.js?ver=${nowtime!}"></script>
+</body>
+</html>

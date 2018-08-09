@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0">
+    <title>{{obj['title']}}</title>
+    <link rel="stylesheet" type="text/css" href="//g.alicdn.com/de/prismplayer/1.9.9/skins/default/index-min.css">
+    <script src="//g.alicdn.com/de/prismplayer/1.9.9/prism-min.js"></script>
+    <script src="../../static/js/jquery-1.11.1.min.js"></script>
+    <script>
+    function InitPlayer(){
+    var player = new prismplayer({
+        id: "J_prismPlayer",    // 容器id
+//        source: "{{obj['live_url']}}",  // 视频url 支持互联网可直接访问的视频地址
+//        cover:"{{obj['image']}}",
+        autoplay: true,       // 自动播放
+        width: "100%",        // 播放器宽度
+        height: "40%"      // 播放器高度
+    });
+    }
+    </script>
+
+    {{ stylesheet_link('../static/css/style.css?v=2888') }}
+    {{ javascript_include('../static/js/jq172.js') }}
+    <style type="text/css">
+    .prism-big-play-btn{
+        position: absolute !important;
+        left: 40% !important; 
+        bottom: 80px !important;
+    }
+    body{
+        background: rgb(28,28,28);
+    }
+    .main_body {
+        margin: 0 20px;
+        padding: 10px 0px;
+        border-bottom: 1px solid #2d2d2d;
+        background: transparent;
+    }
+    .main_body .tit {
+        font-size: 16px;
+        color: #fff;
+        line-height: 20px;
+    }
+    .module_8 {
+        position: relative;
+        border-top: none;
+        border-bottom: none;
+        padding: 10px 0 0;
+        margin: 0;
+        background: transparent;
+    }
+    .module_8 .con{
+        background: transparent;
+    }
+    .module_8 .pic_txt_li .right .text{
+        color: #fff;
+    }
+    .module_8 .h5{
+        height: 45px;
+        line-height: 45px;
+        background: rgb(245,246,246);
+        padding: 0 0 0 20px;
+        font-size: 14px;
+        color: #333333;
+    }
+    .module_8 .pic_txt_li .img {
+        margin: 1px 20px 0 0 ;
+    }
+    .module_8 .pic_txt_li .right {
+        padding: 0px 0px 10px 0px;
+    }
+    .module_8 .con {
+        padding: 1px 20px 0;
+        margin: 0;
+    }
+    .module_8 .pic_txt_li.line {
+        border-bottom: 1px solid #2d2d2d;
+    }
+    .module_8 .pic_txt_li .right .text2 .r.c5 {
+        border-radius: 3px;
+        font-size: 10px;
+        color: #fff;
+        padding: 0 4px 0 22px;
+        border-radius: 3px;
+        background: url(../static/images/2017-5-8/img/video5.png) 4px center/auto 12px no-repeat #4968E2;
+    }
+    .module_8 .pic_txt_li .right .text2 .r.c6 {
+        border-radius: 3px;
+        font-size: 10px;
+        color: #fff;
+        padding: 0 4px 0 22px;
+        border-radius: 3px;
+        background: url(../static/images/2017-5-8/img/video6.png) 4px center/auto 12px no-repeat #FF4F53;
+    }
+    .module_8 .pic_txt_li .right .text2 .r.c7 {
+        border-radius: 3px;
+        font-size: 10px;
+        color: #fff;
+        padding: 0 4px 0 22px;
+        border-radius: 3px;
+        background: url(../static/images/2017-5-8/img/video7.png) 4px center/auto 12px no-repeat #666666;
+    }
+    .module_8 .pic_txt_li .right .text2 .r.c8 {
+        border-radius: 3px;
+        font-size: 10px;
+        color: #999;
+        padding: 0 4px 0 19px;
+        border-radius: 3px;
+        background: url(../static/images/2017-5-8/img/ico1.png) 4px center/auto 12px no-repeat rgba(0,0,0,0.60);
+        border: 1px solid #979797;
+    }
+
+
+   /*添加未审核弹出提示*/
+    .prompt-dowload{
+        width: 100%;
+        height: 100%;
+        background:rgba(0,0,0,.8);
+        text-align:center;
+        position: fixed;
+        top: 0;
+        z-index: 999;
+    }
+    .prompt{
+        display:inline-block;
+        width:80%;
+        text-align:center;
+        color:#fff;
+        font-size:1rem;
+        z-index: 1000;
+        margin:7rem auto 0;
+    }
+    .download-box{
+        width: 100%;
+        height: auto;
+        margin: 1rem auto 0;
+        display: inline-block;
+        z-index: 1000;
+    }
+    .btn-dowload{
+        display:inline-block;
+        background:#fff;
+        color:#333;
+        padding:.5rem 1.2rem;
+        border-radius:.3rem;
+        margin:1rem auto;
+        z-index: 1000;
+    }
+    </style>
+
+    <script src="https://static.mlinks.cc/scripts/dist/mlink.min.js"></script>
+    <!-- 头部模块样式 -->
+    <!--底部打开APP相关-->
+    {{ stylesheet_link('../common-module/swiper.min.css') }}
+    {{ stylesheet_link('../common-module/style.css') }}
+</head>
+<body >
+
+    <!-- 头部模块 -->
+    {%if (_GET['share']==1) %}
+    <div id="header-wrapper">
+        <!-- 头部引流模块 -->
+        <div class="modular-header">
+            <div class="modular-content">
+                <div class="left-side">
+                    <img src="http://kanfatest.oss-cn-beijing.aliyuncs.com/png/1114/logo_2x.png">
+                </div>
+                <div class="right-side">
+                    <a id="btnOpenApp1" href="javascript:void(0);" title="">下载App</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    {%endif%}
+
+    <script>
+        var link='https://aih3gj.mlinks.cc/Adif?livePageCourtDetail?cid=:cid&live_type_id=:live_type_id&from=h5';//短链地址
+
+        var options = [
+            {
+                mlink: "Adif",
+                button: document.querySelector('a#btnOpenApp1'),
+                autoLaunchApp : false,
+                autoRedirectToDownloadUrl: true,
+                downloadWhenUniversalLinkFailed: false,
+                inapp : false,
+                params: {
+                    cid:"{{obj['live_id']}}",
+                    live_type_id:"{{obj['live_type_id']}}",
+                    from:'h5'
+                },
+            }
+        ];
+        new Mlink(options);
+    </script>
+    <script>
+        // 页面缩放
+        fnViewScale();
+        function fnViewScale(){
+            var wrapper = $("#header-wrapper")[0];
+            var sreenWidth = document.body.clientWidth;
+            var iScale = sreenWidth/320;
+
+            wrapper.style.transform = "scale("+iScale+")";
+            wrapper.style.webkitTransform = "scale("+iScale+")";  
+        }
+        window.onresize = function(){
+            fnViewScale();
+        }
+    </script>
+    <div id='J_prismPlayer' class='prism-player'></div>
+    
+
+    <div class="main_body">
+        <div class="tit">
+            {{obj['title']}}
+        </div>
+    </div>
+
+
+   <!-- 判断链接中包含‘share’且为非原创文章 -->
+    {%if (_GET['share']==1) %}
+    <div class="footer-wraper">
+        <!-- Swiper -->
+        <div style="overflow:hidden;" class="swiper-container">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                    <img src="http://kanfatest.oss-cn-beijing.aliyuncs.com/png/1114/App%20Icon_2x.png" alt="">
+                    <span>更多独家内容请打开或下载继续观看</span>
+                </div>
+            </div>
+
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <a href="javascript:void(0);" class="footer-download" id="btnOpenApp2">打开</a>
+    </div>
+    {%endif%}
+    <script>
+        var link='https://aih3gj.mlinks.cc/Adif?livePageCourtDetail?cid=:cid&live_type_id=:live_type_id&from=h5';//短链地址
+
+        var options = [
+            {
+                mlink: "Adif",
+                button: document.querySelector('a#btnOpenApp2'),
+                autoLaunchApp : false,
+                autoRedirectToDownloadUrl: true,
+                downloadWhenUniversalLinkFailed: false,
+                inapp : false,
+                params: {
+                    cid:"{{obj['live_id']}}",
+                    live_type_id:"{{obj['live_type_id']}}",
+                    from:'h5'
+                },
+            }
+        ];
+        new Mlink(options);
+    </script>
+
+    <!--绑定数据展示-&#45;&#45;&#45;&#45;暂留
+    {% if obj['bind'] %}
+    <div class="module_8">
+        <div class="con">
+            {% for k,v in obj['bind'] %}
+            <a href="{{v['share_url']}}" class="pic_txt_li line">
+                {% if v['image'] %}
+                <div class="img">
+                    <img src="{{v['image']}}" alt="">
+                    <div class="ico"></div>
+                </div>
+                {%endif%}
+                <div class="right">
+                    <div class="text">{{v['title']}}</div>
+                    <div class="text2">
+                        <div class="l">{{v['source']}}</div>
+                        <div class="r">{{v['views']}}阅读</div>
+                        {%if v['duration']%}
+                        <div class="r c8">{{v['duration']}}</div>
+                        {%endif%}
+                        {%if v['type'] == 9%}
+                        {% for n,m in v['tags'] %}
+                        <div class="r c{{v['ctype']}}">{{m['name']}}</div>
+                        {% endfor %}
+                        {%endif%}
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}-->
+    <script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script type="text/javascript" src="../../static/js/weixin.js"></script>
+    <script type="text/javascript">
+        var appId = "{{signPackage['appId']}}";
+        var timestamp = "{{signPackage['timestamp']}}";
+        var nonceStr = "{{signPackage['nonceStr']}}";
+        var signature = "{{signPackage['signature']}}";
+        var title = "{{share['title']}}";
+        var desc = "{{share['desc']}}";
+        var link = "{{share['link']}}";
+        var imgUrl = "{{share['imgUrl']}}";
+        var wechat=new wechat(appId,timestamp,nonceStr,signature);
+            wechat.share(title,desc,link,imgUrl);
+    </script>
+    {{ javascript_include('../static/js/common.js?v=2018') }}
+    <script type="text/javascript">InitPlayer()</script>
+    <!-- 百度统计代码 -->
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "https://hm.baidu.com/hm.js?f629854132f3cfafdb620261198d53b0";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+</body>
+</html>

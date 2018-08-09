@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.data.mapper.XmCommentMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.data.entity.XmComment" id="xmCommentMap">
+        <result property="id" column="id"/>
+        <result property="cid" column="cid"/>
+        <result property="type" column="type"/>
+        <result property="pid" column="pid"/>
+        <result property="pUid" column="p_uid"/>
+        <result property="content" column="content"/>
+        <result property="loves" column="loves"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="createUser" column="create_user"/>
+        <result property="createDevid" column="create_devid"/>
+        <result property="createIp" column="create_ip"/>
+        <result property="sens" column="sens"/>
+        <result property="ops" column="ops"/>
+        <result property="read" column="read"/>
+        <result property="stat" column="stat"/>
+        <result property="commentId" column="comment_id"/>
+    </resultMap>
+
+</mapper>

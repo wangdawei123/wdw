@@ -1,0 +1,1321 @@
+@charset "UTF-8";
+body, blockquote, fieldset, textarea, button, legend, select,
+input, label, table, thead, tbody, tfoot, form, img, pre,
+ul, ol, li, dl, dt, dd, tr, th, td, h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+  padding: 0; }
+
+body, button, input, select, textarea {
+  font: 14px/16px "PingFang","Source Han Sans CN","\5B8B\4F53","Arial Narrow";
+  -webkit-text-size-adjust: 100%; }
+
+address, cite, code, var, em, th {
+  font-weight: normal;
+  font-style: normal; }
+
+input[type="text"]:focus, input[type="password"]:focus {
+  outline: none; }
+
+button, input, select, textarea {
+  font-size: 100%; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%; }
+
+select, input, img {
+  vertical-align: middle; }
+
+input, button {
+  -webkit-appearance: none; }
+
+input, textarea, button {
+  outline: none; }
+
+fieldset, img {
+  border: 0; }
+
+ul, ol {
+  list-style: none; }
+
+li {
+  list-style-type: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+p {
+  word-wrap: break-word; }
+
+a {
+  text-decoration: none; }
+
+a:link, a:visited, a:hover, a:active, a:focus {
+  text-decoration: none; }
+
+a {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-background: transparent; }
+
+textarea {
+  box-shadow: 0px 0px 0px transparent;
+  -webkit-background: transparent;
+  -webkit-appearance: none; }
+
+html, body {
+  margin: 0 auto; }
+
+html {
+  overflow-x: hidden; }
+
+/* ------------------------------------------- 
+* HTML5 Display-Role Reset For Older Browsers 
+--------------------------------------------*/
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+.clearfix {
+  zoom: 1; }
+
+.clearfix:after {
+  clear: both;
+  content: "";
+  display: block;
+  height: 0;
+  line-height: 0;
+  visibility: hidden; }
+
+.hide {
+  display: none; }
+
+body {
+  background: #ffffff;
+  -webkit-overflow-scrolling: touch; }
+
+* {
+  -webkit-overflow-scrolling: touch; }
+
+.ovfHiden {
+  overflow: hidden;
+  height: 100%;
+  position: relative; }
+
+#law {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch; }
+  #law .header {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 2.66667rem;
+    height: auto; }
+    #law .header img {
+      width: 100%;
+      height: 100%; }
+  #law .tap {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    margin: -0.98667rem auto 0;
+    position: relative;
+    z-index: 1;
+    -webkit-overflow-scrolling: touch; }
+    #law .tap .tap-title {
+      width: 100%;
+      height: 0.98667rem;
+      background: rgba(255, 255, 255, 0.83);
+      border-radius: 0.18667rem 0.18667rem 0 0; }
+      #law .tap .tap-title span {
+        width: 50%;
+        line-height: 0.98667rem;
+        float: left;
+        display: block;
+        cursor: pointer;
+        text-align: center;
+        font-family: 'PingFangSC-Regular';
+        font-size: 0.4rem;
+        color: #303030;
+        letter-spacing: 0.00187rem; }
+      #law .tap .tap-title .show {
+        color: #e25b5a; }
+    #law .tap .tap-content {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      width: 100%;
+      padding: 0 0.37333rem;
+      height: auto;
+      background: #ffffff; }
+      #law .tap .tap-content .date-rule {
+        width: 100%;
+        height: 1.10667rem; }
+        #law .tap .tap-content .date-rule span {
+          display: block;
+          width: 50%;
+          float: left;
+          font-family: 'PingFangSC-Regular';
+          font-size: 0.34667rem;
+          font-weight: 200;
+          color: #919191 !important;
+          letter-spacing: 0.002rem;
+          line-height: 1.10667rem; }
+          #law .tap .tap-content .date-rule span:first-child {
+            text-align: left; }
+          #law .tap .tap-content .date-rule span:last-child {
+            text-align: right; }
+      #law .tap .tap-content .ranking-list {
+        width: 100%;
+        height: auto;
+        overflow: hidden; }
+        #law .tap .tap-content .ranking-list ul {
+          width: 100%;
+          height: auto; }
+          #law .tap .tap-content .ranking-list ul li {
+            width: 100%;
+            float: left;
+            height: 2rem;
+            position: relative; }
+            #law .tap .tap-content .ranking-list ul li .num {
+              position: absolute;
+              left: 5.5rem;
+              top: 0.93333rem;
+              opacity: 1;
+              color: red;
+              font-size: 0.37333rem;
+              letter-spacing: 0.02667rem; }
+            #law .tap .tap-content .ranking-list ul li .jump-detail {
+              display: block;
+              cursor: pointer;
+              float: left;
+              min-width: 6rem;
+              height: 100%; }
+              #law .tap .tap-content .ranking-list ul li .jump-detail span {
+                display: block;
+                float: left; }
+              #law .tap .tap-content .ranking-list ul li .jump-detail span:nth-of-type(1) {
+                width: 0.17333rem;
+                height: 100%;
+                line-height: 2rem;
+                font-family: 'PingFangSC-Regular';
+                font-size: 0.42667rem;
+                color: #ff7a32;
+                letter-spacing: 0.002rem; }
+              #law .tap .tap-content .ranking-list ul li .jump-detail span:nth-child(2) {
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                display: block;
+                width: 1.14667rem;
+                height: 100%;
+                display: -webkit-flex;
+                display: -moz-flex;
+                display: flex;
+                -webkit-align-items: center;
+                -moz-align-items: center;
+                align-items: center;
+                margin: 0 0.36rem 0 0.48rem; }
+                #law .tap .tap-content .ranking-list ul li .jump-detail span:nth-child(2) img {
+                  -webkit-box-sizing: border-box;
+                  -moz-box-sizing: border-box;
+                  box-sizing: border-box;
+                  display: block;
+                  width: 1.12rem;
+                  height: 1.12rem;
+                  border-radius: 50%;
+                  border: 1px solid #cacaca; }
+                #law .tap .tap-content .ranking-list ul li .jump-detail span:nth-child(2) .head-focus {
+                  -webkit-box-shadow: 0 0 0 0.13333rem white, 0 0 0 0.16rem #ff7a32;
+                  -moz-box-shadow: 0 0 0 0.13333rem white, 0 0 0 0.16rem #ff7a32;
+                  -ms-box-shadow: 0 0 0 0.13333rem white, 0 0 0 0.16rem #ff7a32;
+                  -o-box-shadow: 0 0 0 0.13333rem white, 0 0 0 0.16rem #ff7a32;
+                  box-shadow: 0 0 0 0.13333rem white, 0 0 0 0.16rem #ff7a32;
+                  border: none; }
+              #law .tap .tap-content .ranking-list ul li .jump-detail span:nth-child(3) {
+                display: block;
+                width: 3.46667rem;
+                height: 100%; }
+                #law .tap .tap-content .ranking-list ul li .jump-detail span:nth-child(3) i {
+                  float: left;
+                  font-style: normal;
+                  display: block; }
+                #law .tap .tap-content .ranking-list ul li .jump-detail span:nth-child(3) i:nth-child(1) {
+                  width: 100%;
+                  height: 0.6rem;
+                  line-height: 0.6rem;
+                  margin: 0.4rem 0 0 0;
+                  font-family: 'PingFangSC-Regular';
+                  font-weight: 200;
+                  font-size: 0.4rem;
+                  color: #303030;
+                  letter-spacing: 0.00187rem; }
+                #law .tap .tap-content .ranking-list ul li .jump-detail span:nth-child(3) i:nth-child(2) {
+                  width: 100%;
+                  height: 0.6rem;
+                  line-height: 0.6rem;
+                  font-family: 'PingFangSC-Regular';
+                  font-weight: 200;
+                  font-size: 0.32rem;
+                  color: #919191;
+                  letter-spacing: 0.00147rem; }
+                #law .tap .tap-content .ranking-list ul li .jump-detail span:nth-child(3) .rise {
+                  background: url(/static/img/law/rise.png) no-repeat left center !important;
+                  background-size: 0.4rem !important;
+                  padding-left: 0.53333rem; }
+                #law .tap .tap-content .ranking-list ul li .jump-detail span:nth-child(3) .flat {
+                  background: url(/static/img/law/flat.png) no-repeat left center !important;
+                  background-size: 0.4rem 0.06667rem !important;
+                  padding-left: 0.53333rem; }
+                #law .tap .tap-content .ranking-list ul li .jump-detail span:nth-child(3) .decline {
+                  background: url(/static/img/law/decline.png) no-repeat left center !important;
+                  background-size: 0.4rem !important;
+                  padding-left: 0.53333rem; }
+            #law .tap .tap-content .ranking-list ul li .gift {
+              display: block;
+              width: 0.74667rem;
+              height: 0.74667rem;
+              float: right;
+              margin: 0.62667rem 0.26667rem 0 0; }
+              #law .tap .tap-content .ranking-list ul li .gift img {
+                width: 100%;
+                height: 100%; }
+            #law .tap .tap-content .ranking-list ul li .v-btn {
+              width: 1.97333rem;
+              height: 0.8rem;
+              line-height: 0.8rem;
+              text-align: center;
+              display: block;
+              cursor: pointer;
+              color: #ffffff;
+              font-family: 'PingFangSC-Regular';
+              font-size: 0.4rem;
+              font-weight: 200;
+              letter-spacing: 0.00187rem;
+              background: #e25b5a;
+              border-radius: 0.49333rem;
+              margin: 0.6rem 0 0 0;
+              float: right; }
+            #law .tap .tap-content .ranking-list ul li .bg-gray {
+              color: #9c9c9c;
+              background: #e5e5e5 !important; }
+            #law .tap .tap-content .ranking-list ul li .c-gray {
+              color: #919191 !important; }
+        #law .tap .tap-content .ranking-list .baseline {
+          width: 100%;
+          height: 1.6rem;
+          float: left; }
+          #law .tap .tap-content .ranking-list .baseline .base-tit {
+            color: #919191;
+            font-family: 'PingFangSC-Regular';
+            font-size: 0.34667rem;
+            font-weight: 200;
+            letter-spacing: 0.002rem;
+            text-align: center;
+            line-height: 1.6rem; }
+            #law .tap .tap-content .ranking-list .baseline .base-tit span {
+              display: block;
+              /*设置为块级元素会独占一行形成上下居中的效果*/
+              font-size: 0.34667rem;
+              color: #919191;
+              position: relative;
+              font-family: 'PingFangSC-Regular';
+              margin: -0.26667rem auto 0; }
+              #law .tap .tap-content .ranking-list .baseline .base-tit span:before, #law .tap .tap-content .ranking-list .baseline .base-tit span:after {
+                content: '';
+                /*CSS伪类用法*/
+                position: absolute;
+                /*定位背景横线的纵向位置*/
+                top: 49.5%;
+                background: #e6e6e6;
+                /*宽和高做出来的背景横线*/
+                width: 35%;
+                height: 1px; }
+              #law .tap .tap-content .ranking-list .baseline .base-tit span:before {
+                left: 0; }
+              #law .tap .tap-content .ranking-list .baseline .base-tit span:after {
+                right: 0; }
+  #law .error {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #ffffff;
+    width: 100%;
+    min-height: 1000px; }
+    #law .error .network-fault {
+      width: 6rem;
+      height: 3.5rem;
+      margin: 6rem auto 0; }
+      #law .error .network-fault img {
+        width: 100%;
+        height: 100%; }
+    #law .error .prompt {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      float: left;
+      width: 100%;
+      text-align: center;
+      margin-top: .8rem;
+      color: #979797;
+      font-size: .75rem;
+      line-height: .9rem;
+      font-family: 'PingFangSC-Regular';
+      letter-spacing: 1px; }
+
+@-webkit-keyframes fadeIn {
+  0% {
+    opacity: 1; }
+  100% {
+    opacity: 0; } }
+
+.hint-info {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 6.08rem;
+  height: 2.13333rem;
+  line-height: 2.13333rem;
+  text-align: center;
+  position: fixed;
+  display: none;
+  left: 50%;
+  top: 50%;
+  margin: -1.06667rem 0 0 -3.04rem;
+  font-family: 'PingFangSC-Regular';
+  font-size: 0.37333rem;
+  color: #ffffff;
+  z-index: 999;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 0.4rem;
+  -webkit-animation-name: fadeIn;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-iteration-count: 1;
+  -webkit-animation-delay: 1s; }
+
+.remind {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 1;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  z-index: 999; }
+  .remind .re-box {
+    position: absolute;
+    width: 100%;
+    top: 45%;
+    text-align: center; }
+    .remind .re-box p {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      width: 100%;
+      display: block;
+      padding: 0.26667rem;
+      float: left;
+      font-family: 'PingFangSC-Regular';
+      font-size: 0.42667rem;
+      font-weight: 200;
+      letter-spacing: 0.002rem;
+      text-align: center;
+      color: #ffffff; }
+    .remind .re-box .btn {
+      width: 100%;
+      height: auto;
+      text-align: center;
+      float: left; }
+      .remind .re-box .btn .download {
+        width: 1.97333rem;
+        height: 0.8rem;
+        line-height: 0.8rem;
+        text-align: center;
+        display: block;
+        cursor: pointer;
+        color: #ffffff;
+        font-family: 'PingFangSC-Regular';
+        font-size: 0.4rem;
+        font-weight: 200;
+        letter-spacing: 0.00187rem;
+        background: #e25b5a;
+        border-radius: 0.4rem;
+        margin: 0.29333rem auto 0; }
+
+.cd-popup {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  display: none;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  z-index: 999; }
+
+.is-visible {
+  opacity: 1;
+  display: block;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
+  transition: opacity 0.3s 0s, visibility 0s 0s;
+  z-index: 9999; }
+
+.cd-popup-container {
+  position: fixed;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  height: 11.33333rem;
+  background: #ffffff;
+  text-align: center;
+  -webkit-transform: translateY(-40px);
+  -moz-transform: translateY(-40px);
+  -ms-transform: translateY(-40px);
+  -o-transform: translateY(-40px);
+  transform: translateY(-40px);
+  /* Force Hardware Acceleration in WebKit */
+  -webkit-backface-visibility: hidden;
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  bottom: -17.33333rem;
+  padding-bottom: 0.66667rem;
+  z-index: 9999; }
+  .cd-popup-container .cd-popup-close {
+    width: 1.01333rem;
+    height: 1.01333rem;
+    position: absolute;
+    left: 50%;
+    top: -1.4rem;
+    margin-left: -0.50667rem;
+    background: url(/static/img/law/close.png) no-repeat;
+    background-size: 100% 100%; }
+  .cd-popup-container .bg-up {
+    float: left;
+    width: 100%;
+    margin-top: -0.66667rem; }
+    .cd-popup-container .bg-up img {
+      width: 100%;
+      height: 100%; }
+
+.activity-rule {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  height: 1.33333rem;
+  padding: 0 0.37333rem;
+  float: left; }
+  .activity-rule .list-tit {
+    line-height: 1.33333rem; }
+    .activity-rule .list-tit span {
+      display: block;
+      /*设置为块级元素会独占一行形成上下居中的效果*/
+      font-size: 0.42667rem;
+      color: #303030;
+      position: relative;
+      font-family: 'PingFangSC-Regular';
+      font-weight: 200;
+      letter-spacing: 0.002rem; }
+      .activity-rule .list-tit span:before, .activity-rule .list-tit span:after {
+        content: '';
+        /*CSS伪类用法*/
+        position: absolute;
+        /*定位背景横线的纵向位置*/
+        top: 49.5%;
+        background: #e6e6e6;
+        /*宽和高做出来的背景横线*/
+        width: 39%;
+        height: 1px; }
+      .activity-rule .list-tit span:before {
+        left: 0; }
+      .activity-rule .list-tit span:after {
+        right: 0; }
+
+.rule-con {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  height: 86%;
+  padding: 0 0.37333rem;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  z-index: 2; }
+  .rule-con p {
+    font-family: 'PingFangSC-Regular';
+    font-weight: 200;
+    font-size: 0.37333rem;
+    color: #303030;
+    letter-spacing: 0.00173rem;
+    line-height: 0.66667rem;
+    text-align: justify; }
+
+#home {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch; }
+  #home .header {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    min-height: 2.66667rem;
+    height: auto; }
+    #home .header img {
+      width: 100%;
+      height: 100%; }
+    #home .header .head {
+      width: 2.13333rem;
+      height: 2.13333rem;
+      border-radius: 50%;
+      position: absolute;
+      left: 50%;
+      top: 1.6rem;
+      margin: 0 0 0 -1.06667rem;
+      border: 1px solid #cacaca; }
+  #home .info {
+    width: 100%;
+    height: 1.13333rem; }
+    #home .info .info-ranking-list, #home .info .info-heat {
+      width: 50%;
+      height: 100%;
+      text-align: center;
+      float: left; }
+    #home .info .info-ranking-list span {
+      width: 100%;
+      height: 100%;
+      float: left; }
+      #home .info .info-ranking-list span i {
+        font-style: normal;
+        display: block;
+        width: 100%;
+        margin-left: -0.53333rem; }
+      #home .info .info-ranking-list span i:nth-child(1) {
+        height: 0.6rem;
+        line-height: 0.6rem;
+        text-align: center;
+        font-family: 'PingFangSC-Regular';
+        font-weight: 200;
+        font-size: 0.42667rem;
+        color: #303030;
+        letter-spacing: 0.002rem;
+        margin-top: 0.04rem; }
+      #home .info .info-ranking-list span i:nth-child(2) {
+        height: 0.44rem;
+        line-height: 0.44rem;
+        text-align: center;
+        font-family: 'PingFangSC-Regular';
+        font-weight: 200;
+        font-size: 0.32rem;
+        color: #919191;
+        letter-spacing: 0.00147rem; }
+    #home .info .info-heat span {
+      width: 100%;
+      height: 100%;
+      float: left; }
+      #home .info .info-heat span i {
+        font-style: normal;
+        display: block;
+        width: 100%;
+        margin-left: 0.53333rem; }
+      #home .info .info-heat span i:nth-child(1) {
+        height: 0.6rem;
+        line-height: 0.6rem;
+        text-align: center;
+        font-family: 'PingFangSC-Regular';
+        font-weight: 200;
+        font-size: 0.42667rem;
+        color: #303030;
+        letter-spacing: 0.002rem;
+        margin-top: 0.04rem; }
+      #home .info .info-heat span i:nth-child(2) {
+        height: 0.44rem;
+        line-height: 0.44rem;
+        text-align: center;
+        font-family: 'PingFangSC-Regular';
+        font-weight: 200;
+        font-size: 0.32rem;
+        color: #919191;
+        letter-spacing: 0.00147rem; }
+    #home .info .mechanism-name {
+      float: left;
+      width: 100%;
+      height: 0.66667rem;
+      line-height: 0.66667rem;
+      text-align: center;
+      font-family: 'PingFangSC-Medium';
+      font-size: 0.48rem;
+      color: #303030;
+      letter-spacing: 0.00227rem;
+      margin-top: 0.12rem; }
+    #home .info .btn {
+      width: 100%;
+      height: auto;
+      text-align: center;
+      float: left; }
+      #home .info .btn .v-btn {
+        width: 1.97333rem;
+        height: 0.8rem;
+        line-height: 0.8rem;
+        text-align: center;
+        display: block;
+        cursor: pointer;
+        color: #ffffff;
+        font-family: 'PingFangSC-Regular';
+        font-size: 0.4rem;
+        font-weight: 200;
+        letter-spacing: 0.00187rem;
+        background: #e25b5a;
+        border-radius: 0.49333rem;
+        margin: 0.29333rem auto 0; }
+      #home .info .btn .bg-gray {
+        color: #9c9c9c;
+        background: #e5e5e5 !important; }
+  #home .declaration {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    width: 100%;
+    height: auto;
+    padding: 0 0.37333rem; }
+    #home .declaration div:nth-child(1) {
+      width: 100%;
+      height: 0.45333rem;
+      background: url(/static/img/law/quotes-up.png) no-repeat center left;
+      background-size: 0.50667rem 0.45333rem; }
+    #home .declaration div:nth-child(2) {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      width: 100%;
+      height: auto;
+      margin: 0.16rem auto;
+      padding: 0 0.58667rem;
+      font-famliy: 'PingFangSC-Regular';
+      font-size: 0.42667rem;
+      font-weight: 200;
+      line-height: 0.50667rem;
+      color: #303030;
+      letter-spacing: 0.002rem;
+      text-align: justify; }
+    #home .declaration div:nth-child(3) {
+      width: 100%;
+      height: 0.45333rem;
+      background: url(/static/img/law/quotes-down.png) no-repeat center right;
+      background-size: 0.50667rem 0.45333rem; }
+  #home .hr {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    display: block;
+    float: left;
+    width: 100%;
+    height: auto;
+    padding: 0 0.37333rem; }
+    #home .hr hr {
+      height: 1px;
+      color: #e6e6e6;
+      margin: 0.4rem 0 0.65333rem 0;
+      border: none;
+      border-top: 1px solid #e6e6e6;
+      text-align: center; }
+  #home .introduce {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    width: 100%;
+    height: auto;
+    background: url(/static/img/law/dot.png) no-repeat left top;
+    background-size: 0.4rem;
+    background-position: 0.37333rem 0;
+    z-index: 1;
+    /** 无边框简化样式 **/ }
+    #home .introduce .in-tit {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      width: 100%;
+      height: 0.42667rem;
+      line-height: 1;
+      display: block;
+      font-family: 'PingFangSC-Medium','Source Han Sans CN-Medium';
+      font-weight: 600 !important;
+      font-size: 0.42667rem;
+      color: #303030;
+      letter-spacing: 0.002rem;
+      padding-left: 0.98667rem;
+      float: left; }
+    #home .introduce .in-timeline {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      float: left;
+      padding: 0 0.37333rem 0.84rem 0;
+      width: 89%;
+      height: auto;
+      border: none;
+      border-left: 0.08rem solid #f6cece;
+      margin: 0 0 0 0.52rem; }
+    #home .introduce .in-con {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      display: block;
+      float: left;
+      position: relative;
+      background: #ffffff;
+      width: 100%;
+      min-height: 1.33333rem;
+      height: auto;
+      margin: 0.45333rem 0 0 0.53333rem;
+      text-align: center;
+      border-radius: 0.29333rem;
+      border: 1px solid #e6e6e6; }
+      #home .introduce .in-con #left-arrow {
+        position: absolute;
+        top: 20%;
+        left: -0.16rem;
+        display: inline-block;
+        color: #919191;
+        border-left: 1px solid;
+        border-bottom: 1px solid;
+        width: 0.26667rem;
+        height: 0.26667rem;
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        transform: rotate(45deg);
+        background: #ffffff; }
+      #home .introduce .in-con span {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        display: block;
+        width: 100%;
+        height: auto;
+        padding: 0.37333rem 0.32rem;
+        font-family: 'PingFangSC-Regular';
+        font-weight: 200;
+        font-size: 0.37333rem;
+        line-height: 0.53333rem;
+        color: #303030;
+        letter-spacing: 0.00173rem;
+        text-align: justify; }
+  #home .works {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    width: 100%;
+    height: auto;
+    background: url(/static/img/law/dot.png) no-repeat left top;
+    background-size: 0.4rem;
+    background-position: 0.37333rem 0;
+    z-index: 1; }
+    #home .works .w-tit {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      width: 100%;
+      height: 0.4rem;
+      line-height: 1;
+      display: block;
+      font-family: 'PingFangSC-Medium','Source Han Sans CN-Medium';
+      font-weight: 600 !important;
+      font-size: 0.4rem;
+      color: #303030;
+      letter-spacing: 0.002rem;
+      padding-left: 0.98667rem;
+      float: left; }
+    #home .works .w-timeline {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      float: left;
+      padding: 0 0.37333rem 0.84rem 0;
+      width: 94.5%;
+      height: auto;
+      border: none;
+      border-left: 0.08rem solid #f6cece;
+      margin: 0 0 0 0.52rem; }
+      #home .works .w-timeline .w-con {
+        width: 100%;
+        height: 5.04rem;
+        position: relative;
+        margin: 0.4rem 0 0 0; }
+        #home .works .w-timeline .w-con img {
+          width: 100%;
+          height: 100%; }
+        #home .works .w-timeline .w-con .playBtn {
+          display: block;
+          cursor: pointer;
+          width: 1.17333rem;
+          height: 1.17333rem;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin: -0.58667rem 0 0 -0.58667rem; }
+        #home .works .w-timeline .w-con .v-time {
+          display: block;
+          width: 1.01333rem;
+          height: 0.48rem;
+          line-height: 0.48rem;
+          text-align: center;
+          background: rgba(0, 0, 0, 0.3);
+          border-radius: 0.04rem;
+          position: absolute;
+          right: 0.21333rem;
+          bottom: 0.21333rem;
+          font-family: 'PingFangSC-Regular';
+          font-size: 0.26667rem;
+          color: #ffffff;
+          letter-spacing: 1px; }
+        #home .works .w-timeline .w-con video {
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          position: relative;
+          width: 100%;
+          height: 100%; }
+  #home .atlas {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    width: 100%;
+    height: auto;
+    background: url(/static/img/law/dot.png) no-repeat left top;
+    background-size: 0.4rem;
+    background-position: 0.37333rem 0;
+    z-index: 1;
+    margin: 0 0 0.93333rem 0; }
+    #home .atlas .a-tit {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      width: 100%;
+      height: 0.4rem;
+      line-height: 1;
+      display: block;
+      font-family: 'PingFangSC-Medium','Source Han Sans CN-Medium';
+      font-weight: 600 !important;
+      font-size: 0.4rem;
+      color: #303030;
+      letter-spacing: 0.002rem;
+      padding-left: 0.98667rem;
+      float: left; }
+    #home .atlas .a-timeline {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      float: left;
+      width: 100%;
+      height: auto;
+      border: none;
+      border-left: 0.08rem solid #f6cece;
+      margin: 0 0 0 0.52rem; }
+      #home .atlas .a-timeline .a-con {
+        width: 100%;
+        height: 2.8rem;
+        position: relative;
+        margin: 0.4rem 0 0 0;
+        overflow-y: hidden; }
+        #home .atlas .a-timeline .a-con ul {
+          height: 100%;
+          border: none;
+          overflow-x: auto; }
+          #home .atlas .a-timeline .a-con ul li {
+            list-style: none;
+            width: 3.73333rem;
+            height: 2.8rem;
+            margin-left: 0.18667rem;
+            float: left;
+            cursor: pointer; }
+            #home .atlas .a-timeline .a-con ul li img {
+              float: left;
+              width: 100%;
+              height: 100%;
+              cursor: pointer; }
+          #home .atlas .a-timeline .a-con ul li:nth-child(1) {
+            margin-left: 0 !important; }
+  #home #scroller ul {
+    -webkit-tap-highlight-color: transparent;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-text-size-adjust: none;
+    -moz-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+    -o-text-size-adjust: none;
+    text-size-adjust: none; }
+  #home .error {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #ffffff;
+    width: 100%;
+    min-height: 1000px; }
+    #home .error .network-fault {
+      width: 6rem;
+      height: 3.5rem;
+      margin: 6rem auto 0; }
+      #home .error .network-fault img {
+        width: 100%;
+        height: 100%; }
+    #home .error .prompt {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      float: left;
+      width: 100%;
+      text-align: center;
+      margin-top: .8rem;
+      color: #979797;
+      font-size: .75rem;
+      line-height: .9rem;
+      font-family: 'PingFangSC-Regular';
+      letter-spacing: 1px; }
+
+#comment {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  float: left; }
+  #comment h3 {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    height: 1.17333rem;
+    line-height: 1.17333rem;
+    background: #f4f4f4;
+    font-family: 'PingFangSC-Medium';
+    font-size: 0.42667rem;
+    color: #121212;
+    padding: 0 0.37333rem; }
+  #comment .msg-main {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    padding: 0.02667rem 0.37333rem 0;
+    float: left; }
+    #comment .msg-main .message {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      width: 100%;
+      margin: 0.53333rem auto 0;
+      background: #ffffff;
+      border: 1px solid #d9d9d9;
+      border-radius: 0.21333rem; }
+      #comment .msg-main .message textarea {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 92%;
+        margin: 0.4rem;
+        border: none;
+        resize: none;
+        font-size: 0.37333rem;
+        line-height: 0.50667rem;
+        color: #121212;
+        font-family: 'PingFang';
+        font-weight: 300;
+        -webkit-tap-highlight-color: transparent; }
+    #comment .msg-main .msg-btn {
+      display: block;
+      width: 100%;
+      height: 0.93333rem;
+      background: #ce2524;
+      border-radius: 0.46667rem;
+      color: #ffffff;
+      font-weight: 400;
+      font-size: 0.45333rem;
+      -webkit-appearance: none;
+      border: 0;
+      text-align: center;
+      margin: 0.53333rem auto 0;
+      cursor: pointer; }
+  #comment .c-box {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    float: left;
+    padding: 0 0.37333rem; }
+    #comment .c-box a {
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      float: left;
+      display: block;
+      width: 100%;
+      height: auto;
+      padding: 0.41333rem 0 0.29333rem;
+      cursor: pointer; }
+      #comment .c-box a .box-top {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        width: 100%;
+        height: 1.17333rem;
+        position: relative; }
+        #comment .c-box a .box-top img {
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          width: 1.17333rem;
+          height: 1.17333rem;
+          border-radius: 50%;
+          position: absolute;
+          left: 0;
+          top: 0; }
+        #comment .c-box a .box-top .name-reg {
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          width: 100%;
+          float: left;
+          height: 0.53333rem;
+          padding-left: 1.46667rem;
+          margin-top: 0.10667rem; }
+          #comment .c-box a .box-top .name-reg .nick-name {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            width: auto;
+            height: 0.53333rem;
+            line-height: 0.53333rem;
+            float: left;
+            font-family: 'PingFangSC-Medium';
+            font-size: 0.37333rem;
+            color: #121212; }
+          #comment .c-box a .box-top .name-reg .region {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            width: auto;
+            height: 0.53333rem;
+            line-height: 0.53333rem;
+            float: right;
+            font-family: 'PingFangSC-Regular';
+            font-size: 0.32rem;
+            color: #919191; }
+        #comment .c-box a .box-top .c-time {
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          width: 100%;
+          height: 0.53333rem;
+          line-height: 0.53333rem;
+          padding-left: 1.46667rem;
+          font-family: 'PingFangSC-Regular';
+          font-size: 0.32rem;
+          color: #919191; }
+      #comment .c-box a .c-con {
+        width: 100%;
+        float: left;
+        font-family: 'PingFangSC-Regular';
+        font-size: 0.37333rem;
+        line-height: 0.53333rem;
+        color: #303030;
+        margin-top: 0.22667rem;
+        text-align: justify; }
+  #comment .baseline-1 {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    padding: 0 0.37333rem;
+    float: left; }
+    #comment .baseline-1 .base-tit-1 {
+      color: #919191;
+      font-family: 'PingFangSC-Regular';
+      font-size: 0.34667rem;
+      font-weight: 200;
+      letter-spacing: 0.002rem;
+      text-align: center;
+      line-height: 1; }
+      #comment .baseline-1 .base-tit-1 span {
+        display: block;
+        /*设置为块级元素会独占一行形成上下居中的效果*/
+        font-size: 0.34667rem;
+        color: #919191;
+        position: relative;
+        font-family: 'PingFangSC-Regular';
+        margin: 0.8rem auto 0; }
+        #comment .baseline-1 .base-tit-1 span:before, #comment .baseline-1 .base-tit-1 span:after {
+          content: '';
+          /*CSS伪类用法*/
+          position: absolute;
+          /*定位背景横线的纵向位置*/
+          top: 49.5%;
+          background: #e6e6e6;
+          /*宽和高做出来的背景横线*/
+          width: 40%;
+          height: 1px; }
+        #comment .baseline-1 .base-tit-1 span:before {
+          left: 0; }
+        #comment .baseline-1 .base-tit-1 span:after {
+          right: 0; }
+  #comment .hr-1 {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    width: 94%;
+    height: 1px;
+    margin: 0 3%;
+    color: #e6e6e6;
+    border: none;
+    border-top: 1px solid #e6e6e6;
+    text-align: center; }
+  #comment .w-100 {
+    width: 100% !important;
+    margin: 0 !important; }
+  #comment .dropload-down {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 100%;
+    height: 1.6rem;
+    float: left; }
+    #comment .dropload-down .dropload-noData, #comment .dropload-down .dropload-load, #comment .dropload-down .dropload-refresh {
+      color: #919191;
+      font-family: 'PingFangSC-Regular';
+      font-size: 0.34667rem;
+      font-weight: 200;
+      letter-spacing: 0.002rem;
+      text-align: center;
+      line-height: 1.6rem; }
+      #comment .dropload-down .dropload-noData .text, #comment .dropload-down .dropload-load .text, #comment .dropload-down .dropload-refresh .text {
+        display: block;
+        /*设置为块级元素会独占一行形成上下居中的效果*/
+        font-size: 0.34667rem;
+        color: #919191;
+        position: relative;
+        font-family: 'PingFangSC-Regular';
+        margin: -0.26667rem auto 0; }
+        #comment .dropload-down .dropload-noData .text:before, #comment .dropload-down .dropload-noData .text:after, #comment .dropload-down .dropload-load .text:before, #comment .dropload-down .dropload-load .text:after, #comment .dropload-down .dropload-refresh .text:before, #comment .dropload-down .dropload-refresh .text:after {
+          content: '';
+          /*CSS伪类用法*/
+          position: absolute;
+          /*定位背景横线的纵向位置*/
+          top: 49.5%;
+          background: #e6e6e6;
+          /*宽和高做出来的背景横线*/
+          width: 35%;
+          height: 1px; }
+        #comment .dropload-down .dropload-noData .text:before, #comment .dropload-down .dropload-load .text:before, #comment .dropload-down .dropload-refresh .text:before {
+          left: 0; }
+        #comment .dropload-down .dropload-noData .text:after, #comment .dropload-down .dropload-load .text:after, #comment .dropload-down .dropload-refresh .text:after {
+          right: 0; }
+      #comment .dropload-down .dropload-noData .text-1, #comment .dropload-down .dropload-load .text-1, #comment .dropload-down .dropload-refresh .text-1 {
+        display: block;
+        /*设置为块级元素会独占一行形成上下居中的效果*/
+        font-size: 0.34667rem;
+        color: #919191;
+        position: relative;
+        font-family: 'PingFangSC-Regular';
+        margin: -0.26667rem auto 0; }
+        #comment .dropload-down .dropload-noData .text-1:before, #comment .dropload-down .dropload-noData .text-1:after, #comment .dropload-down .dropload-load .text-1:before, #comment .dropload-down .dropload-load .text-1:after, #comment .dropload-down .dropload-refresh .text-1:before, #comment .dropload-down .dropload-refresh .text-1:after {
+          content: '';
+          /*CSS伪类用法*/
+          position: absolute;
+          /*定位背景横线的纵向位置*/
+          top: 49.5%;
+          background: #e6e6e6;
+          /*宽和高做出来的背景横线*/
+          width: 40% !important;
+          height: 1px; }
+        #comment .dropload-down .dropload-noData .text-1:before, #comment .dropload-down .dropload-load .text-1:before, #comment .dropload-down .dropload-refresh .text-1:before {
+          left: 0; }
+        #comment .dropload-down .dropload-noData .text-1:after, #comment .dropload-down .dropload-load .text-1:after, #comment .dropload-down .dropload-refresh .text-1:after {
+          right: 0; }
+
+.wapList-Image {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: black;
+  display: none;
+  z-index: 1; }
+  .wapList-Image li {
+    height: 100%;
+    display: -webkit-flex;
+    /* 新版本语法: Chrome 21+ */
+    display: flex;
+    /* 新版本语法: Opera 12.1, Firefox 22+ */
+    display: -webkit-box;
+    /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+    display: -moz-box;
+    /* 老版本语法: Firefox (buggy) */
+    display: -ms-flexbox;
+    /* 混合版本语法: IE 10 */
+    -webkit-flex: 1;
+    /* Chrome */
+    -ms-flex: 1;
+    /* IE 10 */
+    flex: 1;
+    /* NEW, Spec - Opera 12.1, Firefox 20+ */
+    -webkit-box-flex: 1;
+    /* OLD - iOS 6-, Safari 3.1-6 */
+    -moz-box-flex: 1;
+    /* OLD - Firefox 19- */
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    float: left; }
+  .wapList-Image #imGcontent {
+    width: 100%;
+    color: #fff;
+    position: absolute;
+    bottom: 0.13333rem;
+    text-align: center;
+    z-index: 2; }

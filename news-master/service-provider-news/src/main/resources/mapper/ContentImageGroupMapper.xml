@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.ContentImageGroupMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.ContentImageGroup" id="contentImageGroupMap">
+        <result property="id" column="id"/>
+        <result property="cid" column="cid"/>
+        <result property="desc" column="desc"/>
+        <result property="image" column="image"/>
+        <result property="order" column="order"/>
+    </resultMap>
+
+    <select id="findImages" resultMap="contentImageGroupMap">
+        SELECT
+        cig.image
+        FROM
+        kf_content_image_group cig
+        <where>
+            <if test="cid != null">
+                cig.cid = #{cid}
+            </if>
+        </where>
+        ORDER BY cig.`order` asc
+        <if test="pcount != null">
+            limit #{pcount}
+        </if>
+    </select>
+
+
+    <select id="selectImageGroupList" resultMap="contentImageGroupMap">
+        SELECT
+        cig.id,
+        cig.cid,
+        cig.desc,
+        cig.image ,
+        cig.`order`
+        FROM
+        kf_content_image_group cig
+        ORDER BY cig.`order` DESC
+    </select>
+
+    <select id="selectImageGroupListByCid" resultMap="contentImageGroupMap">
+        SELECT
+        cig.id,
+        cig.cid,
+        cig.desc,
+        cig.image ,
+        cig.`order`
+        FROM
+        kf_content_image_group cig
+        WHERE cid = #{cid}
+        ORDER BY cig.`order` DESC
+    </select>
+
+    <select id="getImageGroupList" resultMap="contentImageGroupMap">
+        SELECT
+                    cig.id,
+                    cig.cid,
+                    cig.desc,
+                    cig.image ,
+                    cig.`order`
+        FROM
+              kf_content_image_group cig
+        <where>
+            <if test="entity.cid!=null">
+                cid = #{entity.cid}
+            </if>
+        </where>
+        ORDER BY cig.`order` DESC
+    </select>
+
+    <insert id="addContentImageGroup" parameterType="com.kanfa.news.info.entity.ContentImageGroup" keyProperty="id" useGeneratedKeys="true">
+        insert into kf_content_image_group(
+                                        `cid`,
+                                        `desc`,
+                                        `image`,
+                                        `order`
+                                        )
+        values(#{cid},
+                #{desc},
+                #{image},
+                (SELECT IF(MAX(sc.order),MAX(sc.order)+1,1) FROM kf_content_image_group sc)
+                )
+    </insert>
+</mapper>

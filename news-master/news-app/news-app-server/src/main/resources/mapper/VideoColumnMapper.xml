@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.app.mapper.VideoColumnMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.app.entity.VideoColumn" id="videoColumnMap">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="summary" column="summary"/>
+        <result property="content" column="content"/>
+        <result property="coverImg" column="cover_img"/>
+        <result property="pub" column="pub"/>
+        <result property="stat" column="stat"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUid" column="update_uid"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="columnOrder" column="column_order"/>
+        <result property="isTop" column="is_top"/>
+    </resultMap>
+
+    <select id="findData" resultType="com.kanfa.news.app.entity.VideoColumn">
+        SELECT
+            id,
+            title,
+            cover_img coverImg
+        FROM
+            kf_video_column
+        WHERE
+            stat = 1
+        AND pub = 1
+        ORDER BY
+            is_top DESC,
+            column_order DESC
+
+    </select>
+
+
+    <select id="findBindData" resultType="com.kanfa.news.app.entity.VideoColumnBind">
+      SELECT
+            cid,
+            from_type fromType,
+            title
+        FROM
+            kf_video_column_bind
+        <where>
+            <if test="id != null">
+                video_column_id = #{id}
+            </if>
+            AND is_check = 1
+            AND pub = 1
+        </where>
+        ORDER BY
+            create_time DESC
+        LIMIT 1
+
+    </select>
+
+</mapper>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>看法网-从此新闻有看法</title>
+    <meta name="keywords" content="新闻,时政,时事,评论,大陆,国际,台湾,社会,香港,暖新闻,凤凰卫视,军事,历史,智库,国学,视频,图片,排行">
+    <meta name="description" content="看法网资讯、看法网新闻24小时提供大陆、台湾、香港、国际重大新闻资讯，看法聚焦、热追踪、看法知道紧跟时事热点，军事、历史、社会好玩有趣，好看的图片刷不停，大参考、第一解读、谈兵论战提供大智慧和犀利观点。">
+    <!--每个页面都会有的-->
+    <link rel="icon" type="image/png" href="/static/webPc/images/Icon.png">
+    <link rel="stylesheet" href="/static/webPc/js/bootstrap-3.3.7-dist/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="/static/webPc/css/common.css">
+    <link rel="stylesheet" type="text/css" href="/static/webPc/css/top.css">
+    <link rel="stylesheet" type="text/css" href="/static/webPc/css/index.css">
+
+</head>
+<body>
+<div class="top colorfff">
+    <div class="w1200">
+        <a class="downloadApp" href="#" data-toggle="modal" data-target="#showAppModal">下载APP</a>
+        <a class="downloadApp return-home" href="../../../">回到首页</a>
+        <ul class="basic_menu fr">
+
+                <#if userAuthInfo??>
+                    <li data-toggle="modal">
+                    <image src="${userAuthInfo.image!}" width="25" style="vertical-align: middle" />
+                    <li>${userAuthInfo.nickname!}</li>
+                    <li class="logout">退出</li>
+                    <#else>
+                     <li class="login" data-toggle="modal" data-target="#showLoginModal">
+                       <!-- //userAuthInfo为空-->
+                        登录
+                     </li>
+                </#if>
+
+
+            <li class="feedback" data-toggle="modal" data-target="#showFeedbackModal">反馈</li><li><a class="contact-us" href="/toAbout" >联系我们</a></li><li class="basic_menu_more">
+                <div class="basic_menu_more_font">更多</div>
+                <ul class="fl basic_menu_more_ul">
+                    <li><a class="color666" href="/toAbout?v=1">关于我们</a></li>
+                    <li><a class="color666" href="/toAbout?v=2">用户协议</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<!-- 显示下载appModal -->
+<div class="modal fade" id="showAppModal" tabindex="-1" role="dialog" aria-labelledby="showAppModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="showAppModalLabel">下载APP</h4>
+            </div>
+            <div class="modal-body">
+                <div class="showapp-modal">
+                    <span><img src="/static/webPc/images/app_code.png" alt="扫描二维码" title="下载看法APP"></span>
+                    <h2>扫码下载看法网APP</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 显示登陆appModal -->
+<div class="modal fade" id="showLoginModal" tabindex="-1" role="dialog" aria-labelledby="showLoginModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="showLoginModalLabel">用户登录</h4>
+            </div>
+            <div class="modal-body">
+                <div class="showlogin-modal">
+                    <div class="fl">
+                        <form class="loginform"  id="loginform" action="">
+                            <div class="form-group">
+                                <input type="text" name="userPhone" class="form-control userphone" id="userPhone" placeholder="手机号">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control verification-code" name="verificationCode" id="verificationCode" placeholder="验证码">
+                                <img src="/createCode" class="seccode" id="seccode">
+                              <!--  <img src="http://localhost:8704/createCode" class="seccode" id="seccode">-->
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="phoneCode" class="form-control phone-code" id="phoneCode" placeholder="手机验证码">
+                                <button type="button" class="btn btn-danger get-phone-code">获取验证码</button>
+                            </div>
+                            <div class="checkbox">
+                                <label class="font12">
+                                    <input type="checkbox" class="avoid-landing"> 一个月内免登陆
+                                </label>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-danger login-but">登陆</button><!--disabled="disabled"-->
+                            </div>
+                        </form>
+                    </div>
+                    <div class="fr">
+                        <p>一键登录</p>
+                        <ul class="shortcut-login">
+                            <li>
+                               <a class="clearfix loginusers" data-id="0" href="javaScript:void(0);"><i class="icon fl"></i>微博</a>
+                            </li>
+                            <li>
+                                <a class="clearfix loginusers" data-id="1" href="javaScript:void(1);"><i class="icon fl weixin" data-id="2"></i>微信</a>
+                            </li>
+                            <li>
+                                <a class="clearfix loginusers" data-id="2" href="javaScript:void(2);"><i class="icon fl qq" id="bbbccc" data-id="3"></i>QQ</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- 显示反馈feedbackModal -->
+<div class="modal fade" id="showFeedbackModal" tabindex="-1" role="dialog" aria-labelledby="showFeedbackModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="showeedbackModalLabel">意见反馈</h4>
+            </div>
+            <div class="modal-body">
+                <div class="showfeedback-modal">
+
+                    <form class="feedbackform" id="feedbackform" action="" name="feedbackform">
+                        <div class="form-group">
+                            <textarea class="form-control" name="feedbackInfo" id="feedbackInfo" rows="3" style="resize: none" placeholder="感谢您对我们的支持与关注，您的宝贵意见将帮助我们不断改进！"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control"  name="feedbackPhone" id="feedbackPhone" placeholder="留下您的联系方式">
+                        </div>
+                        <button type="submit" class="btn btn-danger eedfback-but">提交</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--返回头部以及刷新-->
+<div class="float-icon">
+    <div class="refresh icon"><span class="glyphicon glyphicon-repeat"></span></div>
+    <div class="return-top icon"><span class="glyphicon glyphicon-arrow-up return-top"></span></div>
+</div>
+</body>
+<script src="/static/webPc/js/jquery-1.11.1.min.js"></script>
+<script src="/static/webPc/js/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+<script src="/static/webPc/js/reg/jquery-validate.min.js"></script>
+<script src="/static/webPc/js/reg/messages_zh.js"></script>
+<script src="/static/webPc/js/reg/regex.js"></script>
+<!---->
+<script src="/static/webPc/js/top.js"></script>
+</html>

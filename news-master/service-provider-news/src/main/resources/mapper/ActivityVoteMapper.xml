@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.ActivityVoteMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.ActivityVote" id="activityVoteMap">
+        <result property="id" column="id"/>
+        <result property="activityId" column="activity_id"/>
+        <result property="bgcolor" column="bgcolor"/>
+        <result property="needLogin" column="need_login"/>
+        <result property="voteMulti" column="vote_multi"/>
+        <result property="voteMultiNum" column="vote_multi_num"/>
+        <result property="stat" column="stat"/>
+        <result property="voteOnce" column="vote_once"/>
+        <result property="votePeriod" column="vote_period"/>
+        <result property="showNum" column="show_num"/>
+        <result property="voteTotal" column="vote_total"/>
+        <result property="commentTotal" column="comment_total"/>
+        <result property="flushVoteNum" column="flush_vote_num"/>
+    </resultMap>
+
+
+    <!-- 新增建言/投票活动 -->
+    <insert id="insertActivityVote" parameterType="com.kanfa.news.info.entity.ActivityVote" keyColumn="id"  useGeneratedKeys="true" keyProperty="id">
+                INSERT INTO kf_activity_vote (
+                    activity_id,
+                    need_login,
+                    vote_multi,
+                    vote_once,
+                    vote_period,
+                    show_num,
+                    flush_vote_num
+                )
+                VALUES
+                    (
+                        #{activityId},
+                        #{needLogin},
+                        #{voteMulti},
+                        #{voteOnce},
+                        #{votePeriod},
+                        #{showNum},
+                        #{flushVoteNum}
+                    )
+    </insert>
+
+
+</mapper>

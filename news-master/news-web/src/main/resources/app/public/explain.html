@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1,minimum-scale=1,user-scalable=no;"
+    />
+    <script src="https://cdn.bootcss.com/jquery/2.0.0/jquery.min.js"></script>
+    <title>标题是什么啊 ？</title>
+    <style>
+        body,html{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            height: 100%;
+            max-width:750px;
+            margin:0 auto;
+            background: #fff;
+            -webkit-text-size-adjust:none;
+        }
+        #wrapper{
+            -webkit-transform-origin:top;
+            transform-origin:top;
+            width:320px;
+            max-width:750px;
+            margin:0px auto;
+            position:relative;
+            -webkit-text-size-adjust:none;
+        }
+        .content{
+            width: 94%;
+            margin: 5px 3% 20px;
+            height: auto;
+            font-family: 'PingFangSC-Regular','Microsoft YaHei';
+            font-size: 12px;
+            line-height: 16px;
+            color: #1e1e1e;
+            display: inline-block;
+            word-break: word-break;
+            text-align: justify;
+        }
+        .content p{
+            margin: 3px auto;
+        }
+        .content span{
+            font-weight: 700;
+            display: block;
+            width: 100%;
+            font-size: 16px;
+            text-align: center;
+            line-height: 40px;
+        }
+    </style>
+</head>
+<body>
+<div id="wrapper">
+    <div class="content">
+        <p>
+            吼吼吼～新年新气象，法制晚报·看法新闻2018年重磅企划，推出全新栏目——《爆料》，无论你提供的是文字、图片还是视频，只要是真实可靠的新闻线索，我们就能抽丝剥茧，还你个真相。<br><br>
+
+            大事、小事、奇葩事、新鲜事，我们事事关心，只要你敢爆料，我们必将第一时间跟进新闻线索，还原新闻全貌、解读事件真相，力求以精度、纯度和锐度为新闻导向，呈现你最关心的新闻。<br><br>
+
+            还在等什么！我们就需要你这样有故事的人，法制晚报·看法新闻《爆料》栏目的大门随时向你敞开～
+        </p>
+
+    </div>
+</div>
+</body>
+<script>
+    // 页面缩放
+    fnViewScale();
+    function fnViewScale(){
+        var wrapper = $("#wrapper")[0];
+        var sreenWidth = document.body.clientWidth;
+        var iScale = sreenWidth/320;
+
+        wrapper.style.transform = "scale("+iScale+")";
+        wrapper.style.webkitTransform = "scale("+iScale+")";
+    }
+    window.onresize = function(){
+        fnViewScale();
+    }
+</script>
+</html>

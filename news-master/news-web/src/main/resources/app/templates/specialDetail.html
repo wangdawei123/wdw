@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="/static/js/flexble-main.js"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="/static/js/global.js?v=2002"></script>
+    <script type="text/javascript" src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+    <script type="text/javascript" src="/static/js/template-web.js"></script>
+    <script type="text/javascript" src="/static/js/jquery/fancybox/jquery.fancybox.pack.js"></script>
+    <link rel="stylesheet" href="/static/js/jquery/fancybox/jquery.fancybox.css">
+    <link rel="stylesheet" href="/static/css/special.css?v=4800">
+
+    <link rel="stylesheet" href="/static/css/swiper.min-new.css">
+    <script src="/static/js/swiper.min-new.js"></script>
+
+</head>
+<body>
+<div id="wrapper"></div>
+
+<!-- loading -->
+<!-- <section class="loading hide">
+    <img src="/static/img/share/loading.gif">
+</section> -->
+
+<script id="index_special_template"  type="text/html">
+    <!-- banner -->
+    <div class="banner">
+        <img src="<%=specialObj.image%>" alt="Banner">
+    </div>
+    <!-- 子目录 -->
+    <div class="subdirectory">
+
+        <% for(var i=0; i<catalog.length; i++){ %>
+
+        <% if(browserPadding){ %>
+        <% if(i < 7){ %>
+        <span data-to="go-label<%=i+1%>" class="nav nav<%=i+1%> sub-other" onclick="navClick(this);"><%=catalog[i].name%></span>
+        <% }else { %>
+        <span data-to="go-label<%=i+1%>" class="nav nav<%=i+1%> sub-other" onclick="navClick(this);" style="display: none;"><%=catalog[i].name%></span>
+        <% }%>
+        <% } else { %>
+        <% if(i < 7){ %>
+        <span data-to="go-label<%=i+1%>" class="nav nav<%=i+1%>" onclick="navClick(this);"><%=catalog[i].name%></span>
+        <% }else { %>
+        <span data-to="go-label<%=i+1%>" class="nav nav<%=i+1%>" onclick="navClick(this);" style="display: none;"><%=catalog[i].name%></span>
+        <% }%>
+        <% } %>
+
+        <% } %>
+
+    </div>
+    <!--水平分隔线 -->
+    <hr>
+    <!-- 导语 -->
+    <div class="lead">
+        <span><%=desc%></span>
+    </div>
+
+    <!-- 专题元素 -->
+    <div class="special-con">
+
+        <% for(var i=0; i<catalog.length; i++){ %>
+        <!-- 锚点 1/8专题子目录名称 -->
+        <div id="go-label<%=i+1%>" class="anchor">
+            <!-- 子目录标题 -->
+            <div class="anchor-tit"><%=i+1%>/<%=catalog.length%><%=catalog[i].name%></div>
+
+            <!-- 关联标题+标签+图片 -->
+            <% for(var j=0; j<catalog[i].specials.length; j++){ %>
+            <div class="anchor-con">
+                <% if(inApp){ %>
+                <a href="javascript:void(0);" onclick="kf.redirectContentDetail(parseInt('<%=catalog[i].specials[j].type%>'),parseInt('<%=catalog[i].specials[j].id%>'),'<%= catalog[i].specials[j].url%>','<%=catalog[i].specials[j].title%>');">
+                    <% } else { %>
+                    <% if(ispreview == 1){ %>
+                    <a href="<%=catalog[i].specials[j].url%>">
+                        <% } else { %>
+                        <a href="<%=catalog[i].specials[j].share_url%>">
+                            <% } %>
+                            <% } %>
+
+                            <% if(catalog[i].specials[j].type == 3){ %>
+
+                            <!-- 图集推荐-->
+                            <% if(catalog[i].specials[j].card_type == 4){ %>
+                            <div class="a-c-bottom marg-t-0">
+
+
+                                <img class="big-img bor-solid" src="<%=catalog[i].specials[j].image%>">
+
+
+                                <% if(browserPadding){ %>
+                                <span class="atlas"><i class="atlasNum"><%=catalog[i].specials[j].images.length%></i></span>
+                                <% } else { %>
+                                <span class="atlas"><i><%=catalog[i].specials[j].images.length%></i></span>
+                                <% } %>
+                            </div>
+
+                            <div class="a-c-top marg-t-11">
+                                <span class="tit"><%=catalog[i].specials[j].title%></span>
+
+                                <!--标签-->
+                                <% if(catalog[i].specials[j].tags.length > 0){ %>
+                                <span class="label">
+                                    <% for(var k=0; k<catalog[i].specials[j].tags.length; k++){ %>
+                                        <i><!-- <%=catalog[i].specials[j].tags[k].name%> --><img src="/static/img/special/label-3x.png"></i>
+                                    <% } %>
+                                </span>
+                                <% } %>
+                            </div>
+                            <% } %>
+                            <% } else if(catalog[i].specials[j].type == 1 || catalog[i].specials[j].type == 2){ %>
+
+                            <% if(catalog[i].specials[j].card_type == 0){ %>
+                            <!--无图-->
+                            <div class="a-c-top">
+                                <span class="tit"><%=catalog[i].specials[j].title%></span>
+
+                                <!--标签-->
+                                <% if(catalog[i].specials[j].tags.length > 0){ %>
+                                <span class="label">
+                                        <% for(var k=0; k<catalog[i].specials[j].tags.length; k++){ %>
+                                            <i><!-- <%=catalog[i].specials[j].tags[k].name%> --><img src="/static/img/special/label-3x.png"></i>
+                                        <% } %>
+                                        </span>
+                                <% } %>
+                            </div>
+                            <% }else if(catalog[i].specials[j].card_type == 1){ %>
+                            <!--小图-->
+                            <!--专题或文章推荐-->
+                            <div class="a-c-left">
+                                        <span class="tit">
+                                            <span><%=catalog[i].specials[j].title%>
+                                                <!--  我是示例文字我是示例文字我是示例文字我是示例文字我是示例文字我是示例文字 -->
+                                            </span>
+                                        </span>
+
+                                <!--标签-->
+                                <% if(catalog[i].specials[j].tags.length > 0){ %>
+                                <span class="label">
+                                        <% for(var k=0; k<catalog[i].specials[j].tags.length; k++){ %>
+                                            <i><!-- <%=catalog[i].specials[j].tags[k].name%> --><img src="/static/img/special/label-3x.png"></i>
+                                        <% } %>
+                                        </span>
+                                <% } %>
+
+                            </div>
+                            <div class="a-c-right">
+
+
+                                <img src="<%=catalog[i].specials[j].image%>">
+
+                            </div>
+                            <% }else if(catalog[i].specials[j].card_type == 2){ %>
+                            <!--大图-->
+                            <div class="a-c-bottom marg-t-0">
+
+
+                                <img class="big-img bor-solid" src="<%=catalog[i].specials[j].image%>">
+
+                            </div>
+
+                            <div class="a-c-top marg-t-11">
+                                <span class="tit"><%=catalog[i].specials[j].title%></span>
+
+                                <!--标签-->
+                                <% if(catalog[i].specials[j].tags.length > 0){ %>
+                                <span class="label">
+                                        <% for(var k=0; k<catalog[i].specials[j].tags.length; k++){ %>
+                                            <i><!-- <%=catalog[i].specials[j].tags[k].name%> --><img src="/static/img/special/label-3x.png"></i>
+                                        <% } %>
+                                        </span>
+                                <% } %>
+                            </div>
+
+                            <% }else if(catalog[i].specials[j].card_type == 3){ %>
+
+                            <!--三图模式-->
+                            <div class="a-c-top">
+                                <span class="tit"><%=catalog[i].specials[j].title%></span>
+                            </div>
+                            <div class="a-c-bottom">
+                                <% for(var m=0; m<catalog[i].specials[j].images.length; m++){ %>
+                                <img class="bor-solid" src="<%=catalog[i].specials[j].images[m]%>" alt="">
+                                <% } %>
+                            </div>
+                            <!--标签-->
+                            <% if(catalog[i].specials[j].tags.length > 0){ %>
+                            <span class="label marg-t-7">
+                                    <% for(var k=0; k<catalog[i].specials[j].tags.length; k++){ %>
+                                        <i><!-- <%=catalog[i].specials[j].tags[k].name%> --><img src="/static/img/special/label-3x.png"></i>
+                                    <% } %>
+                                    </span>
+                            <% } %>
+                            <% } %>
+
+                            <% } else if(catalog[i].specials[j].type == 4){  %>
+                            <!--视频推荐-->
+                            <div class="a-c-bottom marg-t-0">
+
+
+                                <img class="big-img" src="<%=catalog[i].specials[j].image%>">
+
+                                <img class="controlbar" src="/static/img/special/controlbar-3x.png">
+
+
+                                <img class="play-btn" src="/static/img/special/play.png" alt="播放按钮">
+                                <span class="v-time"><%=catalog[i].specials[j].duration%></span>
+                            </div>
+
+                            <div class="a-c-top marg-t-11">
+                                <span class="tit"><%=catalog[i].specials[j].title%></span>
+
+                                <!--标签-->
+                                <% if(catalog[i].specials[j].tags.length > 0){ %>
+                                <span class="label">
+                                <% for(var k=0; k<catalog[i].specials[j].tags.length; k++){ %>
+                                    <i><!-- <%=catalog[i].specials[j].tags[k].name%> --><img src="/static/img/special/label-3x.png"></i>
+                                <% } %>
+                            </span>
+                                <% } %>
+                            </div>
+                            <% } %>
+
+                        </a>
+            </div>
+
+            <!-- 水平分隔线 -->
+            <% if(j+1 != catalog[i].specials.length){ %>
+            <hr>
+            <% } %>
+
+            <% } %>
+        </div>
+        <% } %>
+
+    </div>
+    <% if(!inApp && ispreview != 1){ %>
+    <!-- 底部唤起App模块 -->
+    <section class="footer-wraper">
+        <!-- Swiper -->
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                <% for(var i=0; i<activitysObj.length; i++){ %>
+                <div class="swiper-slide">
+                    <img src="<%=activitysObj[i].ico%>" alt="">
+                    <span><%=activitysObj[i].title%></span>
+                </div>
+
+                <% } %>
+            </div>
+            <!-- Add Pagination -->
+            <div class="swiper-pagination"></div>
+        </div>
+
+        <a id="btnOpenApp" href="javascript:void(0);" class="footer-download">打开</a>
+    </section>
+
+    <% } %>
+</script>
+
+
+
+<script id="notice_template" type="text/html">
+    <div class="error">
+        <div class="network-fault">
+            <img src="/static/img/bluesky/404.png" alt="网络出错了" title="网络出错了">
+        </div>
+        <div class="prompt">
+            <%=error%>
+        </div>
+    </div>
+</script>
+
+<!--<script src="/static/js/activity/special.js"></script>-->
+<script type="text/javascript" src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script type="text/javascript" src="/js/libs/weixin.js"></script>
+<script type="text/javascript">
+
+
+    function navClick(target) {
+        var id = $(target).data("to");
+        $('html,body').animate({scrollTop:$('#'+id).offset().top}, 800);
+
+    }
+
+    function browserPadding() {
+        var ua = window.navigator.userAgent.toLowerCase();
+        var result = 0;
+        if(kf.isInApp()){
+            if(ua.indexOf('android') > -1 || ua.indexOf('linux') > -1) {
+                result = 'inApp Android';
+            }
+        } else {
+            if(ua.indexOf('android') > -1 || ua.indexOf('linux') > -1) {
+                if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+                    result =  'weixin';
+                } else if (ua.match(/QQ/i) == 'qq') {
+                    result =  'qq';
+                } else if (ua.match(/uc/i) == 'uc') {
+                    result = 'uc';
+                }
+            }
+        }
+
+        return result;
+    }
+
+    /*
+     * 调用魔窗打开app
+     * */
+    function linkToAppByMLink(ele, id, appUrl, title) {
+        var link='https://aih3gj.mlinks.cc/AbkE?newSpecialList?cid=:cid&title=:title&url=:url&from=h5';
+        var options = [
+            {
+                mlink: "AbkE",
+                button: document.querySelector(ele),
+                autoLaunchApp : false,
+                autoRedirectToDownloadUrl: true,
+                downloadWhenUniversalLinkFailed: false,
+                inapp : false,
+                params: {
+                    cid:id,
+                    title:title,
+                    url:appUrl,
+                    from:'h5'
+                },
+            }
+        ];
+        new Mlink(options);
+    }
+    var browserPadding = browserPadding();
+
+    //        $(function () {
+    FastClick.attach(document.body);
+
+    var cate = kf.getSearchParam('cate');
+    var cid = kf.getSearchParam('cid');
+    var share = kf.getSearchParam('share');
+    var ispreview = kf.getSearchParam('ispreview');// 1 preview  0
+
+    kf.post('/web/special/getNewSpecial', {'cate': cate, 'cid': cid, 'ispreview': ispreview}, null, function (res) {
+//                console.log(res);
+        if(res.error_code){
+            var error=template("notice_template",{error:res.error_msg});
+            $("#wrapper").html(error);
+            return;
+        }
+
+        // 更新页面浏览次数
+        kf.get('/web/index/updateviews'+location.search.replace('cid=', 'id='), null, null, function (res) {
+            console.log(res);
+        }, null, function (err) {
+            console.log(err);
+        });
+
+        document.title = res.data.title;
+
+        var catalogArr = res.data.catalog;
+        var specialObj = res.data.special_img;
+        var shareObj = res.data.share_url;
+        var activitysObj = res.data.activitys;
+        var inApp = kf.isInApp();
+
+        var html = template("index_special_template", {inApp: inApp, share: share, ispreview: ispreview, browserPadding: browserPadding, specialObj:specialObj, desc: res.data.desc, catalog: catalogArr, activitysObj: activitysObj});
+        $("#wrapper").html(html);
+        if(!inApp && ispreview != 1){
+            $("#wrapper").css('padding-bottom', '1.46667rem');
+        }
+
+        if(catalogArr.length > 8){
+            $('<span id="allNav">更多...</span>').insertAfter('#wrapper .nav7');
+        }
+
+        if(!inApp && ispreview != 1 && activitysObj.length > 1){
+            var swiper = new Swiper('.swiper-container', {
+                pagination: {
+                    el: '.swiper-pagination',
+                    clickable: true,
+                    renderBullet: function(index, className){
+                        return '<span class="' + className + '"></span>';
+                    }
+                },
+                direction : 'horizontal',
+                loop: true,
+                autoplay: {
+                    delay: 2500,
+                    disableOnInteraction: false,
+                },
+                speed: 300,
+            })
+
+            linkToAppByMLink('a#btnOpenApp', res.data.id, res.data.appUrl, res.data.title);
+        }
+
+        $('#allNav').click(function () {
+            $('#allNav').hide();
+            $('.nav').show();
+        })
+
+        kf.appShare(0, shareObj.title, shareObj.desc, shareObj.icon, shareObj.url);
+        kf.get("/web/weixin/sign",{url:document.location.href},null,function(package){
+            var wxshare=new wechat(package.appId,package.timestamp,package.nonceStr,package.signature);
+            wxshare.share(shareObj.title, shareObj.desc,shareObj.url,shareObj.icon);
+        });
+
+    })
+
+
+    //        });
+
+
+</script>
+
+<!-- 百度统计代码 -->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f629854132f3cfafdb620261198d53b0";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+</body>
+</html>

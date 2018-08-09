@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="x5-orientation" content="portrait">
+    <meta name="screen-orientation"content="portrait">
+	<script src="/static/js/flexble-main.js"></script>
+	<script src="/static/js/jquery/jquery-1.9.1.min.js"></script>
+    <script src="https://cdn.bootcss.com/fastclick/1.0.6/fastclick.min.js"></script>
+    <link rel="stylesheet" href="/static/css/album.css?v=2800">
+    <link rel="stylesheet" href="/static/css/swiper.min-new.css">
+</head>
+<body>
+
+	<main id="album">
+        <div id="albumList"></div>
+	</main>
+
+	<section id="back-top" class="hide" onclick="navClick();">
+		<a href="javascript:;" title="返回顶部">
+			<img src="/static/img/share/back-top-3x.png">
+		</a>
+	</section>
+	
+	<!-- 底部唤起App模块 -->
+	<section class="footer-wraper hide"></section>
+
+    <!-- <section class="loading hide">
+        <img src="/static/img/share/loading.gif">
+    </section> -->
+
+</body>
+<script src="/static/js/swiper.min-new.js"></script>
+<script src="/static/js/global.js?v=101915"></script>
+<script src="//res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+<script src="https://static.mlinks.cc/scripts/dist/mlink.min.js"></script>
+<script src="/static/js/libs/weixin.js"></script>
+<script src="https://static.mlinks.cc/scripts/dist/mlink.min.js"></script>
+<script>
+
+    /*
+    * 回到顶部
+    * */
+    function navClick() {
+        $('html,body').animate({scrollTop:0}, 800);
+    }
+
+    function linkToAppByMLink(ele, id) {
+        var link = 'https://aih3gj.mlinks.cc/AbjE?videoAlbumList?id=:id&from=h5';
+        var options = [
+            {
+                mlink: "AbjE",
+                button: document.querySelector(ele),
+                autoLaunchApp : false,
+                autoRedirectToDownloadUrl: true,
+                downloadWhenUniversalLinkFailed: false,
+                inapp : false,
+                params: {
+                    id:id,
+                    from:'h5'
+                },
+            }
+        ];
+        new Mlink(options);
+    }
+
+    $(function () {
+
+        FastClick.attach(document.body);
+
+		var id = kf.getSearchParam('id');
+		kf.post('/web/video/getVideoAlbum', {id: id}, null, function (res) {
+//			console.log(res);
+            if(res.error_code){
+                console.log(res.error_msg);
+                $('body').html('<section class="error"><div class="network-fault"><img src="/static/img/share/404.png" alt="网络出错了" title="网络出错了"></div><div class="prompt">额，还没有内容〜</div></section>');
+                return;
+            }
+
+            // 更新页面浏览次数
+            kf.get('/web/index/updateviews'+location.search, null, null, function (res) {
+                console.log(res);
+            }, null, function (err) {
+                console.log(err);
+            });
+
+            var data = res.data;
+            var shareObj = res.data.share;
+            var activitys = res.data.activitys;
+
+            if(data.title){
+                document.title = data.title;
+            }
+            var listHtml = '';
+            data.bind_list.forEach(function (t) {
+                listHtml += '<a href="'+t.url+'" class="video" style="display: block;">';
+                listHtml += '	<img class="cover" src="'+t.image+'">';
+                listHtml += '	<span class="v-tit">'+t.title+'</span>';
+                listHtml += '	<img class="controlbar-top" src="/static/img/share/controlbar-top-3x.png" alt="">';
+                listHtml += '	<img class="btn-play" src="/static/img/share/big-play-3x.png">';
+                listHtml += '	<img class="controlbar" src="/static/img/share/controlbar-3x.png" alt="">';
+                listHtml += '	<time class="v-time">'+ t.duration +'</time>';
+                listHtml += '</a>';
+                listHtml += '<div class="anchors">';
+                listHtml += '	<a class="a-anchor" href="javascript:void(0);">';
+                listHtml += '		<span class="anchors-head">';
+                listHtml += '			<img src="'+t.source_img+'" alt="头像">';
+                listHtml += '		</span>';
+                listHtml += '		<span class="anchors-name">'+t.source_name+'</span>';
+                listHtml += '	</a>';
+//                listHtml += '	<a class="follow" href="javascript:void(0);"><i><img src="/static/img/share/follow.png"></i>关注</a>';
+                listHtml += '</div>';
+			})
+			$('#albumList').html(listHtml);
+
+            // 渲染底部轮播
+            if(activitys.length){
+                var swiperHtml = '';
+                swiperHtml += '<div class="swiper-container">';
+                swiperHtml += '    <div class="swiper-wrapper">';
+                activitys.forEach(function (t, v) {
+                    swiperHtml += '     <div class="swiper-slide">';
+                    swiperHtml += '         <img src="'+t.ico+'" alt="">';
+                    swiperHtml += '         <span>'+t.title+'</span>';
+                    swiperHtml += '     </div>';
+                })
+                swiperHtml += '    </div>';
+                swiperHtml += '    <div class="swiper-pagination"></div>';
+                swiperHtml += '</div>';
+                swiperHtml += '<a id="btnOpenApp" href="javascript:void(0);" class="footer-download">打开</a>';
+                $('.footer-wraper').html(swiperHtml).show();
+                if(activitys.length > 1){
+
+                    var swiper = new Swiper('.swiper-container', {
+                        pagination: {
+                            el: '.swiper-pagination',
+                            clickable: true,
+                            renderBullet: function(index, className){
+                                return '<span class="' + className + '"></span>';
+                            }
+                        },
+                        direction : 'horizontal',
+                        loop: true,
+                        autoplay: {
+                            delay: 2500,
+                            disableOnInteraction: false,
+                        },
+                        speed: 300,
+                    })
+                }
+				linkToAppByMLink('a#btnOpenApp', id, data.appUrl);
+            }
+
+            kf.appShare(0, shareObj.title, shareObj.subtitle, shareObj.img, shareObj.url);
+            kf.get("/web/weixin/sign",{url:document.location.href},null,function(package){
+                var wxshare=new wechat(package.appId,package.timestamp,package.nonceStr,package.signature);
+                wxshare.share(shareObj.title, shareObj.subtitle,shareObj.url,shareObj.img);
+            });
+
+        }, null, function (err) {
+			console.log(err);
+        })
+
+        // 监听回到顶部是否显示
+        window.addEventListener('scroll', function () {
+            if($(window).scrollTop() >= window.screen.height){
+                $('#back-top').show();
+            } else {
+                $('#back-top').hide();
+            }
+        })
+    })
+</script>
+
+<!-- 百度统计代码 -->
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "https://hm.baidu.com/hm.js?f629854132f3cfafdb620261198d53b0";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+</html>

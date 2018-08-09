@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.LoveMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.Love" id="loveMap">
+        <result property="cid" column="cid"/>
+        <result property="uuid" column="uuid"/>
+        <result property="devId" column="dev_id"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <select id="getLoveOne" resultType="com.kanfa.news.info.entity.Love">
+        SELECT
+                cid,
+                uuid,
+                dev_id devId,
+                create_time createTime
+        FROM
+                kf_love
+        <where>
+            <if test="love.cid!=null">
+              AND  cid=#{love.cid}
+            </if>
+            <if test="love.devId!=null ">
+               AND (dev_id=#{love.devId} <if test="love.uuid!=null"> OR uuid=#{love.uuid}</if> )
+            </if>
+        </where>
+        limit 1
+    </select>
+
+    <select id="getLoveList" resultType="com.kanfa.news.info.entity.Love">
+        SELECT
+                cid,
+                uuid,
+                dev_id devId
+        FROM
+                kf_love
+        <where>
+            <if test="love.cid != null">
+                cid=#{love.cid}
+            </if>
+        </where>
+    </select>
+</mapper>

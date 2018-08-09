@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.AdvPositionMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.AdvPosition" id="advPositionMap">
+        <result property="id" column="id"/>
+        <result property="advertisementId" column="advertisement_id"/>
+        <result property="channelId" column="channel_id"/>
+        <result property="type" column="type"/>
+        <result property="orderNumber" column="order_number"/>
+    </resultMap>
+
+    <select id="selectMaxOrderNumber" resultType="java.lang.Integer">
+        SELECT MAX(order_number) FROM kf_adv_position
+    </select>
+</mapper>

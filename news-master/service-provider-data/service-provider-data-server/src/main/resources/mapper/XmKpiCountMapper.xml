@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.data.mapper.XmKpiCountMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.data.entity.XmKpiCount" id="xmKpiCountMap">
+        <result property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="type" column="type"/>
+        <result property="typeId" column="type_id"/>
+        <result property="name" column="name"/>
+        <result property="articleType" column="article_type"/>
+        <result property="workType" column="work_type"/>
+        <result property="weight" column="weight"/>
+        <result property="firstCheckTime" column="first_check_time"/>
+        <result property="firstCheckId" column="first_check_id"/>
+        <result property="isNumPass" column="is_num_pass"/>
+        <result property="jobId" column="job_id"/>
+        <result property="deptId" column="dept_id"/>
+        <result property="isSpecial" column="is_special"/>
+        <result property="pvFinishTime" column="pv_finish_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remarks" column="remarks"/>
+    </resultMap>
+
+
+    <select id="selectXmKpiCounts" resultType="com.kanfa.news.data.entity.XmKpiCount">
+      SELECT
+      id,uid,`type`,type_id typeId,`name`,article_type articleType,work_type workType,weight,first_check_time firstCheckTime,first_check_id firstCheckId,
+      is_num_pass isNumPass,job_id jobId,dept_id deptId,is_special isSpecial,pv_finish_time pvFinishTime,create_time createTime,update_time updateTime,remarks
+      FROM
+      xm_kpi_count xkc
+      WHERE xkc.type =#{type} AND xkc.type_id = #{typeId}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.ActivityLawPioneerMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.ActivityLawPioneer" id="activityLawPioneerMap">
+        <result property="id" column="id"/>
+        <result property="activityLawId" column="activity_law_id"/>
+        <result property="cid" column="cid"/>
+        <result property="title" column="title"/>
+        <result property="icon" column="icon"/>
+        <result property="backgroundImage" column="background_image"/>
+        <result property="description" column="description"/>
+        <result property="createTime" column="create_time"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="sort" column="sort"/>
+    </resultMap>
+
+    <select id="getList" resultType="com.kanfa.news.info.vo.admin.info.ActivityLawPioneerInfo">
+        SELECT
+                id,
+                title
+        FROM
+                kf_activity_law_pioneer
+        <where>
+            <if test="entity.isDelete">
+               AND is_delete=#{entity.isDelete}
+            </if>
+        </where>
+    </select>
+
+    <select id="getLawList" resultMap="activityLawPioneerMap">
+        SELECT
+            alp.id,
+            alp.title,
+            alp.icon,
+            alp.background_image,
+            alp.description
+        FROM
+            kf_activity_law_pioneer alp
+        LEFT JOIN kf_activity a ON a.id = alp.activity_law_id
+        AND a.is_delete = 0
+        AND a.`status` = 1
+        WHERE
+            alp.is_delete = 1
+        ORDER BY
+            alp.sort ASC
+    </select>
+
+
+
+    <select id="getActivityLawPioneerPage" resultType="com.kanfa.news.info.vo.admin.activity.ActivityLawPioneerPageInfo">
+        SELECT
+        kalp.id,
+        kalp.title,
+        kalp.description,
+        kalp.sort,
+        kalp.create_time createTime
+        FROM kf_activity_law_pioneer kalp
+        <where>
+            <if test="title!=null and title != '' ">
+                AND kalp.title LIKE CONCAT('%',#{title},'%')
+            </if>
+            <if test="isDelete!=null ">
+                AND kalp.is_delete=#{isDelete}
+            </if>
+            <if test="activityLawId!=null ">
+                AND kalp.activity_law_id=#{activityLawId}
+            </if>
+            <if test="id!=null ">
+                AND kalp.id=#{id}
+            </if>
+        </where>
+        ORDER BY kalp.id DESC,kalp.create_time DESC
+    </select>
+
+    <select id="getMaxSort" resultType="java.lang.Integer">
+        SELECT
+        MAX(kalp.sort)
+        FROM kf_activity_law_pioneer kalp
+        WHERE kalp.activity_law_id = #{activityLawId}
+    </select>
+
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.ColumnNewMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.ColumnNew" id="columnNewMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+        <result property="image" column="image"/>
+        <result property="hide" column="hide"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUid" column="update_uid"/>
+        <result property="isDelete" column="is_delete"/>
+    </resultMap>
+
+
+    <select id="getColumnPage" resultType="com.kanfa.news.info.vo.admin.column.ColumnNewPageInfo">
+            SELECT
+                kk.id,
+                kk.`name`,
+                kk.description,
+                aa.nickname updateUser,
+                kk.update_time updateTime,
+                kk.hide
+            FROM
+                kf_column_new kk
+            LEFT JOIN kf_admin_user aa ON aa.id = kk.update_uid
+            WHERE
+                kk.is_delete = 0
+            ORDER BY kk.id DESC
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.data.mapper.XmContentMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.data.entity.XmContent" id="xmContentMap">
+        <result property="id" column="id"/>
+        <result property="cate" column="cate"/>
+        <result property="type" column="type"/>
+        <result property="title" column="title"/>
+        <result property="longTitle" column="long_title"/>
+        <result property="desc" column="desc"/>
+        <result property="image" column="image"/>
+        <result property="img" column="img"/>
+        <result property="views" column="views"/>
+        <result property="loves" column="loves"/>
+        <result property="favs" column="favs"/>
+        <result property="tag" column="tag"/>
+        <result property="channels" column="channels"/>
+        <result property="comments" column="comments"/>
+        <result property="commentsOps" column="comments_ops"/>
+        <result property="updateUid" column="update_uid"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="stat" column="stat"/>
+        <result property="rmTime" column="rm_time"/>
+        <result property="rmUid" column="rm_uid"/>
+        <result property="aid" column="aid"/>
+        <result property="vid" column="vid"/>
+        <result property="customBtn" column="custom_btn"/>
+        <result property="customUrl" column="custom_url"/>
+        <result property="stid" column="stid"/>
+        <result property="isCheck" column="is_check"/>
+        <result property="check" column="check"/>
+        <result property="checkTime" column="check_time"/>
+        <result property="mongoId" column="mongo_id"/>
+        <result property="author" column="author"/>
+        <result property="contentStyle" column="content_style"/>
+        <result property="sourceType" column="source_type"/>
+        <result property="isLegal" column="is_legal"/>
+        <result property="platform" column="platform"/>
+        <result property="videoType" column="video_type"/>
+        <result property="videoView" column="video_view"/>
+        <result property="appvideoView" column="appvideo_view"/>
+        <result property="firstCheckTime" column="first_check_time"/>
+        <result property="isRelation" column="is_relation"/>
+        <result property="isDuty" column="is_duty"/>
+    </resultMap>
+
+    <sql id="base_column_list">
+        `id`		`id`,
+        `cate`		`cate`,
+        `type`		`type`,
+        `title`		`title`,
+        `long_title`		`longTitle`,
+        `desc`		`desc`,
+        `image`		`image`,
+        `img`		`img`,
+        `views`		`views`,
+        `loves`		`loves`,
+        `favs`		`favs`,
+        `tag`		`tag`,
+        `channels`		`channels`,
+        `comments`		`comments`,
+        `comments_ops`		`commentsOps`,
+        `update_uid`		`updateUid`,
+        `create_uid`		`createUid`,
+        `create_time`		`createTime`,
+        `update_time`		`updateTime`,
+        `stat`		`stat`,
+        `rm_time`		`rmTime`,
+        `rm_uid`		`rmUid`,
+        `aid`		`aid`,
+        `vid`		`vid`,
+        `custom_btn`		`customBtn`,
+        `custom_url`		`customUrl`,
+        `stid`		`stid`,
+        `is_check`		`isCheck`,
+        `check`		`check`,
+        `check_time`		`checkTime`,
+        `mongo_id`		`mongoId`,
+        `author`		`author`,
+        `content_style`		`contentStyle`,
+        `source_type`		`sourceType`,
+        `is_legal`		`isLegal`,
+        `platform`		`platform`,
+        `video_type`		`videoType`,
+        `video_view`		`videoView`,
+        `appvideo_view`		`appvideoView`,
+        `first_check_time`		`firstCheckTime`,
+        `is_relation`		`isRelation`,
+        `is_duty`		`isDuty`
+    </sql>
+
+    <select id="getContentInfo" resultType="com.kanfa.news.data.entity.XmContent">
+      SELECT
+              <include refid="base_column_list" />
+      FROM
+              xm_content
+      WHERE
+              id=#{id}
+    </select>
+</mapper>

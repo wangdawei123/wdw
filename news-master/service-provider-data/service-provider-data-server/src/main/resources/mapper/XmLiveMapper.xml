@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.data.mapper.XmLiveMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.data.entity.XmLive" id="xmLiveMap">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="subtitle" column="subtitle"/>
+        <result property="liveContent" column="live_content"/>
+        <result property="stat" column="stat"/>
+        <result property="liveUrl" column="live_url"/>
+        <result property="startTime" column="start_time"/>
+        <result property="duration" column="duration"/>
+        <result property="liveTypeId" column="live_type_id"/>
+        <result property="caseType" column="case_type"/>
+        <result property="courtLevel" column="court_level"/>
+        <result property="courtId" column="court_id"/>
+        <result property="courtName" column="court_name"/>
+        <result property="sourceUrl" column="source_url"/>
+        <result property="previewUrl" column="preview_url"/>
+        <result property="previewImg" column="preview_img"/>
+        <result property="previewSummary" column="preview_summary"/>
+        <result property="previewDesc" column="preview_desc"/>
+        <result property="previewShow" column="preview_show"/>
+        <result property="top" column="top"/>
+        <result property="reviewUrl" column="review_url"/>
+        <result property="flashObj" column="flash_obj"/>
+        <result property="coverImg" column="cover_img"/>
+        <result property="caseInfo" column="case_info"/>
+        <result property="courtInfo" column="court_info"/>
+        <result property="views" column="views"/>
+        <result property="pub" column="pub"/>
+        <result property="deleted" column="deleted"/>
+        <result property="locked" column="locked"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUid" column="update_uid"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="check" column="check"/>
+        <result property="checkTime" column="check_time"/>
+        <result property="comments" column="comments"/>
+        <result property="commentsOps" column="comments_ops"/>
+        <result property="commentType" column="comment_type"/>
+        <result property="chatroomStatus" column="chatroom_status"/>
+        <result property="chatroomKeeplive" column="chatroom_keeplive"/>
+        <result property="chatroomNotice" column="chatroom_notice"/>
+        <result property="sourceId" column="source_id"/>
+        <result property="favs" column="favs"/>
+        <result property="commentStatus" column="comment_status"/>
+        <result property="liveRecommendWeight" column="live_recommend_weight"/>
+        <result property="chatroomAllcount" column="chatroom_allcount"/>
+        <result property="chatroomAppcount" column="chatroom_appcount"/>
+        <result property="reviewBox" column="review_box"/>
+        <result property="fromRemark" column="from_remark"/>
+        <result property="liveType" column="live_type"/>
+        <result property="videoView" column="video_view"/>
+        <result property="appvideoView" column="appvideo_view"/>
+        <result property="isShowViewUser" column="is_show_view_user"/>
+        <result property="isDuty" column="is_duty"/>
+    </resultMap>
+
+
+    <!-- 得到工作类型的集合 -->
+    <select id="getworkTypeList"  parameterType="java.lang.Integer" resultType="java.lang.Integer">
+        SELECT
+        work_type WorkType
+        FROM
+        xm_kpi_count xkc
+        WHERE
+        xkc.type = #{type}
+        AND xkc.type_id = #{typeId}
+        AND xkc.uid = #{uid}
+    </select>
+
+
+    <select id="selectLiveById" resultType="com.kanfa.news.data.entity.XmLive">
+        SELECT
+        id,title,subtitle,live_content liveContent,stat,live_url liveUrL,start_time startTime,duration,live_type_id liveTypeId,case_type CaseType,court_level CourtLevel,court_id CourtId,court_name CourtName,source_url SourceUrl,
+        preview_url PreViewUrl,preview_img PreViewImg,preview_summary PreviewSummary,preview_desc PreviewDesc,preview_show PreviewShow,top,review_url ReviewUrl,flash_obj FlashObj,cover_img CoverImg,case_info CaseInfo,court_info CourtInfo,views,pub,deleted,locked,
+        create_uid CreateUid,create_time CreateTime,update_uid UpdateUid,update_time UpdateTime,`check`,check_time CheckTime,comments,comments_ops CommentsOps,comment_type CommentType,chatroom_status ChatroomStatus,chatroom_keeplive ChatroomKeeplive,chatroom_notice ChatroomNotice,
+        source_id SourceId,favs,comment_status CommentStatus,live_recommend_weight LiveRecommendWeight,chatroom_allcount ChatroomAllcount,chatroom_appcount ChatroomAppcount,review_box ReviewBox,from_remark FromRemark,live_type LiveType,video_view VideoView,appvideo_view AppvideoView,
+        is_show_view_user IsShowViewUser,is_duty IsDuty
+        FROM
+        xm_live xl
+        WHERE
+        xl.id = #{id}
+    </select>
+</mapper>

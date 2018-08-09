@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.activity.mapper.ActivityContentBindMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.activity.entity.ActivityContentBind" id="activityContentBindMap">
+        <result property="id" column="id"/>
+        <result property="contentId" column="content_id"/>
+        <result property="type" column="type"/>
+        <result property="activityId" column="activity_id"/>
+        <result property="top" column="top"/>
+        <result property="orderNumber" column="order_number"/>
+        <result property="isDelete" column="is_delete"/>
+    </resultMap>
+
+    <select id="findByid" resultMap="activityContentBindMap">
+        SELECT
+        *
+        FROM
+        kf_activity_content_bind
+        <where>
+            type = 2
+            <if test="lawId != null">
+                AND activity_id = #{lawId}
+            </if>
+        </where>
+        order by 'order'
+        limit #{offset} ,#{pcount}
+    </select>
+
+
+</mapper>

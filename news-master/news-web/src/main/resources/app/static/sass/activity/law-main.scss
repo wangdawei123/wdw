@@ -1,0 +1,1364 @@
+body{
+  background:$White;
+  -webkit-overflow-scrolling: touch;
+}
+*{
+  -webkit-overflow-scrolling: touch;
+}
+.ovfHiden {
+  overflow: hidden;
+  height: 100%;
+  position: relative;
+}
+// 青春微普法主页面
+#law{
+  @include box-sizing(border-box);
+  width:100%;
+  height:auto;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  // 头部
+  .header{
+    @include box-sizing(border-box);
+    width:100%;
+    min-height:px2rem2(200px);
+    height:auto;
+    img{
+      width:100%;
+      height:100%;
+    }
+  }
+  // 排行榜
+  .tap{
+    @include box-sizing(border-box);
+    width: 100%;
+    height:auto;
+    margin:px2rem2(-74px) auto 0;
+    position: relative;
+    z-index: 1;
+    -webkit-overflow-scrolling: touch;
+    .tap-title{
+      width: 100%;
+      height:px2rem2(74px);
+      background:rgba(255, 255, 255, .83);
+      border-radius:px2rem2(14px) px2rem2(14px) 0 0;
+      span{
+        width: 50%;
+        line-height:px2rem2(74px);
+        float:left;
+        display:block;
+        cursor:pointer;
+        text-align:center;
+        font-family:'PingFangSC-Regular';
+        font-size:px2rem2(30px);
+        color:$Mine-Shaft;
+        letter-spacing:px2rem2(.14px);
+      }
+      .show{
+        color:#e25b5a;
+      }
+    }
+    .tap-content{
+      @include box-sizing(border-box);
+      width: 100%;
+      padding:0 px2rem2(28px);
+      height:auto;
+      background:$White;
+      .date-rule{
+        width: 100%;
+        height:px2rem2(83px);
+        span{
+          display:block;
+          width: 50%;
+          float:left;
+          font-family:'PingFangSC-Regular';
+          font-size:px2rem2(26px);
+          font-weight:200;
+          color:$Gray !important;
+          letter-spacing:px2rem2(.15px);
+          line-height:px2rem2(83px);
+          &:first-child{
+            text-align:left;
+          }
+          &:last-child{
+            text-align:right;
+          }
+        }
+      }
+      .ranking-list{
+        width: 100%;
+        height:auto;
+        overflow: hidden;
+        ul{
+          width: 100%;
+          height:auto;
+          li{
+            width: 100%;
+            float:left;
+            height:px2rem2(150px);
+            position: relative;
+            .num{
+              position: absolute;
+              left:5.5rem;
+              top:px2rem2(70px);
+              opacity:1;
+              color:red;
+              font-size:px2rem2(28px);
+              letter-spacing:px2rem2(2px);
+            }
+            .jump-detail{
+              display:block;
+              cursor:pointer;
+              float:left;
+              min-width: px2rem2(450px);
+              height:100%;
+              span{
+                display:block;
+                float:left;
+              }
+              & span:nth-of-type(1){
+                width: px2rem2(13px);
+                height:100%;
+                line-height:px2rem2(150px);
+                font-family:'PingFangSC-Regular';
+                font-size:px2rem2(32px);
+                color:#ff7a32;
+                letter-spacing:px2rem2(.15px);
+              }
+              & span:nth-child(2){
+                @include box-sizing(border-box);
+                display:block;
+                width:px2rem2(86px);
+                height:100%;
+                display:-webkit-flex;
+                display:-moz-flex;
+                display:flex;
+                -webkit-align-items:center;
+                -moz-align-items:center;
+                align-items:center;
+                margin:0 px2rem2(27px) 0 px2rem2(36px);
+                img{
+                  @include box-sizing(border-box);
+                  display:block;
+                  width: px2rem2(84px);
+                  height:px2rem2(84px);
+                  border-radius:50%;
+                  border: 1px solid #cacaca;
+                }
+                .head-focus{
+                  -webkit-box-shadow:0 0 0 px2rem2(10px) rgba(255,255,255,1),0 0 0 px2rem2(12px) rgba(255,122,50,1);
+                  -moz-box-shadow:0 0 0 px2rem2(10px) rgba(255,255,255,1),0 0 0 px2rem2(12px) rgba(255,122,50,1);
+                  -ms-box-shadow:0 0 0 px2rem2(10px) rgba(255,255,255,1),0 0 0 px2rem2(12px) rgba(255,122,50,1);
+                  -o-box-shadow:0 0 0 px2rem2(10px) rgba(255,255,255,1),0 0 0 px2rem2(12px) rgba(255,122,50,1);
+                  box-shadow:0 0 0 px2rem2(10px) rgba(255,255,255,1),0 0 0 px2rem2(12px) rgba(255,122,50,1);
+                  border:none;
+                }
+              }
+              & span:nth-child(3){
+                display:block;
+                width:px2rem2(260px);
+                height:100%;
+                i{
+                  float:left;
+                  font-style:normal;
+                  display:block;
+                }
+                & i:nth-child(1){
+                  width: 100%;
+                  height:px2rem2(45px);
+                  line-height:px2rem2(45px);
+                  margin:px2rem2(30px) 0 0 0;
+                  font-family:'PingFangSC-Regular';
+                  font-weight:200;
+                  font-size:px2rem2(30px);
+                  color:$Mine-Shaft;
+                  letter-spacing:px2rem2(.14px);
+                }
+                 & i:nth-child(2){
+                  width: 100%;
+                  height:px2rem2(45px);
+                  line-height:px2rem2(45px);
+                  font-family:'PingFangSC-Regular';
+                  font-weight:200;
+                  font-size:px2rem2(24px);
+                  color:$Gray;
+                  letter-spacing:px2rem2(.11px);
+                }
+                .rise{
+                  background:url(/static/img/law/rise.png) no-repeat left center !important;
+                  background-size:px2rem2(30px) !important;
+                  padding-left:px2rem2(40px);
+                }
+                .flat{
+                  background:url(/static/img/law/flat.png) no-repeat left center !important;
+                  background-size:px2rem2(30px) px2rem2(5px) !important;
+                  padding-left:px2rem2(40px);
+                }
+                .decline{
+                  background:url(/static/img/law/decline.png) no-repeat left center !important;
+                  background-size:px2rem2(30px) !important;
+                  padding-left:px2rem2(40px);
+                }
+              }
+            }
+            
+            .gift{
+              display:block;
+              width:px2rem2(56px);
+              height:px2rem2(56px);
+              float:right;
+              margin:px2rem2(47px) px2rem2(20px) 0 0;
+              img{
+                width:100%;
+                height:100%;
+              }
+            }
+
+            .v-btn{
+              width:px2rem2(148px);
+              height:px2rem2(60px);
+              line-height:px2rem2(60px);
+              text-align:center;
+              display:block;
+              cursor:pointer;
+              color:$White;
+              font-family:'PingFangSC-Regular';
+              font-size:px2rem2(30px);
+              font-weight:200;
+              letter-spacing:px2rem2(.14px);
+              background:#e25b5a;
+              border-radius:px2rem2(37px);
+              margin:px2rem2(45px) 0 0 0;
+              float:right;
+            }
+            .bg-gray{
+              color:#9c9c9c;
+              background:#e5e5e5 !important;
+            }
+            .c-gray{
+              color:$Gray !important;
+            }
+          }
+        }
+        // 底线
+        .baseline{
+          width: 100%;
+          height:px2rem2(120px);
+          float:left;
+          .base-tit{
+            color:$Gray;
+            font-family:'PingFangSC-Regular';
+            font-size:px2rem2(26px);
+            font-weight:200;
+            letter-spacing:px2rem2(.15px);
+            text-align:center;
+            line-height:px2rem2(120px);
+            span{
+              display:block;
+              /*设置为块级元素会独占一行形成上下居中的效果*/
+              font-size:px2rem2(26px);
+              color:$Gray;
+              position: relative;
+              font-family:'PingFangSC-Regular';
+              margin:px2rem2(-20px) auto 0;
+              &:before,&:after{
+                content: '';
+                /*CSS伪类用法*/
+                position: absolute;
+                /*定位背景横线的纵向位置*/
+                top: 49.5%;
+                background: $Mercury;
+                /*宽和高做出来的背景横线*/
+                width: 35%;
+                height: 1px;
+              }
+              &:before{
+                left:0;
+              }
+              &:after{
+                right:0;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  // 404页面
+  .error{
+    position: fixed;
+    top:0;
+    left:0;
+    background:$White;
+    width:100%;
+    min-height:1000px;
+    .network-fault{
+      width:6rem;
+      height:3.5rem;
+      margin:6rem auto 0;
+      img{
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .prompt{
+      @include box-sizing(border-box);
+      float:left;
+      width: 100%;
+      text-align:center;
+      margin-top:.8rem;
+      color:#979797;
+      font-size:.75rem;
+      line-height:.9rem;
+      font-family:'PingFangSC-Regular';
+      letter-spacing:1px;
+    }
+  }
+}
+
+  // 投票成功弹窗
+  @-webkit-keyframes fadeIn{
+    0%{
+      opacity:1;
+    }
+    100%{
+      opacity:0;
+
+    }
+  }
+  .hint-info{
+    @include box-sizing(border-box);
+    width:px2rem2(456px);
+    height:px2rem2(160px);
+    line-height:px2rem2(160px);
+    text-align:center;
+    position:fixed;
+    display:none;
+    left:50%;
+    top:50%;
+    margin:px2rem2(-80px) 0 0 px2rem2(-228px);
+    font-family:'PingFangSC-Regular';
+    font-size:px2rem2(28px);
+    color:$White;
+    z-index: 999;
+    background:rgba(0,0,0,0.7);
+    border-radius:px2rem2(30px);
+    -webkit-animation-name:fadeIn; //动画名称
+    -webkit-animation-duration:2s; //动画持续时间
+    -webkit-animation-iteration-count:1; //动画次数
+    -webkit-animation-delay:1s; //延迟时间
+  }
+
+
+// 活动未开始时显示
+.remind{
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 1;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  z-index: 999;
+  .re-box{
+    position: absolute;
+    width: 100%;
+    top:45%;
+    text-align:center;
+    p{
+      @include box-sizing(border-box);
+      width:100%;
+      display:block;
+      padding:px2rem2(20px);
+      float:left;
+      font-family:'PingFangSC-Regular';
+      font-size:px2rem2(32px);
+      font-weight:200;
+      letter-spacing:px2rem2(.15px);
+      text-align:center;
+      color:$White;
+    }
+    .btn{
+      width:100%;
+      height:auto;
+      text-align:center;
+      float:left;
+      .download{
+        width:px2rem2(148px);
+        height:px2rem2(60px);
+        line-height:px2rem2(60px);
+        text-align:center;
+        display:block;
+        cursor:pointer;
+        color:$White;
+        font-family:'PingFangSC-Regular';
+        font-size:px2rem2(30px);
+        font-weight:200;
+        letter-spacing:px2rem2(.14px);
+        background:#e25b5a;
+        border-radius:px2rem2(30px);
+        margin:px2rem2(22px) auto 0;
+      }
+    }
+  }
+}
+
+// 榜单规则
+.cd-popup{
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  // visibility: hidden;
+  display:none;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  transition: opacity 0.3s 0s, visibility 0s 0.3s;
+  z-index: 999;
+}
+
+.is-visible{
+  opacity: 1;
+  // visibility: visible;
+  display:block;
+  -webkit-transition: opacity 0.3s 0s, visibility 0s 0s;
+  -moz-transition: opacity 0.3s 0s, visibility 0s 0s;
+  transition: opacity 0.3s 0s, visibility 0s 0s;
+  z-index: 9999;
+}
+
+.cd-popup-container{
+  position: fixed;
+  @include box-sizing(border-box);
+  width: 100%;
+  height: px2rem2(850px);
+  background: $White;
+  text-align: center;
+  -webkit-transform: translateY(-40px);
+  -moz-transform: translateY(-40px);
+  -ms-transform: translateY(-40px);
+  -o-transform: translateY(-40px);
+  transform: translateY(-40px);
+  /* Force Hardware Acceleration in WebKit */
+  -webkit-backface-visibility: hidden;
+  -webkit-transition-property: -webkit-transform;
+  -moz-transition-property: -moz-transform;
+  transition-property: transform;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  bottom: px2rem2(-1300px);
+  padding-bottom:px2rem2(50px);
+  z-index:9999;
+  .cd-popup-close{
+    width:px2rem2(76px);
+    height:px2rem2(76px);
+    position: absolute;
+    left: 50%;
+    top: px2rem2(-105px);
+    margin-left:px2rem2(-38px);
+    background: url(/static/img/law/close.png) no-repeat;
+    background-size: 100% 100%;
+    
+  }
+  .bg-up{
+    float:left;
+    width:100%;
+    margin-top:px2rem2(-50px);
+    img{
+      width: 100%;
+      height: 100%;
+    }
+  }
+}
+
+.activity-rule{
+  @include box-sizing(border-box);
+  width: 100%;
+  height:px2rem2(100px);
+  padding:0 px2rem2(28px);
+  float:left;
+  .list-tit{
+    line-height:px2rem2(100px);
+    span{
+      display:block;
+      /*设置为块级元素会独占一行形成上下居中的效果*/
+      font-size:px2rem2(32px);
+      color:$Mine-Shaft;
+      position: relative;
+      font-family:'PingFangSC-Regular';
+      font-weight:200;
+      letter-spacing:px2rem2(.15px);
+      &:before,&:after{
+        content: '';
+        /*CSS伪类用法*/
+        position: absolute;
+        /*定位背景横线的纵向位置*/
+        top: 49.5%;
+        background: $Mercury;
+        /*宽和高做出来的背景横线*/
+        width: 39%;
+        height: 1px;
+      }
+      &:before{
+        left:0;
+      }
+      &:after{
+        right:0;
+      }
+    }
+  }
+}
+
+.rule-con{
+  @include box-sizing(border-box);
+  width: 100%;
+  height:86%;
+  padding:0 px2rem2(28px);
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
+  z-index:2;
+  p{
+    font-family:'PingFangSC-Regular';
+    font-weight:200;
+    font-size:px2rem2(28px);
+    color:$Mine-Shaft;
+    letter-spacing:px2rem2(.13px);
+    line-height:px2rem2(50px);
+    text-align:justify;
+  }
+}
+
+// 个人主页
+#home{
+  @include box-sizing(border-box);
+  width:100%;
+  height:auto;
+  overflow: hidden;
+  -webkit-overflow-scrolling: touch;
+  // 头部
+  .header{
+    @include box-sizing(border-box);
+    width:100%;
+    min-height:px2rem2(200px);
+    height:auto;
+    img{
+      width:100%;
+      height:100%;
+    }
+    .head{
+      width:px2rem2(160px);
+      height:px2rem2(160px);
+      border-radius:50%;
+      position: absolute;
+      left:50%;
+      top:px2rem2(120px);
+      margin:0 0 0 px2rem2(-80px);
+      border:1px solid #cacaca;
+    }
+  }
+
+  .info{
+    width:100%;
+    height:px2rem2(85px);
+    .info-ranking-list,.info-heat{
+      width:50%;
+      height:100%;
+      text-align:center;
+      float:left;
+    }
+    .info-ranking-list span{
+      width: 100%;
+      height:100%;
+      float:left;
+      i{
+        font-style:normal;
+        display:block;
+        width: 100%;
+        margin-left:px2rem2(-40px);
+      }
+      & i:nth-child(1){
+        height:px2rem2(45px);
+        line-height:px2rem2(45px);
+        text-align:center;
+        font-family:'PingFangSC-Regular';
+        font-weight:200;
+        font-size:px2rem2(32px);
+        color:$Mine-Shaft;
+        letter-spacing:px2rem2(.15px);
+        margin-top:px2rem2(3px);
+      }
+      & i:nth-child(2){
+        height:px2rem2(33px);
+        line-height:px2rem2(33px);
+        text-align:center;
+        font-family:'PingFangSC-Regular';
+        font-weight:200;
+        font-size:px2rem2(24px);
+        color:$Gray;
+        letter-spacing:px2rem2(.11px);
+      }
+    }
+    .info-heat span{
+      width: 100%;
+      height:100%;
+      float:left;
+      i{
+        font-style:normal;
+        display:block;
+        width: 100%;
+        margin-left:px2rem2(40px);
+      }
+      & i:nth-child(1){
+        height:px2rem2(45px);
+        line-height:px2rem2(45px);
+        text-align:center;
+        font-family:'PingFangSC-Regular';
+        font-weight:200;
+        font-size:px2rem2(32px);
+        color:$Mine-Shaft;
+        letter-spacing:px2rem2(.15px);
+        margin-top:px2rem2(3px);
+      }
+      & i:nth-child(2){
+        height:px2rem2(33px);
+        line-height:px2rem2(33px);
+        text-align:center;
+        font-family:'PingFangSC-Regular';
+        font-weight:200;
+        font-size:px2rem2(24px);
+        color:$Gray;
+        letter-spacing:px2rem2(.11px);
+      }
+    }
+    .mechanism-name{
+      float:left;
+      width:100%;
+      height:px2rem2(50px);
+      line-height:px2rem2(50px);
+      text-align:center;
+      font-family:'PingFangSC-Medium';
+      font-size:px2rem2(36px);
+      color:$Mine-Shaft;
+      letter-spacing:px2rem2(.17px);
+      margin-top:px2rem2(9px);
+    }
+
+    .btn{
+      width:100%;
+      height:auto;
+      text-align:center;
+      float:left;
+      .v-btn{
+        width:px2rem2(148px);
+        height:px2rem2(60px);
+        line-height:px2rem2(60px);
+        text-align:center;
+        display:block;
+        cursor:pointer;
+        color:$White;
+        font-family:'PingFangSC-Regular';
+        font-size:px2rem2(30px);
+        font-weight:200;
+        letter-spacing:px2rem2(.14px);
+        background:#e25b5a;
+        border-radius:px2rem2(37px);
+        margin:px2rem2(22px) auto 0;
+      }
+      .bg-gray{
+        color:#9c9c9c;
+        background:#e5e5e5 !important;
+      }
+    }
+  }
+  // 宣言
+  .declaration{
+    @include box-sizing(border-box);
+    float:left;
+    width:100%;
+    height:auto;
+    padding:0 px2rem2(28px);
+    & div:nth-child(1){
+      width:100%;
+      height:px2rem2(34px);
+      background:url(/static/img/law/quotes-up.png) no-repeat center left;
+      background-size:px2rem2(38px) px2rem2(34px);
+    }
+    & div:nth-child(2){
+      @include box-sizing(border-box);
+      width:100%;
+      height:auto;
+      margin:px2rem2(12px) auto;
+      padding:0 px2rem2(44px);
+      font-famliy:'PingFangSC-Regular';
+      font-size:px2rem2(32px);
+      font-weight:200;
+      line-height:px2rem2(38px);
+      color:$Mine-Shaft;
+      letter-spacing:px2rem2(.15px);
+      text-align:justify;
+    }
+    & div:nth-child(3){
+      width:100%;
+      height:px2rem2(34px);
+      background:url(/static/img/law/quotes-down.png) no-repeat center right;
+      background-size:px2rem2(38px) px2rem2(34px);
+    }
+  }
+
+  // 横线
+  .hr{
+    @include box-sizing(border-box);
+    display:block;
+    float: left;
+    width:100%;
+    height:auto;
+    padding:0 px2rem2(28px);
+    hr{
+      height: 1px;
+      color:$Mercury;
+      margin:px2rem2(30px) 0 px2rem2(49px) 0;
+      border: none;
+      border-top: 1px solid $Mercury;
+      text-align: center;
+    }
+  }
+
+  // 介绍
+  .introduce{
+    @include box-sizing(border-box);
+    float:left;
+    width:100%;
+    height:auto;
+    background:url(/static/img/law/dot.png) no-repeat left top;
+    background-size:px2rem2(30px);
+    background-position:px2rem2(28px) 0;
+    z-index:1;
+    // position: relative;
+    .in-tit{
+      @include box-sizing(border-box);
+      width: 100%;
+      height: px2rem2(32px);
+      line-height:1;
+      display:block;
+      font-family:'PingFangSC-Medium','Source Han Sans CN-Medium';
+      font-weight:600 !important;
+      font-size:px2rem2(32px);
+      color:$Mine-Shaft;
+      letter-spacing:px2rem2(.15px);
+      padding-left:px2rem2(74px);
+      float:left;
+    }
+    .in-timeline{
+      @include box-sizing(border-box);
+      float:left;
+      padding:0 px2rem2(28px) px2rem2(63px) 0;
+      width:89%;
+      height:auto;
+      border:none;
+      border-left:px2rem2(6px) solid #f6cece;
+      margin:0 0 0 px2rem2(39px);
+    }
+    /** 无边框简化样式 **/
+    .in-con {
+      @include box-sizing(border-box);
+      display:block;
+      float:left;
+      position: relative;
+      background: $White;
+      width:100%;
+      min-height:px2rem2(100px);
+      height:auto;
+      margin:px2rem2(34px) 0 0 px2rem2(40px);
+      text-align:center;
+      border-radius:px2rem2(22px);
+      border:1px solid $Mercury;
+      // -webkit-filter:drop-shadow(0 0 1px rgba(0,0,0,.11));
+      // -moz-filter:drop-shadow(0 0 1px rgba(0,0,0,.11));
+      // -ms-filter:drop-shadow(0 0 1px rgba(0,0,0,.11));
+      // -o-filter:drop-shadow(0 0 1px rgba(0,0,0,.11));
+      // filter:drop-shadow(0 0 1px rgba(0,0,0,.11));
+      #left-arrow {
+        position: absolute; 
+        top:20%;
+        left:px2rem2(-12px);
+        display: inline-block;
+        color:$Gray;
+        border-left: 1px solid; 
+        border-bottom: 1px solid;  
+        width:px2rem2(20px); 
+        height: px2rem2(20px);
+        -webkit-transform: rotate(45deg);
+        -moz-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        -o-transform: rotate(45deg);
+        transform: rotate(45deg);
+        background:$White;  
+    } 
+      span{
+        @include box-sizing(border-box);
+        display:block;
+        width:100%;
+        height:auto;
+        padding:px2rem2(28px) px2rem2(24px);
+        font-family:'PingFangSC-Regular';
+        font-weight:200;
+        font-size:px2rem2(28px);
+        line-height:px2rem2(40px);
+        color:$Mine-Shaft;
+        letter-spacing:px2rem2(.13px);
+        text-align:justify;
+      }
+      // &:after {
+      //   top: 20%;
+      //   left:px2rem2(-15px);
+      //   border: solid transparent;
+      //   content: " ";
+      //   height: 0;
+      //   width: 0;
+      //   position: absolute;
+      //   pointer-events: none;
+      //   border-color: rgba(255, 255, 255, 0);
+      //   border-top-color: #ffffff;
+      //   border-width: px2rem2(20px);
+      //   margin-left: px2rem2(-20px);
+      //   transform: rotate(90deg);
+      //   -ms-transform: rotate(90deg);
+      //   -moz-transform: rotate(90deg);
+      //   -webkit-transform: rotate(90deg);
+      //   -o-transform: rotate(90deg);
+      // }
+    }
+  }
+
+  // 作品
+  .works{
+    @include box-sizing(border-box);
+    float:left;
+    width:100%;
+    height:auto;
+    background:url(/static/img/law/dot.png) no-repeat left top;
+    background-size:px2rem2(30px);
+    background-position:px2rem2(28px) 0;
+    z-index:1;
+    // position: relative;
+    .w-tit{
+      @include box-sizing(border-box);
+      width: 100%;
+      height: px2rem2(30px);
+      line-height:1;
+      display:block;
+      font-family:'PingFangSC-Medium','Source Han Sans CN-Medium';
+      font-weight:600 !important;
+      font-size:px2rem2(30px);
+      color:$Mine-Shaft;
+      letter-spacing:px2rem2(.15px);
+      padding-left:px2rem2(74px);
+      float:left;
+    }
+    .w-timeline{
+      @include box-sizing(border-box);
+      float:left;
+      padding:0 px2rem2(28px) px2rem2(63px) 0;
+      width:94.5%;
+      height:auto;
+      border:none;
+      border-left:px2rem2(6px) solid #f6cece;
+      margin:0 0 0 px2rem2(39px);
+      .w-con{
+        width:100%;
+        height:px2rem2(378px);
+        position: relative;
+        margin:px2rem2(30px) 0 0 0;
+        img{
+          width: 100%;
+          height:100%;
+        }
+        .playBtn{
+          display:block;
+          cursor: pointer;
+          width:px2rem2(88px);
+          height:px2rem2(88px);
+          position: absolute;
+          top:50%;
+          left:50%;
+          margin:px2rem2(-44px) 0 0 px2rem2(-44px);
+        }
+        .v-time{
+          display:block;
+          width:px2rem2(76px);
+          height:px2rem2(36px);
+          line-height:px2rem2(36px);
+          text-align:center;
+          background:rgba(0,0,0,.3);
+          border-radius:px2rem2(3px);
+          position: absolute;
+          right:px2rem2(16px);
+          bottom:px2rem2(16px);
+          font-family:'PingFangSC-Regular';
+          font-size:px2rem2(20px);
+          color:$White;
+          letter-spacing:1px;
+        }
+        video{
+          @include box-sizing(border-box);
+          position: relative;
+          width: 100%;
+          height: 100%;
+          // margin-left:-1px;
+        }
+        // video::-webkit-media-controls-fullscreen-button {
+        //     display: none;
+        // }
+      }
+    }
+  }
+
+  // 图集
+  .atlas{
+    @include box-sizing(border-box);
+    float:left;
+    width:100%;
+    height:auto;
+    background:url(/static/img/law/dot.png) no-repeat left top;
+    background-size:px2rem2(30px);
+    background-position:px2rem2(28px) 0;
+    z-index:1;
+    // position: relative;
+    margin:0 0 px2rem2(70px) 0;
+    .a-tit{
+      @include box-sizing(border-box);
+      width: 100%;
+      height: px2rem2(30px);
+      line-height:1;
+      display:block;
+      font-family:'PingFangSC-Medium','Source Han Sans CN-Medium';
+      font-weight:600 !important;
+      font-size:px2rem2(30px);
+      color:$Mine-Shaft;
+      letter-spacing:px2rem2(.15px);
+      padding-left:px2rem2(74px);
+      float:left;
+    }
+    .a-timeline{
+      @include box-sizing(border-box);
+      float:left;
+      width:100%;
+      height:auto;
+      border:none;
+      border-left:px2rem2(6px) solid #f6cece;
+      margin:0 0 0 px2rem2(39px);
+      .a-con{
+        width:100%;
+        height:px2rem2(210px);
+        position: relative;
+        margin:px2rem2(30px) 0 0 0;
+        overflow-y: hidden;
+        ul{
+          height:100%;
+          border:none;
+          overflow-x: auto;
+          li{
+            list-style: none;
+            width:px2rem2(280px);
+            height:px2rem2(210px);
+            margin-left:px2rem2(14px);
+            float:left;
+            cursor:pointer;
+            img{
+              float:left;
+              width:100%;
+              height: 100%;
+              cursor:pointer;
+            }
+          }
+          & li:nth-child(1){
+            margin-left:0 !important;
+          }
+        }
+      }
+    }
+  }
+
+
+
+
+  #scroller{
+    ul{
+      -webkit-tap-highlight-color: rgba(0,0,0,0);
+      -webkit-transform: translateZ(0);
+      -moz-transform: translateZ(0);
+      -ms-transform: translateZ(0);
+      -o-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+      -webkit-text-size-adjust: none;
+      -moz-text-size-adjust: none;
+      -ms-text-size-adjust: none;
+      -o-text-size-adjust: none;
+      text-size-adjust: none;
+    }
+  }
+  // 404页面
+  .error{
+    position: fixed;
+    top:0;
+    left:0;
+    background:$White;
+    width:100%;
+    min-height:1000px;
+    .network-fault{
+      width:6rem;
+      height:3.5rem;
+      margin:6rem auto 0;
+      img{
+        width: 100%;
+        height: 100%;
+      }
+    }
+    .prompt{
+      @include box-sizing(border-box);
+      float:left;
+      width: 100%;
+      text-align:center;
+      margin-top:.8rem;
+      color:#979797;
+      font-size:.75rem;
+      line-height:.9rem;
+      font-family:'PingFangSC-Regular';
+      letter-spacing:1px;
+    }
+  }
+}
+
+
+// 评论区域
+#comment{
+  @include box-sizing(border-box);
+  width:100%;
+  height:auto;
+  float:left;
+  h3{
+    @include box-sizing(border-box);
+    width:100%;
+    height:px2rem(44px);
+    line-height:px2rem(44px);
+    background:$Wild-Sand;
+    font-family:'PingFangSC-Medium';
+    font-size:px2rem(16px);
+    color:$Cod-Gray;
+    padding:0 px2rem(14px);
+  }
+  .msg-main{
+    @include box-sizing(border-box);
+    width: 100%;
+    height:100%;
+    padding:px2rem2(2px) px2rem2(28px) 0;
+    float:left;
+    .message{
+      @include box-sizing(border-box);
+      width:100%;
+      margin:px2rem2(40px) auto 0;
+      background:$White;
+      border:1px solid $Silver-Chalice;
+      border-radius:px2rem2(16px);
+      textarea{
+        @include box-sizing(border-box);
+        width:92%;
+        margin:px2rem2(30px);
+        border:none;
+        resize:none;
+        font-size:px2rem2(28px);
+        line-height:px2rem2(38px);
+        color:$Cod-Gray;
+        font-family:'PingFang';
+        font-weight:300;
+        -webkit-tap-highlight-color: transparent;
+      }
+    }
+    .msg-btn{
+      display: block;
+      width: 100%;
+      height: px2rem2(70px);
+      background: #ce2524;
+      border-radius: px2rem2(35px);
+      color: $White;
+      font-weight: 400;
+      font-size: px2rem2(34px);
+      -webkit-appearance: none;
+      border: 0;
+      text-align: center;
+      margin: px2rem2(40px) auto 0;
+      cursor: pointer;
+    }
+  }
+  .c-box{
+    @include box-sizing(border-box);
+    width:100%;
+    height:auto;
+    float:left;
+    padding:0 px2rem2(28px);
+    a{
+      @include box-sizing(border-box);
+      float:left;
+      display:block;
+      width:100%;
+      height:auto;
+      padding:px2rem(15.5px) 0 px2rem(11px);
+      cursor:pointer;
+      .box-top{
+        @include box-sizing(border-box);
+        width: 100%;
+        height:px2rem(44px);
+        position:relative;
+        img{
+          @include box-sizing(border-box);
+          width:px2rem(44px);
+          height:px2rem(44px);
+          border-radius:50%;
+          position:absolute;
+          left:0;
+          top:0;
+        }
+        .name-reg{
+          @include box-sizing(border-box);
+          width:100%;
+          float:left;
+          height:px2rem(20px);
+          padding-left:px2rem(55px);
+          margin-top:px2rem(4px);
+          .nick-name{
+            @include box-sizing(border-box);
+            width:auto;
+            height:px2rem(20px);
+            line-height:px2rem(20px);
+            float:left;
+            font-family:'PingFangSC-Medium';
+            font-size:px2rem(14px);
+            color:$Cod-Gray;
+          }
+          .region{
+            @include box-sizing(border-box);
+            width:auto;
+            height:px2rem(20px);
+            line-height:px2rem(20px);
+            float:right;
+            font-family:'PingFangSC-Regular';
+            font-size:px2rem(12px);
+            color:$Gray;
+          }
+        }
+        .c-time{
+          @include box-sizing(border-box);
+          width:100%;
+          height:px2rem(20px);
+          line-height:px2rem(20px);
+          padding-left:px2rem(55px);
+          font-family:'PingFangSC-Regular';
+          font-size:px2rem(12px);
+          color:$Gray;
+        }
+      }
+      .c-con{
+        width:100%;
+        float:left;
+        font-family:'PingFangSC-Regular';
+        font-size:px2rem(14px);
+        line-height:px2rem(20px);
+        color:$Mine-Shaft;
+        margin-top:px2rem(8.5px);
+        text-align:justify;
+      }
+    }
+  }
+
+  .baseline-1{
+    @include box-sizing(border-box);
+    width: 100%;
+    height:auto;
+    padding:0 px2rem2(28px);
+    float:left;
+    .base-tit-1{
+      color:$Gray;
+      font-family:'PingFangSC-Regular';
+      font-size:px2rem2(26px);
+      font-weight:200;
+      letter-spacing:px2rem2(.15px);
+      text-align:center;
+      line-height:1;
+      span{
+        display:block;
+        /*设置为块级元素会独占一行形成上下居中的效果*/
+        font-size:px2rem2(26px);
+        color:$Gray;
+        position: relative;
+        font-family:'PingFangSC-Regular';
+        margin:px2rem2(60px) auto 0;
+        &:before,&:after{
+          content: '';
+          /*CSS伪类用法*/
+          position: absolute;
+          /*定位背景横线的纵向位置*/
+          top: 49.5%;
+          background: $Mercury;
+          /*宽和高做出来的背景横线*/
+          width: 40%;
+          height: 1px;
+        }
+        &:before{
+          left:0;
+        }
+        &:after{
+          right:0;
+        }
+      }
+    }
+  }
+
+  // 分隔线
+  .hr-1{
+    @include box-sizing(border-box);
+    float: left;
+    width:94%;
+    height: 1px;
+    margin:0 3%;
+    color:$Mercury;
+    border: none;
+    border-top: 1px solid $Mercury;
+    text-align: center;
+  }
+  .w-100{
+    width:100% !important;
+    margin:0 !important;
+  }
+
+
+
+  // 底线
+  .dropload-down{
+    @include box-sizing(border-box);
+    width: 100%;
+    height:px2rem2(120px);
+    //padding:0 px2rem2(28px);
+    float:left;
+    .dropload-noData,.dropload-load,.dropload-refresh{
+      color:$Gray;
+      font-family:'PingFangSC-Regular';
+      font-size:px2rem2(26px);
+      font-weight:200;
+      letter-spacing:px2rem2(.15px);
+      text-align:center;
+      line-height:px2rem2(120px);
+      .text{
+        display:block;
+        /*设置为块级元素会独占一行形成上下居中的效果*/
+        font-size:px2rem2(26px);
+        color:$Gray;
+        position: relative;
+        font-family:'PingFangSC-Regular';
+        margin:px2rem2(-20px) auto 0;
+        &:before,&:after{
+          content: '';
+          /*CSS伪类用法*/
+          position: absolute;
+          /*定位背景横线的纵向位置*/
+          top: 49.5%;
+          background: $Mercury;
+          /*宽和高做出来的背景横线*/
+          width: 35%;
+          height: 1px;
+        }
+        &:before{
+          left:0;
+        }
+        &:after{
+          right:0;
+        }
+      }
+
+      .text-1{
+        display:block;
+        /*设置为块级元素会独占一行形成上下居中的效果*/
+        font-size:px2rem2(26px);
+        color:$Gray;
+        position: relative;
+        font-family:'PingFangSC-Regular';
+        margin:px2rem2(-20px) auto 0;
+        &:before,&:after{
+          content: '';
+          /*CSS伪类用法*/
+          position: absolute;
+          /*定位背景横线的纵向位置*/
+          top: 49.5%;
+          background: $Mercury;
+          /*宽和高做出来的背景横线*/
+          width: 40% !important;
+          height: 1px;
+        }
+        &:before{
+          left:0;
+        }
+        &:after{
+          right:0;
+        }
+      }
+    }
+  }  
+}
+
+// autoimage
+
+.wapList-Image {
+  width: 100%;
+  height: 100%;
+  position:fixed;
+  top:0;
+  left: 0;
+  background-color: rgba(0,0,0,1);
+  display: none;
+  z-index: 1;
+  li{
+    height: 100%;
+    display: -webkit-flex;  /* 新版本语法: Chrome 21+ */
+    display: flex;          /* 新版本语法: Opera 12.1, Firefox 22+ */
+    display: -webkit-box;   /* 老版本语法: Safari, iOS, Android browser, older WebKit browsers. */
+    display: -moz-box;      /* 老版本语法: Firefox (buggy) */
+    display: -ms-flexbox;   /* 混合版本语法: IE 10 */
+
+    -webkit-flex: 1;        /* Chrome */
+    -ms-flex: 1;            /* IE 10 */
+    flex: 1;                /* NEW, Spec - Opera 12.1, Firefox 20+ */
+    -webkit-box-flex: 1;    /* OLD - iOS 6-, Safari 3.1-6 */
+    -moz-box-flex: 1;       /* OLD - Firefox 19- */
+
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+
+    float: left;
+  }
+  #imGcontent {
+    width:100%;
+    color: #fff;
+    position: absolute;
+    bottom: px2rem2(10px);
+    text-align: center;
+    z-index: 2;
+  }
+}

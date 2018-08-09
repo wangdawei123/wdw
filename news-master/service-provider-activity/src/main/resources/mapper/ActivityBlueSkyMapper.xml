@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.activity.mapper.ActivityBlueSkyMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.activity.entity.ActivityBlueSky" id="activityBlueSkyMap">
+        <result property="id" column="id"/>
+        <result property="activityVoteId" column="activity_vote_id"/>
+        <result property="activityId" column="activity_id"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+        <result property="area" column="area"/>
+        <result property="height" column="height"/>
+        <result property="weight" column="weight"/>
+        <result property="sort" column="sort"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="voteTotal" column="vote_total"/>
+        <result property="commentTotal" column="comment_total"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="headimage" column="headimage"/>
+        <result property="type" column="type"/>
+        <result property="blood" column="blood"/>
+        <result property="position" column="position"/>
+        <result property="description" column="description"/>
+        <result property="video" column="video"/>
+        <result property="loves" column="loves"/>
+        <result property="url" column="url"/>
+        <result property="videoimage" column="videoimage"/>
+        <result property="duration" column="duration"/>
+        <result property="introduction" column="introduction"/>
+    </resultMap>
+
+    <select id="selectById"  resultType="com.kanfa.news.activity.vo.info.ActivityBlueSkyInfo">
+        SELECT
+            id,
+            activity_vote_id,
+            `NAME`,
+            vote_total,
+            headimage
+        FROM
+            kf_activity_blue_sky
+        <where>
+            <if test="id != null">
+                activity_vote_id = #{id}
+            </if>
+            AND is_delete = 1
+        </where>
+        ORDER BY
+            vote_total DESC
+    </select>
+
+    <select id="selectABSById" resultType="com.kanfa.news.activity.vo.info.ActivityBlueSkyInfo">
+        SELECT
+            bs.id,
+            bs.activity_vote_id,
+            bs.`name`,
+            bs.headimage,
+            bst.vote_total
+        FROM
+            kf_activity_blue_sky bs
+        LEFT JOIN kf_activity_blue_sky_top bst ON bs.id = bst.bluesky_peopleid
+        AND bst.bluesky_date = NOW()
+        <where>
+            bs.is_delete = 1
+            <if test="id != null">
+                AND bs.activity_vote_id = #{id}
+            </if>
+        </where>
+        ORDER BY
+            bst.vote_total DESC
+    </select>
+
+
+</mapper>

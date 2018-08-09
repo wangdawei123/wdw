@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.admin.mapper.CorpJobMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.admin.entity.CorpJob" id="corpJobMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="level1Id" column="level1_id"/>
+        <result property="level2Id" column="level2_id"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUid" column="update_uid"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="stat" column="stat"/>
+    </resultMap>
+    <select id="search" resultType="java.util.Map">
+        SELECT
+        t.id,
+        t.level1,
+        t.level2,
+        t.stat,
+        t.creator,
+        t.modifier,
+        t.createTime,
+        t.name
+
+        FROM
+        (
+        SELECT
+        cj.id,
+        cd.`name` AS level1,
+        cd1.`name` AS level2,
+        cj.level1_id,
+        cj.level2_id,
+        cj.`name`,
+        CASE cj.stat
+        WHEN 1 THEN
+        '正常'
+        WHEN 2 THEN
+        '停用'
+        WHEN 3 THEN
+        '删除'
+        END AS stat,
+        bu.`name` AS creator,
+        bu1.`name` AS modifier,
+        cj.create_time AS createTime
+        FROM
+        kf_corp_job cj
+        LEFT JOIN kf_corp_dept cd ON cj.level1_id = cd.id
+        LEFT JOIN kf_corp_dept cd1 ON cj.level2_id = cd1.id
+        LEFT JOIN base_user bu ON cj.create_uid = bu.id
+        LEFT JOIN base_user bu1 ON cj.update_uid = bu1.id
+        where 1=1
+        and cj.stat!=3
+        <if test="stat!=0">
+            and cj.stat=#{stat}
+        </if>
+        ) AS t
+        WHERE
+        1 = 1
+        <if test="level1!=0">
+            AND t.level1_id = #{level1}
+        </if>
+        <if test="level2!=0">
+            AND t.level2_id = #{level2}
+        </if>
+        <if test="corpJobId!=0">
+            AND t.id = #{corpJobId}
+        </if>
+    </select>
+    <select id="getAll" resultType="com.kanfa.news.admin.entity.CorpJob">
+		SELECT
+			cu.id,
+			cu.`name`
+	FROM
+		kf_corp_job cu
+	</select>
+
+</mapper>

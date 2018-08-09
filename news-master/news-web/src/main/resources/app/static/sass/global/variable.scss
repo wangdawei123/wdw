@@ -1,0 +1,70 @@
+// 调试颜色
+$Test-Color:#81d8d0;
+// 背景色或某些按钮、控件字体颜色
+$White:#ffffff;
+// 黑色-特殊控件背影色
+$Black:#000000;
+// 小面积使用，用于特别突出的文字、功能性icon、button背景以及警示类文字
+$Cardinal:#cd2525;
+// 用于收藏icon、刷新、下拉等交互类展示图标及文字
+$Tangerine:#f78a00;
+// 用于评论区文字
+$Havelock-Blue:#4990e2;
+// 用于文章标题，普通正文
+$Cod-Gray:#121212;
+$Cod-Gray-1:#1e1e1e;
+// 用于视频详情简介、用户名等非重点相关文字
+$Mine-Shaft:#303030;
+// 首页默认评论、来源等非交互文字及icon
+$Gray:#919191;
+// 用于辅助性背景，默认加载等
+$Silver-Chalice:#d9d9d9;
+// 细分割线、标签栏下细线、导航栏下细线
+$Mercury:#e6e6e6;
+// 整体界面背景、粗分割线
+$Wild-Sand:#f4f4f4;
+// 标签栏、导航栏背景
+$Alabaster:#fafafa;
+// 用于缺省页面字体颜色
+$Dusty-Gray:#979797;
+
+
+
+//查看新的消息背景色
+$Solitaire:#fef4e8;
+//查看新的消息字体颜色
+$Tree-Poppy:#f8961a;
+
+
+$browser-default-font-size: 37.5px !default;
+$browser-default-font-size2: 75px !default;
+@function px2rem($px){
+	@return $px / $browser-default-font-size * 1rem;
+}
+@function px2rem2($px){
+	@return $px / $browser-default-font-size2 * 1rem;
+}
+@mixin box-sizing($sizing){
+	-webkit-box-sizing: $sizing;
+	-moz-box-sizing: $sizing;
+	box-sizing: $sizing;
+}
+@mixin border-radius($radius){
+	-webkit-border-radius: $radius;
+	-moz-border-radius: $radius;
+	border-radius: $radius;
+}
+
+// 旧的颜色变量
+$bgColor:#fff;
+$headerBg: #FAFAFA;
+$fontTit:#121212;
+$listTit:#1e1e1e;
+$releasseDate:#9A9A9A;
+$hrLine:#efeeef;
+$stallColor:#F4F4F4;
+$cardBorder:#e5e5e5;
+$cardFontColor:#303030;
+$borderColor:#d9d9d9;
+$hrColor:#e6e6e6;
+$labelColor:#d23a39;

@@ -1,0 +1,473 @@
+#wrapper{
+	// max-width:10rem; 添加时会在 Nexus 10等机型中出现兼容问题
+	overflow:hidden;
+	.banner{
+		width: 100%;
+		height:auto;
+		img{
+			width: 100%;
+			height:100%;
+			border:0;
+		}
+	}
+	.subdirectory{
+		@include box-sizing(border-box);
+		width:100%;
+		height:auto;
+		float:left;
+		padding-right:px2rem(14px);
+		span{
+			@include box-sizing(border-box);
+			@include border-radius(px2rem(14px));
+			display:-webkit-flex;
+			display:-moz-flex;
+			display:flex;
+			-webkit-align-items:center;
+			-moz-align-items:center;
+			align-items:center;
+			-webkit-justify-content:center;
+			-moz-justify-content:center;
+			justify-content:center;
+			min-width:px2rem(76px);
+			width:auto;
+			height:px2rem(28px);
+			text-align:center;
+			cursor:pointer;
+			font-family:'PingFangSC-Regular';
+			font-size:px2rem(14px);
+			color:$fontTit;
+			padding:0 px2rem(8px);
+			float:left;
+			border:1px solid $borderColor;
+			margin:px2rem(14px) 0 0 px2rem(14px);
+		}
+		.sub-other{
+			padding-top:px2rem(1.3px);
+		}
+	}
+	hr{
+		float:left;
+		height:1px;
+		border:none;
+		border-top:1px solid $hrColor;
+		width:94%;
+		margin:px2rem(14px) 3% 0;
+		text-align:center;
+	}
+	.lead{
+		@include box-sizing(border-box);
+		width:100%;
+		min-height:px2rem(72px);
+		height:auto;
+		float:left;
+		padding: 0 px2rem(14px);
+		background:#fff url(/static/img/special/lead.png) no-repeat;
+		background-size:px2rem(20px) px2rem(45px);
+		background-position:px2rem(14px) center;
+		overflow:auto;
+		display:-webkit-flex;
+		display:-moz-flex;
+		display:flex;
+		-webkit-align-items:center;
+		-moz-align-items:center;
+		align-items:center;
+		span{
+			@include box-sizing(border-box);
+			width:auto;
+			min-height:px2rem(72px);
+			height:auto;
+			float:left;
+			margin-left:px2rem(34px);
+			font-family:'PingFangSC-Regular';
+			font-size:px2rem(13px);
+			color:$cardFontColor;
+			letter-spacing:px2rem(.02px);
+			line-height:px2rem(18px);
+			display:-webkit-flex;
+			display:-moz-flex;
+			display:flex;
+			-webkit-align-items:center;
+			-moz-align-items:center;
+			align-items:center;
+			padding:px2rem(14px) 0;
+		}
+	}
+	.special-con{
+		@include box-sizing(border-box);
+		float:left;
+		width:100%;
+		height:auto;
+		overflow-y: scroll;
+		.anchor{
+			@include box-sizing(border-box);
+			float:left;
+			width:100%;
+			height:auto;
+			.anchor-tit{
+				@include box-sizing(border-box);
+				float:left;
+				width:100%;
+				height:px2rem(40px);
+				background:$stallColor;
+				text-align:left;
+				text-indent:px2rem(14px);
+				font-family:'PingFangSC-Semibold','Source Han Sans CN-Medium';
+				font-size:px2rem(14px);
+				font-weight:700;
+				color:$cardFontColor;
+				display:-webkit-flex;
+				display:-moz-flex;
+				display:flex;
+				-webkit-align-items:center;
+				-moz-align-items:center;
+				align-items:center;
+			}
+			.anchor-con{
+				@include box-sizing(border-box);
+				float:left;
+				width:100%;
+				min-height:px2rem(32px);
+				height:auto;
+				padding:px2rem(14px);
+				a{
+					@include box-sizing(border-box);
+					float:left;
+					width:100%;
+					height:auto;
+					cursor:pointer;
+					.a-c-top{
+						@include box-sizing(border-box);
+						float:left;
+						width:100%;
+						.tit{
+							width: 100%;
+							font-family:'PingFangSC-Regular';
+							font-size:px2rem(16px);
+							color:$fontTit;
+							line-height:px2rem(20px);
+							word-break:break-all;
+							text-overflow:ellipsis;
+							display:-webkit-box;
+							display:-moz-box;
+							display:box;
+							-webkit-box-orient:vertical;
+							-moz-box-orient:vertical;
+							box-orient:vertical;
+							-webkit-line-clamp:2;
+							-moz-line-clamp:2;
+							line-clamp:2;
+							overflow:hidden;
+							position:relative;
+						}
+						.label{
+							width:100%;
+							height:px2rem(25px);
+							line-height:px2rem(25px);
+							display:-webkit-flex;
+							display:-moz-flex;
+							display:flex;
+							-webkit-align-items:center;
+							-moz-align-items:center;
+							align-items:center;
+							-webkit-justify-content:flex-end;
+							-moz-justify-content:flex-end;
+							justify-content:flex-end;
+							i{
+								@include box-sizing(border-box);
+								display:-webkit-flex;
+								display:-moz-flex;
+								display:flex;
+								-webkit-align-items:center;
+								-moz-align-items:center;
+								align-items:center;
+								-webkit-justify-content:flex-end;
+								-moz-justify-content:flex-end;
+								justify-content:flex-end;
+								width:px2rem(30px);
+								height:px2rem(15px);
+								margin-left:px2rem(7.5px);
+								color:rgba(0,0,0,0) !important;
+								img{
+									width:100%;
+									height:100%;
+									border:none;
+								}
+							}
+						}
+					}
+					.marg-t-11{
+						margin-top:px2rem(10px);
+					}
+					.a-c-left{
+						@include box-sizing(border-box);
+						float:left;
+						width:100%;
+						height:px2rem(81px);
+						display:-webkit-flex;
+						display:-moz-flex;
+						display:flex;
+						-webkit-align-items:center;
+						-moz-align-items:center;
+						align-items:center;
+						flex-direction:column;
+						align-items:center;
+						padding-right:px2rem(124px);
+						.tit{
+							width: 100%;
+							height:px2rem(56px);
+							font-family:'PingFangSC-Regular';
+							font-size:px2rem(16px);
+							color:$fontTit;
+							line-height:px2rem(20px);
+							display:-webkit-flex;
+							display:-moz-flex;
+							display:flex;
+							-webkit-align-items:center;
+							-moz-align-items:center;
+							align-items:center;
+							span{
+								line-height:px2rem(20px);
+								word-break:break-all;
+								text-overflow:ellipsis;
+								-webkit-box-orient:vertical;
+								-moz-box-orient:vertical;
+								box-orient:vertical;
+								-webkit-line-clamp:2;
+								-moz-line-clamp:2;
+								line-clamp:2;
+								display:-webkit-box;
+								display:-moz-box;
+								display:box;
+								overflow:hidden;
+								position:relative;
+							}
+						}
+						.label{
+							width:100%;
+							height:px2rem(25px);
+							line-height:px2rem(25px);
+							display:-webkit-flex;
+							display:-moz-flex;
+							display:flex;
+							-webkit-align-items:center;
+							-moz-align-items:center;
+							align-items:center;
+							-webkit-justify-content:flex-end;
+							-moz-justify-content:flex-end;
+							justify-content:flex-end;
+							i{
+								@include box-sizing(border-box);
+								display:-webkit-flex;
+								display:-moz-flex;
+								display:flex;
+								-webkit-align-items:center;
+								-moz-align-items:center;
+								align-items:center;
+								-webkit-justify-content:flex-end;
+								-moz-justify-content:flex-end;
+								justify-content:flex-end;
+								width:px2rem(30px);
+								height:px2rem(15px);
+								margin-left:px2rem(7.5px);
+								color:rgba(0,0,0,0) !important;
+								img{
+									width:100%;
+									height:100%;
+									border:none;
+								}
+							}
+						}
+					}
+					.a-c-right{
+						@include box-sizing(border-box);
+						width:px2rem(110px);
+						height:px2rem(81px);
+						position:absolute;
+						right:px2rem(14px);
+						img{
+							@include box-sizing(border-box);
+							width:100%;
+							height:100%;
+							border:1px solid $hrColor;
+						}
+					}
+					.a-c-bottom{
+						@include box-sizing(border-box);
+						width:100%;
+						height:auto;
+						margin-top:px2rem(10px);
+						float:left;
+						display:-webkit-flex;
+						display:-moz-flex;
+						display:flex;
+						-webkit-align-items:flex-end;
+						-moz-align-items:flex-end;
+						align-items:flex-end;
+						-webkit-justify-content:space-between;
+						-moz-justify-content:space-between;
+						justify-content:space-between;
+						position: relative;
+						
+						img{
+							@include box-sizing(border-box);
+							width:px2rem(112px);
+							height:px2rem(83px);
+						}
+						.bor-solid{
+							border:1px solid $hrColor;
+						}
+						.big-img{
+							width:100%;
+							height:px2rem(195.2px);
+							margin:0 auto;
+						}
+						.controlbar{
+							@include box-sizing(border-box);
+							display:block;
+							width:100%;
+							height:px2rem(48px);
+							position:absolute;
+							left:0;
+							bottom:0;
+							z-index:3;
+						}
+						.play-btn{
+							width:px2rem(50px);
+							height:px2rem(50px);
+							z-index:2;
+							border:none;
+							position:absolute;
+							top:50%;
+							left:50%;
+							margin:px2rem(-25px) 0 0 px2rem(-25px);
+						}
+						.v-time{
+							display:block;
+							padding:px2rem(5px) px2rem(8px);
+							font-family:'PingFangSC-Regular';
+							font-size:px2rem(12px);
+							color:$bgColor;
+							line-height:px2rem(18px);
+							z-index:2;
+							position:absolute;
+							right:0;
+							bottom:0;
+						}
+						.atlas{
+							width:px2rem(22px);
+							height:px2rem(18px);
+							background:rgba(0,0,0,0) url(/static/img/special/atlas-2x.png) no-repeat;
+							background-size:cover;
+							background-position:center;
+							z-index:2;
+							position:absolute;
+							right:px2rem(8px);
+							bottom:px2rem(5px);
+							i{
+								display:-webkit-flex;
+								display:-moz-flex;
+								display:flex;
+								-webkit-align-items:center;
+								-moz-align-items:center;
+								align-items:center;
+								-webkit-justify-content:center;
+								-moz-justify-content:center;
+								justify-content:center;
+								font-style:normal;
+								width:px2rem(16px);
+								line-height:px2rem(12px);
+								text-align:center;
+								font-family:'PingFangSC-Regular';
+								font-size:px2rem(9px);
+								color:$bgColor;
+								margin:px2rem(5px) 0 0 px2rem(1px);
+								position: absolute;
+								
+							}
+							.atlasNum{
+								padding-top:px2rem(1.6px) !important;
+							}
+						}
+					}
+					.label{
+						width:100%;
+						float:left;
+						height:px2rem(25px);
+						line-height:px2rem(25px);
+						display:-webkit-flex;
+						display:-moz-flex;
+						display:flex;
+						-webkit-align-items:center;
+						-moz-align-items:center;
+						align-items:center;
+						-webkit-justify-content:flex-end;
+						-moz-justify-content:flex-end;
+						justify-content:flex-end;
+						i{
+							@include box-sizing(border-box);
+							display:-webkit-flex;
+							display:-moz-flex;
+							display:flex;
+							-webkit-align-items:center;
+							-moz-align-items:center;
+							align-items:center;
+							-webkit-justify-content:flex-end;
+							-moz-justify-content:flex-end;
+							justify-content:flex-end;
+							width:px2rem(30px);
+							height:px2rem(16px);
+							margin-left:px2rem(7.5px);
+							color:rgba(0,0,0,0) !important;
+							img{
+								width:100%;
+								height:100%;
+								border:none;
+							}
+						}
+					}
+					.marg-t-0{
+						margin-top:0;
+					}
+					.marg-t-7{
+						margin-top:px2rem(7.5px);
+					}
+				}
+
+			}
+			hr{
+				margin:0 3%;
+			}
+		}
+
+	}
+	.error{
+		@include box-sizing(border-box);
+		width:100%;
+		height:100%;
+		float:left;
+		padding-bottom:px2rem(50px);
+		.network-fault{
+			@include box-sizing(border-box);
+			width:100%;
+			float:left;
+			text-align:center;
+			margin:0 auto;
+			img{
+				width:px2rem(200px);
+				height:px2rem(110px);
+				margin:px2rem(180px) auto 0;
+
+			}
+		}
+		.prompt{
+			@include box-sizing(border-box);
+			width:100%;
+			float:left;
+			text-align:center;
+			margin:px2rem(30px) auto 0;
+			font-family:'PingFangSC-Regular';
+			font-size:px2rem(28px);
+			color:#979797;
+		}
+	}
+}

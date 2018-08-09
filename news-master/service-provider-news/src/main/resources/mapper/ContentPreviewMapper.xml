@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.ContentPreviewMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.ContentPreview" id="contentPreviewMap">
+        <result property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="json" column="json"/>
+        <result property="createTime" column="create_time"/>
+        <result property="type" column="type"/>
+    </resultMap>
+
+    <insert id="addPreviewArticle" parameterType="com.kanfa.news.info.vo.admin.info.ContentPreviewInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into kf_content_special(
+                                            `uid`,
+                                            `json`,
+                                            `create_time`,
+                                            `type`
+                                            )
+        values(#{uid},
+                #{json},
+                #{createTime},
+                #{type}
+                )
+    </insert>
+
+</mapper>

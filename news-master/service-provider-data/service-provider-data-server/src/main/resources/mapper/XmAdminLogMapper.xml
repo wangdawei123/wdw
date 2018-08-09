@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.data.mapper.XmAdminLogMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.data.entity.XmAdminLog" id="xmAdminLogMap">
+        <result property="id" column="id"/>
+        <result property="action" column="action"/>
+        <result property="actionUrl" column="action_url"/>
+        <result property="ip" column="ip"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="createTime" column="create_time"/>
+        <result property="type" column="type"/>
+        <result property="cid" column="cid"/>
+    </resultMap>
+
+</mapper>

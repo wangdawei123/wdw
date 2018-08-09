@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.VideoAlbumBindMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.VideoAlbumBind" id="videoAlbumBindMap">
+        <result property="id" column="id"/>
+        <result property="videoAlbumId" column="video_album_id"/>
+        <result property="videoId" column="video_id"/>
+        <result property="sort" column="sort"/>
+    </resultMap>
+
+
+    <select id="getPage" parameterType="java.lang.Integer" resultType="com.kanfa.news.info.vo.admin.video.VideoAlbumBindInfo">
+        SELECT
+            lt.video_id id,
+            bu1.title,
+            bu2.`name` updateUser,
+            bu2.upd_time updateTime
+        FROM
+            kf_video_album_bind lt
+        LEFT JOIN kf_video_album bu ON lt.video_album_id = bu.id
+        LEFT JOIN kf_content bu1 ON lt.video_id = bu1.id
+        LEFT JOIN base_user bu2 ON bu1.update_uid = bu2.id
+        WHERE
+            lt.video_album_id = #{id}
+    </select>
+
+
+
+
+    <select id="getContentPage"  resultType="com.kanfa.news.info.vo.admin.video.VideoAlbumBindInfo">
+            SELECT
+                bu1.id,
+                bu1.title
+            FROM
+                kf_content bu1
+            WHERE bu1.id NOT IN (
+                    SELECT
+                        vab.video_id
+                    FROM
+                        kf_video_album_bind vab WHERE vab.video_album_id = #{videoAlbumId}
+                )
+                AND  bu1.title  LIKE CONCAT('%',#{text},'%' )
+                AND bu1.content_state = 1
+                AND bu1.content_type = 4
+                AND bu1.check_status = 1
+    </select>
+
+
+
+    <!-- 视频专辑分享页接口里所需的信息 -->
+    <select id="getInfo" resultType="com.kanfa.news.info.vo.admin.video.VideoAlbumBindWebInfo">
+            SELECT
+            kc.id,
+            kc.title,
+            kc.content_type contentType,
+            kc.category,
+            kc.image,
+            kcv.duration ,
+            kcv.source_id sourceId
+            FROM
+                kf_video_album_bind kvab
+            LEFT JOIN kf_content kc ON kvab.video_id = kc.id
+            LEFT JOIN kf_channel_content kcc ON  kvab.video_id = kcc.content_id
+            LEFT JOIN kf_content_video kcv ON kcv.cid = kvab.video_id
+            WHERE  kvab.video_album_id = #{id}
+            AND kc.is_check = 1 AND kc.content_state = 1 AND kc.content_type = 4 AND kcc.channel_id = 59
+            ORDER BY kvab.sort DESC,kvab.id ASC
+    </select>
+
+</mapper>

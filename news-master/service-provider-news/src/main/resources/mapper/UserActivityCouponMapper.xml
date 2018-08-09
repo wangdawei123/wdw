@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.UserActivityCouponMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.UserActivityCoupon" id="userActivityCouponMap">
+        <result property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="userPhone" column="user_phone"/>
+        <result property="activityCouponId" column="activity_coupon_id"/>
+        <result property="activityCouponCode" column="activity_coupon_code"/>
+        <result property="activityCouponStartTime" column="activity_coupon_start_time"/>
+        <result property="activityCouponEndTime" column="activity_coupon_end_time"/>
+        <result property="activityMerchant" column="activity_merchant"/>
+        <result property="couponCodeName" column="coupon_code_name"/>
+        <result property="extendChannel" column="extend_channel"/>
+        <result property="couponStatus" column="coupon_status"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="createTime" column="create_time"/>
+        <result property="activityId" column="activity_id"/>
+    </resultMap>
+
+    <select id="getUserActivityCouponpage" resultType="com.kanfa.news.info.vo.admin.activity.UserActivityCouponInfo">
+        SELECT
+        kuac.id,
+        kuac.activity_merchant activityMerchant,
+        kuac.coupon_code_name couponCodeName,
+        kuac.activity_coupon_code activityCouponCode,
+        kuac.activity_coupon_start_time activityCouponStartTime,
+        kuac.activity_coupon_end_time activityCouponEndTime,
+        kuac.create_time createTime,
+        kuac.user_name userName
+        FROM kf_user_activity_coupon kuac
+        <where>
+            <if test="isDelete!=null ">
+                AND kuac.is_delete=#{isDelete}
+            </if>
+            <if test="couponStatus!=null ">
+                AND kuac.coupon_status=#{couponStatus}
+            </if>
+            <if test="activityId!=null">
+                AND kuac.activity_id = #{activityId}
+            </if>
+        </where>
+
+    </select>
+</mapper>

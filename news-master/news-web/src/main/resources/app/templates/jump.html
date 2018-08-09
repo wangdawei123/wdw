@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<#include "head.html" />
+<body>
+    <input type="hidden" id="code_value" value="${code!}">
+</body>
+<script type="application/javascript">
+    $(function () {
+        var path =  "http://63bpup.natappfree.cc/";
+        var client_id = "1944164462";
+        var secret = "5fbcbb29da424569252a16437257abb5";
+        var code = $("#code_value").val();
+
+       $.ajax({
+           url:'https://api.weibo.com/oauth2/access_token?client_id='+client_id
+           +'&client_secret='+secret+'&grant_type=authorization_code&redirect_uri='+path+'&code='+code,
+           type:'post',
+           dataType: 'jsonp',
+           crossDomain: true,
+           success:function (data) {
+               console.log(data);
+           },
+           error:function (mes) {
+               console.log(mes)
+           }
+       });
+
+    });
+</script>
+</html>

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.data.mapper.XmChannelMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.data.entity.XmChannel" id="xmChannelMap">
+        <result property="id" column="id"/>
+        <result property="cate" column="cate"/>
+        <result property="order" column="order"/>
+        <result property="name" column="name"/>
+        <result property="desc" column="desc"/>
+        <result property="headline" column="headline"/>
+        <result property="fixed" column="fixed"/>
+        <result property="top" column="top"/>
+        <!--<result property="default" column="default"/>-->
+        <result property="pub" column="pub"/>
+        <result property="pubTime" column="pub_time"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="createTime" column="create_time"/>
+        <result property="stat" column="stat"/>
+        <result property="promoteId" column="promote_id"/>
+        <result property="url" column="url"/>
+        <result property="image" column="image"/>
+        <result property="editUid" column="edit_uid"/>
+        <result property="type" column="type"/>
+        <result property="types" column="types"/>
+        <result property="sName" column="s_name"/>
+        <result property="mName" column="m_name"/>
+        <result property="commentInitNum" column="comment_init_num"/>
+        <result property="commentThreshold" column="comment_threshold"/>
+        <result property="commentShowRule" column="comment_show_rule"/>
+        <result property="viewInitNum" column="view_init_num"/>
+        <result property="viewThreshold" column="view_threshold"/>
+        <result property="viewShowRule" column="view_show_rule"/>
+        <result property="hotThreshold" column="hot_threshold"/>
+        <result property="topNum" column="top_num"/>
+        <result property="isRelation" column="is_relation"/>
+    </resultMap>
+<<<<<<< HEAD
+
+
+    <sql id="channel">
+        `id`			`id`,
+        `cate`			`cate`,
+        `order`			`order`,
+        `name`			`name`,
+        `desc`			`desc`,
+        `headline`			`headline`,
+        `fixed`			`fixed`,
+        `top`			`top`,
+        `pub`			`pub`,
+        `pub_time`			`pubTime`,
+        `create_uid`			`createUid`,
+        `create_time`			`createTime`,
+        `stat`			`stat`,
+        `promote_id`			`promoteId`,
+        `url`			`url`,
+        `image`			`image`,
+        `edit_uid`			`editUid`,
+        `type`			`type`,
+        `types`			`types`,
+        `s_name`			`sName`,
+        `m_name`			`mName`,
+        `comment_init_num`			`commentInitNum`,
+        `comment_threshold`			`commentThreshold`,
+        `comment_show_rule`			`commentShowRule`,
+        `view_init_num`			`viewInitNum`,
+        `view_threshold`			`viewThreshold`,
+        `view_show_rule`			`viewShowRule`,
+        `hot_threshold`			`hotThreshold`,
+        `top_num`			`topNum`,
+        `is_relation`			`isRelation`
+    </sql>
+    <select id="selectChannelById" resultType="com.kanfa.news.data.entity.XmChannel">
+        SELECT
+            <include refid="channel"/>
+        FROM
+        xm_channel xc
+        WHERE
+        xc.id = #{id}
+    </select>
+
+
+=======
+    <sql id="base_column_list">
+        `id`      `id`,
+        `cate`      `cate`,
+        `order`      `order`,
+        `name`      `name`,
+        `desc`      `desc`,
+        `headline`      `headline`,
+        `fixed`      `fixed`,
+        `top`      `top`,
+        `pub`      `pub`,
+        `pub_time`      `pubTime`,
+        `create_uid`      `createUid`,
+        `create_time`      `createTime`,
+        `stat`      `stat`,
+        `promote_id`      `promoteId`,
+        `url`      `url`,
+        `image`      `image`,
+        `edit_uid`      `editUid`,
+        `type`      `type`,
+        `types`      `types`,
+        `s_name`      `sName`,
+        `m_name`      `mName`,
+        `comment_init_num`      `commentInitNum`,
+        `comment_threshold`      `commentThreshold`,
+        `comment_show_rule`      `commentShowRule`,
+        `view_init_num`      `viewInitNum`,
+        `view_threshold`      `viewThreshold`,
+        `view_show_rule`      `viewShowRule`,
+        `hot_threshold`      `hotThreshold`,
+        `top_num`      `topNum`,
+        `is_relation`      `isRelation`
+    </sql>
+    <!--<select id="" resultType="">
+        SELECT
+                <include refid="base_column_list" />
+        FROM
+                xm_channel
+        WHERE
+                id=#{id}
+    </select>-->
+>>>>>>> a2ef0f2f8f46789749c0853cc8adeffe5c110831
+</mapper>

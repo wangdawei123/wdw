@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.ChannelContentMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.ChannelContent" id="channelContentMap">
+        <result property="id" column="id"/>
+        <result property="channelId" column="channel_id"/>
+        <result property="contentId" column="content_id"/>
+        <result property="top" column="top"/>
+        <result property="isPublish" column="is_publish"/>
+        <result property="publishTime" column="publish_time"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="orderNumber" column="order_number"/>
+        <result property="cardType" column="card_type"/>
+        <result property="recommendWeight" column="recommend_weight"/>
+        <result property="fromType" column="from_type"/>
+        <result property="checkStatus" column="check_status"/>
+        <result property="type" column="type"/>
+        <result property="sortTime" column="sort_time"/>
+        <result property="checkUid" column="check_uid"/>
+    </resultMap>
+    <update id="updateChannelConent" parameterType="com.kanfa.news.info.entity.ChannelContent">
+         UPDATE kf_channel_content
+         SET
+            <if test="channelContent.isPublish!=null">
+              is_publish=#{channelContent.isPublish}
+            </if>
+            <if test="channelContent.publishTime!=null">
+              ,publish_time=#{channelContent.publishTime}
+            </if>
+            <if test="channelContent.top!=null">
+              top=#{channelContent.top}
+            </if>
+         WHERE <if test="channelContent.channelId!=null">channel_id=#{channelContent.channelId} AND </if> content_id=#{channelContent.contentId}
+    </update>
+
+    <select id="selectListSelected" resultType="com.kanfa.news.info.vo.admin.info.ChannelInfo">
+        SELECT
+                c.id,
+                c.category
+        FROM 
+              kf_channel_content cc
+              LEFT JOIN kf_channel c ON c.id=cc.channel_id
+        <where>
+            c.channel_status=1 AND c.is_publish=1
+            <if test="contentId != null">
+                AND cc.from_type=1  AND cc.content_id=#{contentId}
+            </if>
+        </where>
+    </select>
+
+    <!-- 获得appchannelids -->
+    <select id="selectAppChannels" resultType="java.lang.Integer">
+        SELECT
+            cc.id
+        FROM
+            kf_channel_content kcc
+        LEFT JOIN kf_content kc ON kcc.content_id = kc.id
+        LEFT JOIN kf_channel cc ON kcc.channel_id = cc.id
+        WHERE
+            kc.id = #{contentId}
+        AND kc.content_type = 4
+        AND cc.category = 1
+    </select>
+
+    <!-- 返回pcChannelList -->
+    <select id="selectPcChannels" resultType="java.lang.Integer">
+        SELECT
+            cc.id
+        FROM
+            kf_channel_content kcc
+        LEFT JOIN kf_content kc ON kcc.content_id = kc.id
+        LEFT JOIN kf_channel cc ON kcc.channel_id = cc.id
+        WHERE
+             kc.id = #{contentId}
+        AND kc.content_type = 4
+        AND cc.category = 4
+    </select>
+
+    <!-- 返回VrChannelList -->
+    <select id="selectVrChannels" resultType="java.lang.Integer">
+        SELECT
+        cc.id
+        FROM
+        kf_channel_content kcc
+        LEFT JOIN kf_content kc ON kcc.content_id = kc.id
+        LEFT JOIN kf_channel cc ON kcc.channel_id = cc.id
+        WHERE
+        kc.id = #{contentId}
+        AND kc.content_type = 11
+        AND kcc.category = 3
+    </select>
+
+
+    <!-- 返回vr 返回selectAppChannelsForVr -->
+    <select id="selectAppChannelsForVr" resultType="java.lang.Integer">
+        SELECT
+        cc.id
+        FROM
+        kf_channel_content kcc
+        LEFT JOIN kf_content kc ON kcc.content_id = kc.id
+        LEFT JOIN kf_channel cc ON kcc.channel_id = cc.id
+        WHERE
+        kc.id = #{contentId}
+        AND kc.content_type = 11
+        AND kcc.category = 1
+    </select>
+
+    <!-- vr返回appChannelIdList  -->
+    <select id="getAppChannels" resultType="java.lang.Integer">
+        SELECT
+        cc.id
+        FROM
+        kf_channel_content kcc
+        LEFT JOIN kf_live kc ON kcc.content_id = kc.id
+        LEFT JOIN kf_channel cc ON kcc.channel_id = cc.id
+        WHERE
+        kc.id =#{liveId}
+        AND kcc.from_type = 2
+    </select>
+
+
+    <select id="getPageContentListByChannelId" resultType="java.util.Map">
+        SELECT
+        a.channel_id,
+        a.card_type,
+        a.top,
+        a.publish_time,
+        a.recommend_weight,
+        a.order_number,
+        a.from_type,
+        c.id,
+        c.category,
+        c.content_type type,
+        c.title,
+        c.`introduction` `desc` ,
+        c.image,
+        c.view_count views,
+        c.tag,
+        c.create_uid,
+        c.comment_count comments,
+        c.comment_checked_count,
+        c.content_style,
+        c.source_type,
+        c.custom_url,
+        cb.live_url,
+        cb.review_url,
+        cb.broadcast_status
+        FROM
+        kf_channel_content a
+        LEFT JOIN kf_content c ON a.content_id = c.id
+        LEFT JOIN kf_content_broadcast cb ON c.id = cb.cid
+        WHERE
+        1 = 1
+        <if test="params!=null and params.chan_id!=null">
+             AND a.channel_id=#{params.chan_id}
+        </if>
+        AND a.is_delete = 1
+        AND <![CDATA[ a.check_status < 2 ]]>
+        AND a.is_publish = 1 order by a.publish_time desc
+    </select>
+
+    <select id="getChannelContent" resultType="com.kanfa.news.info.vo.admin.info.ChannelContentInfo">
+        SELECT
+                cc.id,
+                cc.content_id contentId,
+                cc.order_number orderNumber
+        FROM
+                kf_channel_content cc
+        <where>
+            <if test="list != null and list.size()>0">
+                AND cc.content_id IN
+                <foreach collection="list" item="contentId" open="(" close=")" separator=",">
+                    #{contentId}
+                </foreach>
+            </if>
+            <if test="channelId != null">
+                AND cc.channel_id = #{channelId}
+            </if>
+        </where>
+        ORDER BY field
+        <foreach collection="list" item="contentId" close=")" open="(cc.content_id," separator=",">
+            #{contentId}
+        </foreach>
+    </select>
+
+    <select id="selectCountByChannelId" resultType="java.lang.Integer">
+        SELECT count(*)+(SELECT count(*)
+                FROM kf_live l
+                INNER JOIN kf_channel_content cc ON l.id=cc.content_id AND cc.channel_id=#{channelId} AND cc.from_type=2 AND cc.is_delete=1
+                WHERE l.is_delete=0 AND l.check_state=#{checkStatus}) as total
+        FROM kf_content c
+        INNER JOIN kf_channel_content cc on c.id=cc.content_id AND cc.channel_id=#{channelId} AND cc.from_type=1 AND cc.is_delete=1
+        WHERE c.content_state=1
+        <if test="checkStatus==0">
+            AND (c.is_check=1 or c.check_status=#{checkStatus})
+        </if>
+        <if test="checkStatus==2">
+            AND c.check_status=#{checkStatus}
+        </if>
+    </select>
+
+    <select id="selectListForLog" resultType="com.kanfa.news.info.vo.admin.info.ChannelInfo">
+        SELECT
+                c.id,
+                c.name
+        FROM
+                kf_channel_content cc
+                LEFT JOIN kf_channel c ON c.id=cc.channel_id
+        <where>
+            c.channel_status=1 AND c.is_publish=1
+            <if test="contentId != null">
+                AND cc.from_type=1  AND cc.content_id=#{contentId}
+            </if>
+        </where>
+    </select>
+
+    <update id="updateContentDeleteByContentId" parameterType="java.lang.Integer">
+        UPDATE kf_channel_content
+        SET
+            is_delete=0
+        WHERE content_id=#{contentId} AND from_type=#{fromType}
+    </update>
+
+    <select id="selectMaxOrderNumber" resultType="java.lang.Integer">
+        SELECT
+                MAX(order_number)
+        FROM
+                kf_channel_content
+    </select>
+
+    <!--根据contendId查询第一条-->
+    <select id="selectByContentIdFromType" resultType="map">
+        SELECT
+            channel_id channelId,
+            card_type cardType,
+            from_type fromType,
+            publish_time publishTime
+
+        FROM
+            kf_channel_content
+        WHERE
+            1 = 1
+        AND is_delete = 1 /*正常显示*/
+        AND is_publish = 1 /*已发布*/
+        AND content_id = #{contentId}
+        AND from_type = #{fromType}
+        limit 0,1
+    </select>
+
+    <select id="getFirstChannelForAdv" resultType="com.kanfa.news.info.entity.Channel">
+        SELECT
+							ch.id
+        FROM
+                kf_channel_content cc
+                INNER JOIN kf_comment c on c.id=cc.content_id AND c.id=#{contentId}
+                INNER JOIN kf_channel ch ON ch.id=cc.channel_id AND ch.is_publish=1 AND  ch.channel_status=1 AND ch.category=#{cate}
+        ORDER BY ch.order_number ASC
+        LIMIT 1
+    </select>
+</mapper>

@@ -1,0 +1,121 @@
+<#include "head.html" />
+<script src="/static/webPc/js/searchLoad.js"></script>
+<div class="header header-search">
+    <div class="w1200">
+        <div class="logo fl">
+            <h1><a href="../../../">看法网</a></h1>
+        </div>
+        <div class="search fl">
+            <span class="glyphicon glyphicon-search"></span>
+            <input type="email" class="form-control search-text" id="searchText" placeholder="${searchKey!'请输入关键词'}" >
+            <input type="hidden" value="${searchKey!}" id="searchKey">
+            <button type="button" class="btn srechbtn">搜索</button>
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>
+
+<div class="w1200 mt160">
+    <div class="w1030 fr">
+        <!---推荐-->
+     <!--   <div class="recommend-box fr w340">
+            <div class="recommend-chunk">
+                <h2>24小时热闻</h2>
+                <ul>
+                    &lt;!&ndash;小视频列表&ndash;&gt;
+                    <li class="small-new-line small-imagetext-news" title="男子撞死7旬等车人：获刑一年 自认有点重">
+                        <a class="image-box">
+                            <img src="https://kanfaimage.oss-cn-beijing.aliyuncs.com/20180203/video_151763821268286.png?x-oss-process=image/resize,m_fill,w_750,h_422">
+                        </a>
+                        <div class="new-line-info">
+                            <h4>男子撞死7旬等车人：获刑一年 自认有点重</h4>
+                        </div>
+                    </li>
+                    <li class="small-new-line small-imagetext-news" title="男子撞死7旬等车人：获刑一年 自认有点重">
+                        <a class="image-box">
+                            <img src="https://kanfaimage.oss-cn-beijing.aliyuncs.com/20180203/video_151763821268286.png?x-oss-process=image/resize,m_fill,w_750,h_422">
+                        </a>
+                        <div class="new-line-info">
+                            <h4>男子撞死7旬等车人：获刑一年 自认有点士大夫技术的房间不大方便地方广告费重</h4>
+                        </div>
+                    </li>
+                    <li class="small-new-line small-imagetext-news" title="男子撞死7旬等车人：获刑一年 自认有点重">
+                        <a class="image-box">
+                            <img src="https://kanfaimage.oss-cn-beijing.aliyuncs.com/20180203/video_151763821268286.png?x-oss-process=image/resize,m_fill,w_750,h_422">
+                        </a>
+                        <div class="new-line-info">
+                            <h4>男子撞死7旬等车人：获刑一合法的身份地方地方鬼地方干嘛不辜负你好吧公分那么保护话题发布会发那么悲观还没那份报告黑帮法规会辜负你们不合格还能办公费和 自认有点重</h4>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>-->
+        <!--主要内容-->
+        <div class="newlist-div fl">
+            <#if contentList??>
+                <ul class="newlist">
+                    <#list contentList as content>
+                        <#if (content.contentType = 2) || (content.contentType = 1)>
+                            <#if (content.image ??)>
+                                <!-图文形式-->
+                                <li class="new-line big-imagetext-news">
+                                    <a href="" class="image-box">
+                                        <img src="${content.image}" >
+                                    </a>
+                                    <div class="new-line-info">
+                                        <h3><a href="${'/detail/'+content.id +'/'+content.contentType}">${content.title}</a></h3>
+                                        <p class="classs">${content.createtime!}</p>
+                                    </div>
+                                </li>
+                                <#else>
+                                    <!--只有文章-->
+                                    <li class="new-line big-text-news">
+                                        <div class="new-line-info">
+                                            <h3><a href="${'/detail/'+content.id +'/'+content.contentType}">${content.title}</a></h3>
+                                            <p class="classs">
+                                                ${content.createtime!}
+                                            </p>
+                                        </div>
+                                    </li>
+                            </#if>
+                            <#elseif (content.contentType = 4) >
+                                <!--视频形式-->
+                                <li class="new-line big-video-news">
+                                    <a href="${'/detail/'+content.id +'/'+content.contentType}" class="image-box">
+                                        <img src="${content.image}">
+                                        <p class="video-time"><i>${content.duration!}</i></p>
+                                    </a>
+                                    <div class="new-line-info">
+                                        <h3> <a href="${'/detail/'+content.id +'/'+content.contentType}">${content.title}</a></h3>
+                                        <p class="classs">${content.createtime!}</p>
+                                    </div>
+                                </li>
+                                <#elseif (content.contentType = 3) >
+                                    <!-图集形式-->
+                                    <li class="new-line big-img-news">
+                                        <a href="${'/detail/'+content.id +'/'+content.contentType}" class="image-box">
+                                            <div><img  src="${(content.imageList[0])!}" ></div>
+                                            <div><img  src="${(content.imageList[1])!}" ></div>
+                                            <div><img  src="${(content.imageList[2])!}" ></div>
+                                            <div><img  src="${(content.imageList[3])!}" ></div>
+                                            <p class="img-count"><i>${content.num!}图</i></p>
+                                        </a>
+                                        <div class="new-line-info">
+                                            <i>图集</i>
+                                            <p class="classs">${content.createtime!}</p>
+                                        </div>
+                                    </li>
+                        </#if>
+                    </#list>
+                    <#if (contentList?size=0)>
+                        <h2>暂时没有相关内容。敬请期待！</h2>
+                    </#if>
+                </ul>
+                <!--<div class="loading">正在努力为您加载....</div>-->
+                <#else>
+            </#if>
+        </div>
+    </div>
+</div>
+<div class="clear"></div>
+<#include "foot.html" />
