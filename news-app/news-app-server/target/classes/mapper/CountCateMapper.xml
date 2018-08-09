@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.app.mapper.CountCateMapper">
+
+    <!--类目统计-->
+	 <select id="categoryCount" resultType="map">
+        SELECT
+            count(*) AS count
+        FROM
+            kf_content c
+        WHERE 1=1 AND c.is_check = 1
+        <if test="null != type and type != ''">
+           	AND c.category=#{type}
+        </if>
+         <if test="null != startDate and startDate != '' and null != endDate and endDate != ''">
+             AND c.create_time BETWEEN #{startDate}
+             AND #{endDate}
+         </if>
+     </select>
+
+
+    <!--类目+来源统计-->
+	 <select id="categorySourceCount" resultType="map">
+         SELECT
+            count(*) AS count
+         FROM
+            kf_content c
+         WHERE 1=1
+            AND c.is_check = 1
+        <if test="null != type and type != ''">
+           	AND c.category=#{type}
+        </if>
+         <if test="null != sourceType and sourceType != ''">
+             AND c.source_type = #{sourceType}
+        </if>
+         <if test="null != startDate and startDate != '' and null != endDate and endDate != ''">
+             AND c.create_time BETWEEN #{startDate}
+             AND #{endDate}
+         </if>
+     </select>
+
+    <!--类目+法制类统计-->
+	 <select id="categoryLegalCount" resultType="map">
+         SELECT
+            count(*) AS count
+         FROM
+            kf_content c
+         WHERE 1=1
+            AND c.is_check = 1
+        <if test="null != type and type != ''">
+           	AND c.category=#{type}
+        </if>
+         <if test="null != isLegal and isLegal != ''">
+             AND c.is_legal = #{isLegal}
+        </if>
+         <if test="null != startDate and startDate != '' and null != endDate and endDate != ''">
+             AND c.create_time BETWEEN #{startDate}
+             AND #{endDate}
+         </if>
+     </select>
+
+</mapper>

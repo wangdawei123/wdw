@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.app.mapper.CommentStandardMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.app.entity.CommentStandard" id="commentStandardMap">
+        <result property="id" column="id"/>
+        <result property="content" column="content"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="createTime" column="create_time"/>
+        <result property="channels" column="channels"/>
+    </resultMap>
+
+    <!--find_in_set(channels,
+                <foreach collection="channelIds" separator="," open="'" close="')" item="channelId">${channelId}</foreach>-->
+    <select id="getPage" resultType="com.kanfa.news.app.vo.admin.comment.CommentStandardInfo">
+        SELECT
+                id,
+                content
+        FROM
+                kf_comment_standard
+        <where>
+            is_delete=1
+            <if test="str!='' and str!=null">
+                AND ${str}
+            </if>
+        </where>
+        ORDER BY RAND()
+    </select>
+
+    <select id="getPageByTitle" parameterType="java.util.Map" resultType="com.kanfa.news.app.vo.admin.comment.CommentStandardInfo">
+        SELECT
+                id,
+                content,
+                create_time createTime
+        FROM
+                kf_comment_standard
+        <where>
+            is_delete=1
+            <if test="content!='' and content!=null">
+                AND content LIKE CONCAT('%',#{content},'%')
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.app.mapper.KpiCountVideoMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.app.entity.KpiCount" id="kpiCountMap">
+        <result property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="type" column="type"/>
+        <result property="typeId" column="type_id"/>
+        <result property="name" column="name"/>
+        <result property="articleType" column="article_type"/>
+        <result property="workType" column="work_type"/>
+        <result property="weight" column="weight"/>
+        <result property="firstCheckTime" column="first_check_time"/>
+        <result property="firstCheckId" column="first_check_id"/>
+        <result property="isNumPass" column="is_num_pass"/>
+        <result property="jobId" column="job_id"/>
+        <result property="departmentId" column="deptartment_id"/>
+        <result property="isSpecial" column="is_special"/>
+        <result property="pvFinishTime" column="pv_finish_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remarks" column="remarks"/>
+    </resultMap>
+    <!-- 视频工作统计 -->
+    <select id="listKpiCountVideo"  resultType="com.kanfa.news.app.vo.admin.kpicount.KpiCountVideoInfo">
+        SELECT
+            cu.id,
+            cu. NAME,
+            cd.`name` deptName,
+            cj.`name` jobName,
+            IFNULL(
+            countResult.originalVideo,
+            0
+            ) originalVideo,
+            IFNULL(
+            countResult.originalLater,
+            0
+            ) originalLater,
+            IFNULL(
+            countResult.animationDesing,
+            0
+            ) animationDesing,
+            IFNULL(countResult.reviewVideo, 0) reviewVideo,
+            IFNULL(countResult.reprintVideo, 0) reprintVideo,
+            IFNULL(countResult.dubbing, 0) dubbing,
+            IFNULL(
+            countResult.animationScript,
+            0
+            ) animationScript,
+            IFNULL(countResult.other, 0) other
+        FROM
+          kf_corp_user cu
+        LEFT JOIN (
+            SELECT
+                result.uid,
+                result. NAME,
+                sum(
+                result.原创视频（含VR）
+                ) 'originalVideo',
+                sum(
+                result.原创栏目视频动画后期
+                ) 'originalLater',
+                sum(result.动画原画设计) 'animationDesing',
+                sum(result.评论视频) 'reviewVideo',
+                sum(result.转载视频) 'reprintVideo',
+                sum(result.配音) 'dubbing',
+                sum(
+                result.动画、策划脚本
+                ) 'animationScript',
+                sum(result.其他) 'other'
+            FROM
+            (
+                SELECT
+                    k.uid,
+                    k.`name`,
+                    #count(0) count,
+                    k.work_type,
+                    (
+                    CASE k.work_type
+                    WHEN '1' THEN
+                    count(0)
+                    ELSE
+                    0
+                    END
+                    ) '原创视频（含VR）',
+                    (
+                    CASE k.work_type
+                    WHEN '2' THEN
+                    count(0)
+                    ELSE
+                    0
+                    END
+                    ) '原创栏目视频动画后期',
+                    (
+                    CASE k.work_type
+                    WHEN '3' THEN
+                    count(0)
+                    ELSE
+                    0
+                    END
+                    ) '动画原画设计',
+                    (
+                    CASE k.work_type
+                    WHEN '4' THEN
+                    count(0)
+                    ELSE
+                    0
+                    END
+                    ) '评论视频',
+                    (
+                    CASE k.work_type
+                    WHEN '5' THEN
+                    count(0)
+                    ELSE
+                    0
+                    END
+                    ) '转载视频',
+                    (
+                    CASE k.work_type
+                    WHEN '6' THEN
+                    count(0)
+                    ELSE
+                    0
+                    END
+                    ) '配音',
+                    (
+                    CASE k.work_type
+                    WHEN '7' THEN
+                    count(0)
+                    ELSE
+                    0
+                    END
+                    ) '动画、策划脚本',
+                    (
+                    CASE k.work_type
+                    WHEN '8' THEN
+                    count(0)
+                    ELSE
+                    0
+                    END
+                    ) '其他'
+                FROM
+                  kf_kpi_count AS k
+                INNER JOIN kf_demand AS d ON d.id = k.type_id
+                LEFT JOIN kf_kpi_type_config AS c ON c.id = k.work_type
+                WHERE
+                    1 = 1
+                    AND k.type = 4
+                    AND k.first_check_time IS NOT NULL
+                    AND k.first_check_time &gt;= #{startDate}
+                    AND k.first_check_time &lt;#{endDate}
+                    <if test="pvEndDate != null and pvEndDate != ''">
+                        AND (k.pv_finish_time   &lt;=#{pvEndDate} or k.pv_finish_time IS  NULL)
+                    </if>
+                    AND k.is_special = 0
+                    GROUP BY
+                    k.uid,
+                    k.work_type
+                ) result
+                GROUP BY
+                result.uid
+            ) countResult ON cu.id = countResult.uid
+        LEFT JOIN kf_corp_dept cd ON cd.id = cu.level2_id
+        LEFT JOIN kf_corp_job cj ON cj.id = cu.job_id
+        where 1=1
+        <if test="uid !=null and uid != '' ">
+            AND cu.id  = #{uid}
+        </if>
+        <if test="departmentId !=null and departmentId != '' ">
+            AND cd.id  = #{departmentId}
+        </if>
+    </select>
+
+
+    <select id="listKpiVideoId" resultType="com.kanfa.news.app.vo.admin.kpicount.KpiVideoIdInfo">
+
+        SELECT
+        d.id
+        FROM
+        kf_kpi_count AS k
+        INNER JOIN kf_demand AS d ON d.id = k.type_id
+        WHERE
+        1 = 1
+        <if test="uid !=null and uid != '' ">
+            AND k.uid  = #{uid}
+        </if>
+        AND k.type = 4
+        AND k.first_check_time IS NOT NULL
+        AND k.first_check_time &gt;= #{startDate}
+        AND k.first_check_time &lt; #{endDate}
+        GROUP BY
+        d.id
+
+
+    </select>
+    <!--视频工作统计详情-->
+    <select id="listKpiCountVideoDetail" resultType="com.kanfa.news.app.vo.admin.kpicount.KpiCountVideoDetailInfo">
+
+        SELECT
+        result.*, result.videoCount + result.articleCount contentCount
+        FROM
+        (
+        SELECT
+        k.id,
+        d.id videoId,
+        d.title,
+
+        IF (k.is_special = 1, "是", "否") isSpecial,
+        k. NAME,
+        d.create_time createTime,
+
+        IF (
+        d.source_type = 0,
+        "转载",
+        "原创"
+        ) sourceTypeName,
+        d.type AS type_name,
+        tc. NAME AS workName,
+        k.pv_finish_time,
+        tc.pv_limit pvLimit,
+        k.remarks,
+        d.url,
+        /*-- 关联视频内容数*/
+        (
+        SELECT
+        count(0) AS `count`
+        FROM
+        kf_content_video AS cv
+        WHERE
+        cv.did = d.id
+        ) videoCount,
+        /*  -- 关联文章内容数*/
+        (
+        SELECT
+        count(0) AS `count`
+        FROM
+        kf_content_article AS ca
+        WHERE
+        ca.did = d.id
+        ) articleCount
+        FROM
+        kf_kpi_count AS k
+        INNER JOIN kf_demand AS d ON d.id = k.type_id
+        LEFT JOIN kf_demand_type AS dt ON dt.id = d.type_id
+        LEFT JOIN kf_kpi_type_config AS tc ON k.work_type = tc.id
+        WHERE
+        k.uid = #{uid}
+        AND k.type = 4
+        AND k.first_check_time IS NOT NULL
+        AND k.first_check_time &gt;= #{startDate}
+        AND k.first_check_time &lt; #{endDate}
+        ) result
+        where 1=1
+        <if test="title !=null and title != '' ">
+            AND (
+            result.videoId = #{title}
+            OR result.title = #{title}
+            )
+        </if>
+        <if test="sourceTypeName !=null and sourceTypeName != '' ">
+            AND  result.sourceTypeName = #{sourceTypeName}
+
+        </if>
+    </select>
+
+    <!--视频关联内容-->
+    <select id="listKpiCountVideoDetailConnectContent" resultType="com.kanfa.news.app.vo.admin.kpicount.KpiCountVideoDetailConnectContentInfo">
+
+        SELECT
+            c.id AS cid,
+            c.title,
+
+        IF (
+            c.content_type = 2,
+            "文章",
+            "视频"
+        ) type
+        FROM
+            kf_content c
+        LEFT JOIN kf_content_video cv ON c.id = cv.cid
+        WHERE
+            cv.did = #{uid}
+
+        UNION
+
+        SELECT
+            c.id AS cid,
+            c.title,
+
+        IF (
+            c.content_type = 2,
+            "文章",
+            "视频"
+        ) type
+        FROM
+            kf_content c
+        LEFT JOIN kf_content_article ca ON c.id = ca.cid
+        WHERE
+            ca.did = #{uid}
+    </select>
+
+    <select id="listWorkTypeResult"  resultType="com.kanfa.news.app.vo.admin.kpicount.KpiCountWorkTypeResultInfo">
+
+        SELECT
+            k.uid,
+            k. NAME,
+            workType.id workTypeId,
+            workType.workTypeName,
+            count(0) count
+        FROM
+            kf_kpi_count AS k
+        LEFT JOIN (
+            SELECT
+                ktc.id,
+                CONCAT(ktcp. NAME, "-", ktc. NAME) workTypeName
+            FROM
+                kf_kpi_type_config ktc
+            LEFT JOIN kf_kpi_type_config ktcp ON ktc.pid = ktcp.id
+            WHERE
+                1 = 1
+            AND ktc.pid &lt;&gt; 0
+        AND ktc.is_show = 1
+        AND (
+            ktc.config_type = 100
+            OR ktc.config_type = 101
+        )
+        ) workType ON k.work_type = workType.id
+        WHERE
+            1 = 1
+        AND k.type = 4
+        AND k.first_check_time IS NOT NULL
+        AND k.first_check_time &gt;= #{startDate}
+        AND k.first_check_time &lt; #{endDate}
+        AND k.is_special = 0
+        AND workType.workTypeName IS NOT NULL
+        GROUP BY
+            k.uid,
+            workType.id
+    </select>
+
+    <select id="listWorkType" resultType="com.kanfa.news.app.vo.admin.kpicount.KpiCountWorkTypeInfo">
+
+        SELECT
+            ktc.id,
+        CONCAT(ktcp. NAME,"-",ktc. NAME) workTypeName
+        FROM
+            kf_kpi_type_config ktc
+        LEFT JOIN kf_kpi_type_config ktcp ON ktc.pid = ktcp.id
+        WHERE
+            1 = 1
+        and ktc.pid &lt;&gt;0
+        AND ktc.is_show = 1
+        AND (
+            ktc.config_type = 100
+            OR ktc.config_type = 101
+        )
+    </select>
+
+
+</mapper>

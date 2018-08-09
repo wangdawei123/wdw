@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.app.mapper.ExtendChannelMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.app.entity.ExtendChannel" id="extendChannelMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="channelNum" column="channel_num"/>
+        <result property="status" column="status"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createdUid" column="created_uid"/>
+    </resultMap>
+
+
+    <select id="getExtendChannelPage" resultType="com.kanfa.news.app.vo.admin.activity.ExtendChannelPageInfo">
+        SELECT
+            kec.id,
+            kec.name,
+            kec.channel_num channelNum,
+            kec.create_time createTime,
+            ka.nickname createUser
+        FROM
+            kf_extend_channel kec
+        LEFT JOIN kf_admin_user ka ON kec.created_uid = ka.id
+        <where>
+            <if test="name!=null and name != '' ">
+                AND kec.name LIKE CONCAT('%',#{name},'%')
+            </if>
+            <if test="isDelete!=null ">
+                AND kec.is_delete=#{isDelete}
+            </if>
+            <if test="status!=null">
+                AND kec.status=#{status}
+            </if>
+        </where>
+    </select>
+
+
+
+    <select id="extendChannelIdName" resultType="com.kanfa.news.app.entity.ExtendChannel">
+         SELECT
+            kec.id,
+            kec.name
+        FROM
+            kf_extend_channel kec
+        WHERE kec.is_delete = 0 AND kec.status = 1
+    </select>
+</mapper>
