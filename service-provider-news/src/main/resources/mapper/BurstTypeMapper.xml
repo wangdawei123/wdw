@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.BurstTypeMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.BurstType" id="burstTypeMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUid" column="update_uid"/>
+    </resultMap>
+
+    <select id="getPage" parameterType="java.util.Map" resultType="com.kanfa.news.info.vo.admin.burst.BurstTypeInfo">
+        SELECT
+                bt.id,
+                bt.name,
+                bt.create_time createTime,
+                bt.update_time updateTime,
+                au.name createUser,
+                au1.name updateUser
+        FROM
+                kf_burst_type bt
+                LEFT JOIN base_user au ON bt.create_uid = au.id
+                LEFT JOIN base_user au1 ON bt.update_uid = au1.id
+        <where>
+            <if test="isDelete!=null">
+               bt.is_delete=#{isDelete}
+            </if>
+        </where>
+        ORDER BY bt.create_time DESC
+    </select>
+
+    <select id="burstTypeListAll" resultType="com.kanfa.news.info.entity.BurstType">
+        SELECT
+                bt.id,
+                bt.name
+        FROM
+                kf_burst_type bt
+        <where>
+            <if test="burstType.isDelete!=null">
+                bt.is_delete=#{burstType.isDelete}
+            </if>
+        </where>
+    </select>
+</mapper>

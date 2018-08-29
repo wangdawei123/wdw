@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.BurstTypeMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.admin.entity.BurstType" id="burstTypeMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUid" column="update_uid"/>
+    </resultMap>
+
+</mapper>

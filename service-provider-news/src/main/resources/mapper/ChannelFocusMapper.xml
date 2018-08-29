@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.ChannelFocusMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.ChannelFocus" id="channelFocusMap">
+        <result property="id" column="id"/>
+        <result property="channelId" column="channel_id"/>
+        <result property="title" column="title"/>
+        <result property="cid" column="cid"/>
+        <result property="type" column="type"/>
+        <result property="url" column="url"/>
+        <result property="image" column="image"/>
+        <result property="orderNumber" column="order_number"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="isPublish" column="is_publish"/>
+        <result property="postId" column="post_id"/>
+        <result property="name" column="name"/>
+        <result property="preloadImage" column="preload_image"/>
+        <result property="fullshot" column="fullshot"/>
+        <result property="jump" column="jump"/>
+    </resultMap>
+
+    <select id="getFocusAll"  resultType="com.kanfa.news.info.vo.admin.info.ChannelFocusInfo">
+             SELECT
+                    cf.id,
+                    cf.cid,
+                    cf.title,
+                    cf.url,
+                    cf.image,
+                    cf.`type`,
+                    cf.create_time createTime,
+                    cf.is_publish isPublish
+             FROM
+                kf_channel_focus cf
+        <where>
+            cf.is_publish = 1
+            AND cf.`type` not in (4,9,22,23)
+            <if test="isDelete!=null">
+                AND cf.is_delete=#{isDelete}
+            </if>
+            <if test="channelId != null">
+              and cf.channel_id = #{channelId}
+            </if>
+        </where>
+        ORDER BY cf.order_number ASC,cf.create_time DESC
+    </select>
+
+    <!--/* cf.is_delete isDelete,*/-->
+    <select id="getPage" parameterType="java.util.Map" resultType="com.kanfa.news.info.vo.admin.info.ChannelFocusInfo">
+        SELECT
+                    cf.id,
+                    cf.title,
+                    c.name channelName,
+                    cf.create_time createTime,
+                    bu.name createUser,
+                    cf.is_publish isPublish
+        FROM
+                kf_channel_focus cf
+                LEFT JOIN base_user bu ON cf.create_uid = bu.id
+                LEFT JOIN kf_channel c ON c.id=cf.channel_id
+        <where>
+            <if test="isDelete!=null">
+                AND cf.is_delete=#{isDelete}
+            </if>
+            <if test="channelId!=null">
+                AND cf.channel_id=#{channelId}
+            </if>
+        </where>
+        ORDER BY cf.order_number ASC,cf.create_time DESC
+    </select>
+
+    <select id="getVideoChannelFocusPage" resultType="com.kanfa.news.info.vo.admin.video.VideoChannelFocusInfo">
+        SELECT
+        xc.id channelId,
+        xc.`name`,
+        xc.create_time createTime,
+        COUNT(xcm.channel_id) focusCount
+        FROM kf_channel_focus xcm  RIGHT  JOIN kf_channel xc
+        ON xcm.channel_id = xc.id
+        WHERE xc.category = 2 AND xc.is_publish = 1 AND xc.channel_status = 1
+        GROUP BY xc.id DESC
+    </select>
+
+    <select id="getVideoFocusList" parameterType="java.lang.Integer" resultType="com.kanfa.news.info.vo.admin.video.VideoChannelFocusListInfo">
+                SELECT
+                    kcf.id,
+                    kcf.title,
+                    bu.`name` updateUser,
+                    kcf.create_time updateTime,
+                    kcf.is_publish isPublish
+                FROM
+	            kf_channel_focus kcf
+                LEFT JOIN base_user bu ON kcf.create_uid = bu.id
+                WHERE
+                kcf.channel_id = #{channelId}
+    </select>
+
+
+    <!-- 得到VR焦点图 -->
+    <select id="getVRChannelFocusPage" resultType="com.kanfa.news.info.vo.admin.video.VideoChannelFocusInfo">
+        		SELECT
+				 xc.id channelId,
+				 xc.`name`,
+				 xc.create_time createTime,
+				 COUNT(xcm.channel_id) focusCount
+				FROM kf_channel_focus xcm
+				RIGHT JOIN kf_channel xc ON xcm.channel_id = xc.id
+				WHERE xc.category = 3 AND xc.is_publish = 1 AND xc.channel_status = 1
+				GROUP BY xc.id DESC
+    </select>
+
+    <!-- 得到pc焦点图 -->
+    <select id="getPcChannelFocusPage" resultType="com.kanfa.news.info.vo.admin.video.PcChannelFocusInfo">
+        SELECT
+        xc.id id,
+        xc.`name`,
+        xc.create_time createTime,
+        COUNT(xcm.channel_id) focusCount
+        FROM kf_channel_focus xcm  RIGHT JOIN kf_channel xc
+        ON xcm.channel_id = xc.id
+        WHERE xc.category = 4 AND xc.is_publish = 1 AND xc.channel_status = 1
+        GROUP BY xc.id DESC
+    </select>
+
+    <select id="getChannelFocusByIdsAndChannelId" resultType="com.kanfa.news.info.entity.ChannelFocus">
+        SELECT
+                xcm.id,
+                xcm.order_number orderNumber
+        FROM
+                kf_channel_focus xcm
+        <where>
+            <if test="ids != null and ids.size()>0">
+               xcm.id IN
+                <foreach collection="ids" item="id" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+        ORDER BY field
+        <foreach collection="ids" item="id" close=")" open="(xcm.id," separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <select id="getMaxOrderNumber" resultType="java.lang.Integer">
+        SELECT MAX(order_number) FROM kf_channel_focus
+    </select>
+
+</mapper>

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.AppUserMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.AppUser" id="appUserMap">
+        <result property="id" column="id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="phone" column="phone"/>
+        <result property="image" column="image"/>
+        <result property="introduction" column="introduction"/>
+        <result property="gender" column="gender"/>
+        <result property="commentNum" column="comment_num"/>
+        <result property="createTime" column="create_time"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="password" column="password"/>
+        <result property="saltEncrypt" column="salt_encrypt"/>
+        <result property="isBlock" column="is_block"/>
+        <result property="updateId" column="update_id"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+
+    <select id="findByIds" resultMap="appUserMap">
+        SELECT
+            u.id,
+            u.nickname,
+            u.image
+        FROM
+            kf_user u
+        <where>
+            u.is_delete = 1
+            <if test="uids != null and uids.size() > 0">
+                AND u.id IN
+                <foreach collection="uids" separator="," open="(" close=")" item="id">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+
+    </select>
+
+    <select id="getPage" parameterType="java.util.Map" resultType="com.kanfa.news.info.vo.admin.appuser.AppUserInfo">
+        SELECT
+                    u.id,
+                    u.nickname,
+                    u.phone,
+                    u.gender,
+                    u.create_time createTime,
+                    u.is_block isBlock,
+                    bu.name createUser,
+                    ua.platform,
+                    u.update_time updateTime
+        FROM
+                kf_user u
+                LEFT JOIN base_user bu ON bu.id=u.update_id
+                LEFT JOIN kf_user_auth ua ON ua.uid=u.id
+        <where>
+            <if test="platform!=null and platform==4">
+                AND u.phone!=''
+            </if>
+            <if test="nickname!=null and nickname!='' ">
+                AND  u.nickname LIKE CONCAT('%',#{nickname},'%')
+            </if>
+            <if test="phone!=null and phone!='' ">
+                AND u.phone=#{phone}
+            </if>
+            <if test="gender!=null and gender!=''">
+                AND u.gender=#{gender}
+            </if>
+            <if test="isBlock!=null">
+                AND u.is_block=#{isBlock}
+            </if>
+            <if test="isDelete!=null">
+                AND u.is_delete=#{isDelete}
+            </if>
+            <if test="startTime!=null and startTime!='' ">
+                AND u.create_time &gt;= #{startTime}
+            </if>
+            <if test="endTime!=null and endTime!='' ">
+                AND u.create_time &lt;= #{endTime}
+            </if>
+            <if test="platform!=null and platform!=0">
+                <if test="platform==1 or platform==2 or platform==3">
+                    AND ua.platform=#{platform}
+                </if>
+            </if>
+        </where>
+        ORDER BY u.id DESC ,u.create_time DESC
+    </select>
+    <select id="getAppUser" resultType="com.kanfa.news.info.vo.admin.appuser.AppUserInfo">
+        SELECT
+                    u.id,
+                    u.nickname,
+                    u.phone,
+                    u.gender,
+                    u.is_block isBlock,
+                    u.create_time createTime,
+                    u.update_time updateTime,
+                    uaWC.openid weChatId,
+                    uaQQ.openid qqId,
+                    uaWB.openid weiboId
+        FROM
+                kf_user u
+                LEFT JOIN kf_user_auth uaWC ON uaWC.uid=u.id AND uaWC.platform=2
+                LEFT JOIN kf_user_auth uaWB ON uaWB.uid=u.id AND uaWB.platform=1
+                LEFT JOIN kf_user_auth uaQQ ON uaQQ.uid=u.id AND uaQQ.platform=3
+        <where>
+            <if test="id!=null">
+                u.id=#{id}
+            </if>
+        </where>
+    </select>
+
+    <select id="getTodayUser" resultType="java.lang.Integer">
+        select COUNT(*) account from kf_user where is_delete=1 AND to_days(create_time) = to_days(now())
+    </select>
+</mapper>

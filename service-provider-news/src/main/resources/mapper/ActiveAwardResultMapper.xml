@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.ActiveAwardResultMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.ActiveAwardResult" id="activeAwardResultMap">
+        <result property="id" column="id"/>
+        <result property="prizeTime" column="prize_time"/>
+        <result property="prizeId" column="prize_id"/>
+        <result property="prizeType" column="prize_type"/>
+        <result property="uid" column="uid"/>
+        <result property="activityId" column="activity_id"/>
+        <result property="prizeName" column="prize_name"/>
+    </resultMap>
+
+
+
+    <select id="getActiveAwardResult" resultType="com.kanfa.news.info.vo.admin.activity.ActiveAwardResultInfo">
+    SELECT
+    kaa.`name`,
+    kaar.prize_time prizeTime,
+    ku.nickname,
+    ku.phone
+    FROM kf_active_award_result kaar
+    LEFT JOIN kf_user ku ON kaar.uid = ku.id
+    LEFT JOIN kf_activity_award kaa ON kaar.activity_id = kaa.activity_id
+    WHERE kaa.is_use = 1 AND kaar.activity_id = #{activityRaffleId}
+    </select>
+
+
+</mapper>

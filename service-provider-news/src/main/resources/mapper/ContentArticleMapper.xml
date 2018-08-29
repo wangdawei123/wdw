@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.ContentArticleMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.ContentArticle" id="contentArticleMap">
+        <result property="cid" column="cid"/>
+        <result property="source" column="source"/>
+        <result property="content" column="content"/>
+        <result property="video" column="video"/>
+        <result property="videoImg" column="video_img"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="did" column="did"/>
+        <result property="author" column="author"/>
+    </resultMap>
+
+</mapper>

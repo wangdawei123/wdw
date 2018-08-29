@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.KpiContentMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.KpiContent" id="kpiContentMap">
+        <result property="id" column="id"/>
+        <result property="contentId" column="content_id"/>
+        <result property="uid" column="uid"/>
+        <result property="name" column="name"/>
+        <result property="type" column="type"/>
+        <result property="weight" column="weight"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="isNumPass" column="is_num_pass"/>
+        <result property="articleType" column="article_type"/>
+        <result property="jobId" column="job_id"/>
+        <result property="departmentId" column="department_id"/>
+        <result property="checkTime" column="check_time"/>
+        <result property="isPublish" column="is_publish"/>
+        <result property="videoId" column="video_id"/>
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.FavMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.Fav" id="favMap">
+        <result property="cid" column="cid"/>
+        <result property="uid" column="uid"/>
+        <result property="type" column="type"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <delete id="delFav">
+
+        DELETE
+        FROM
+            kf_fav
+        <where>
+            <if test="cid != null">
+                AND   cid = #{cid}
+            </if>
+            <if test="uid != null">
+                AND   uid = #{uid}
+            </if>
+            <if test="type != null">
+                AND  `type` = #{type}
+            </if>
+        </where>
+    </delete>
+
+    <select id="selectByFav" resultMap="favMap">
+        SELECT
+            *
+        FROM
+            kf_fav f
+        <where>
+            <if test="cid != null">
+                f.cid = #{cid}
+            </if>
+            <if test="uid != null">
+              and  f.uid = #{uid}
+            </if>
+            <if test="type != null">
+              and  f.`type` = #{type}
+            </if>
+        </where>
+    </select>
+
+    <select id="selectCountNum" resultType="long">
+        SELECT
+            count(f.cid)
+        FROM
+            kf_fav f
+        <where>
+            <if test="cid != null">
+                f.cid = #{cid}
+            </if>
+            <if test="type != null">
+               and f.`type` = #{type}
+            </if>
+        </where>
+    </select>
+
+    <select id="getListByUid" resultMap="favMap">
+        SELECT
+            f.cid,
+            f.uid,
+            f.`type`,
+            f.create_time createTime
+        FROM
+            kf_fav f
+        <where>
+            <if test="uid != null">
+                and f.uid = #{uid}
+            </if>
+            <if test="type != null">
+               and  f.`type` = #{type}
+            </if>
+            <if test="types != null and types.size() > 0">
+                AND f.`type` IN
+                <foreach collection="types" separator="," open="(" close=")" item="id">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+        order by f.create_time desc
+        <if test="offset != null and pcount != null">
+            limit #{offset},#{pcount}
+        </if>
+    </select>
+</mapper>

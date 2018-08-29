@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.ChartDataMapper">
+    <!--发稿人发稿量TOP榜-->
+    <select id="pressTop" resultType="map">
+
+        SELECT
+            count(c.id) AS num,
+            au.realname
+        FROM
+            kf_content c
+        LEFT JOIN kf_admin_user au ON c.create_uid = au.id
+        WHERE
+            1 = 1
+        AND c.first_check_time
+         <if test="startDate !=null and startDate != '' and endDate !=null and endDate != '' ">
+             BETWEEN #{startDate}
+             AND  #{endDate}
+         </if>
+
+        GROUP BY
+            c.create_uid
+        ORDER BY
+            num
+        LIMIT 10
+    </select>
+
+    <!--获取原创非原-->
+    <select id="originalOrNo" resultType="map" >
+
+        SELECT
+            count(id) count,
+            STR_TO_DATE(
+            first_check_time,
+            '%Y-%m-%d'
+            ) date,
+            source_type sourceType,
+            category
+        FROM
+          kf_content
+        WHERE
+            1 = 1
+
+            <if test="startDate !=null and startDate != '' and endDate !=null and endDate != '' ">
+                AND first_check_time
+                BETWEEN #{startDate}
+                AND  #{endDate}
+            </if>
+            AND source_type != 0
+            AND content_type IN (2, 3, 4)
+            GROUP BY
+            source_type,
+            category,
+            date
+    </select>
+
+
+    <select id="liveCount" resultType="map">
+
+
+                SELECT
+                    count(id) AS sum,
+                    date_format(start_time, "%Y-%m-%d") AS nowDate
+                FROM
+                    kf_live
+                WHERE
+                    1 = 1
+                    <if test="startDate !=null and startDate != '' and endDate !=null and endDate != '' ">
+                        AND start_time BETWEEN #{startDate}
+                        AND #{endDate}
+                    </if>
+                AND live_status = 1
+                GROUP BY
+                  nowDate
+                UNION
+                SELECT
+                    count(id) AS sum,
+                    date_format(start_time, "%Y-%m-%d") AS nowDate
+                FROM
+                    kf_live
+                WHERE
+                    1 = 1
+                <if test="startDate !=null and startDate != '' and endDate !=null and endDate != '' ">
+                    AND start_time BETWEEN #{startDate}
+                    AND #{endDate}
+                </if>
+                AND live_status = 1
+
+    </select>
+    <select id="getTitle" resultType="map">
+
+        SELECT
+            id,
+            title
+        FROM
+            kf_content
+        WHERE id IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getContentData" resultType="map">
+        SELECT
+            c.id,
+            c.title,
+            c.category,
+            c.source_type sourceType,
+            c.create_time createTime,
+            c.create_uid createUid,
+            c.first_check_time firstCheckTime,
+            au.realname,
+            tt.publish_time publishTime,
+            tt.check_uid checkUid,
+            tt.check_name checkName,
+            c.check_time checkTime
+        FROM
+          kf_content c
+        LEFT JOIN kf_admin_user au ON c.create_uid = au.id
+        LEFT JOIN (
+            SELECT
+                cc.channel_id cid,
+                cc.publish_time,
+                cc.check_uid,
+                uu.realname AS check_name
+            FROM
+                kf_channel_content cc
+            LEFT JOIN kf_admin_user uu ON cc.check_uid = uu.id
+            GROUP BY
+                cc.channel_id
+        ) tt ON c.id = tt.cid
+        WHERE
+            1 = 1
+        AND c.category IN (2, 3, 4)
+        AND c.id IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getLiveData" resultType="map">
+        SELECT
+            l.id,
+            l.title,
+            l.live_type_id liveTypeId,
+            l.is_delete stat,
+            l.create_uid createUid,
+            l.create_time createTime,
+            l.live_type liveType,
+            au.realname,
+            l.update_uid updateUid,
+            l.update_time updateTime,
+            adu.realname checkName
+        FROM
+          kf_live l
+        LEFT JOIN kf_admin_user au ON l.create_uid = au.id
+        LEFT JOIN kf_admin_user adu ON l.update_uid = adu.id
+        WHERE
+        1 = 1
+        AND l.id IN
+        <foreach item="item" index="index" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
+    <select id="getHoursMysqlData" resultType="map">
+
+        SELECT
+            COUNT(id) AS count,
+            source_type sourceType,
+            category
+        FROM
+            kf_content
+        WHERE 1=1 AND
+          	first_check_time BETWEEN #{startDate}
+            AND #{endDate}
+        AND category IN (2, 3, 4)
+        AND source_type != 0
+        GROUP BY
+            source_type,
+            category
+    </select>
+</mapper>

@@ -1,0 +1,17 @@
+spring:
+    cloud:
+      config:
+           label: master
+           profile: jiayunwei
+           name: service-news
+           uri: http://47.94.8.143:8750
+      bus:
+        trace:
+          enabled: true
+    profiles:
+      active: jiayunwei
+management:
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh

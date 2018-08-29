@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.VideoColumnMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.VideoColumn" id="videoColumnMap">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="summary" column="summary"/>
+        <result property="content" column="content"/>
+        <result property="coverImg" column="cover_img"/>
+        <result property="pub" column="pub"/>
+        <result property="stat" column="stat"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUid" column="update_uid"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="columnOrder" column="column_order"/>
+        <result property="isTop" column="is_top"/>
+    </resultMap>
+
+
+    <!-- 查询视频栏目列表 -->
+    <select id="selectVideoColumns" resultType="com.kanfa.news.info.vo.admin.video.VideoColumnPageInfo">
+        SELECT
+        kvc.id,
+        kvc.title,
+        kvc.column_order columnOrder,
+        bu.`name` createUser,
+        kvc.create_time createTime
+        FROM
+        kf_video_column kvc
+        LEFT JOIN base_user bu ON kvc.create_uid = bu.id
+        <where>
+            kvc.stat = 1
+            <if test="entity.title!=null and entity.title != '' ">
+                AND kvc.title LIKE CONCAT('%',#{entity.title},'%')
+            </if>
+        </where>
+        ORDER BY
+        kvc.column_order DESC ,kvc.id DESC
+    </select>
+
+
+</mapper>

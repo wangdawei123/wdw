@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.CorpUserMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.CorpUser" id="corpUserMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="level1Id" column="level1_id"/>
+        <result property="level2Id" column="level2_id"/>
+        <result property="jobId" column="job_id"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUid" column="update_uid"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+
+    <!-- 我的里边视频上传所需要的记者Id name字典表 -->
+    <select id="getCorpUserIdName" resultType="com.kanfa.news.info.entity.CorpUser">
+        SELECT
+        id,
+        `name`
+        FROM kf_corp_user kcu
+        WHERE kcu.level1_id = 2 and kcu.status = 1
+    </select>
+
+    <!-- 我的里边视频上传所需要的记者Id name字典表 -->
+    <select id="selectCropUserIdName" resultType="com.kanfa.news.info.entity.CorpUser">
+        SELECT
+        id,
+        `name`
+        FROM kf_corp_user kcu
+        WHERE kcu.level1_id = 1 and kcu.level2_id = 4 and kcu.status = 1
+    </select>
+
+</mapper>

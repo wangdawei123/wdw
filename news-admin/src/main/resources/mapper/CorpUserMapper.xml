@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.admin.mapper.CorpUserMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.admin.entity.CorpUser" id="corpUserMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="level1Id" column="level1_id"/>
+        <result property="level2Id" column="level2_id"/>
+        <result property="jobId" column="job_id"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUid" column="update_uid"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="status" column="status"/>
+    </resultMap>
+
+
+    <!-- 我的里边视频上传所需要的记者Id name字典表 -->
+    <select id="getCorpUserIdName" resultType="com.kanfa.news.admin.entity.CorpUser">
+        SELECT
+        id,
+        `name`
+        FROM kf_corp_user kcu
+        WHERE kcu.level1_id = 2 and kcu.status = 1
+    </select>
+
+    <!-- 我的里边视频上传所需要的记者Id name字典表 -->
+    <select id="selectCropUserIdName" resultType="com.kanfa.news.admin.entity.CorpUser">
+        SELECT
+        id,
+        `name`
+        FROM kf_corp_user kcu
+        WHERE kcu.level1_id = 1 and kcu.level2_id = 4 and kcu.status = 1
+    </select>
+    <select id="search" resultType="java.util.Map">
+        SELECT
+        t.id,
+        t.`name`,
+        t.level1,
+        t.level2,
+        t.jobName,
+        t.`status`,
+        t.creator,
+        t.modifier,
+        t.update_time
+        FROM
+        (
+        SELECT
+        cu.id,
+        cu.level1_id,
+        cu.level2_id,
+        cu.job_id,
+        cu.`name`,
+        cd1.`name` AS level1,
+        cd2.`name` AS level2,
+        cj.`name` AS jobName,
+        CASE cu.`status`
+        WHEN 1 THEN
+        '在职'
+        WHEN 2 THEN
+        '离职'
+        WHEN 3 THEN
+        '删除'
+        END AS `status`,
+        bu1.`name` AS creator,
+        bu2.`name` AS modifier,
+        cu.update_time
+        FROM
+        kf_corp_user cu
+        LEFT JOIN kf_corp_dept cd1 ON cu.level1_id = cd1.id
+        LEFT JOIN kf_corp_dept cd2 ON cu.level2_id = cd2.id
+        LEFT JOIN kf_corp_job cj ON cu.job_id = cj.id
+        LEFT JOIN base_user bu1 ON cu.create_uid = bu1.id
+        LEFT JOIN base_user bu2 ON cu.update_uid = bu2.id
+        where 1=1 AND cu.`status`!=3
+        <if test="status!=0">
+            and cu.`status`=#{status}
+        </if>
+        ) AS t
+        WHERE
+        1 = 1
+        <if test="name!=null">
+            and t.name LIKE CONCAT('%',#{name},'%')
+        </if>
+        <if test="level1!=0">
+            and t.level1_id=#{level1}
+        </if>
+        <if test="level2!=0">
+            and t.level2_id=#{level2}
+        </if>
+        <if test="corpJobId!=0">
+            and t.job_id=#{corpJobId}
+        </if>
+    </select>
+
+</mapper>

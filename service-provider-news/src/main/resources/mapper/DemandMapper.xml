@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.DemandMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.Demand" id="demandMap">
+        <result property="id" column="id"/>
+        <result property="medid" column="medid"/>
+        <result property="title" column="title"/>
+        <result property="createTime" column="create_time"/>
+        <result property="status" column="status"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="url" column="url"/>
+        <result property="name" column="name"/>
+        <result property="stat" column="stat"/>
+        <result property="runid" column="runid"/>
+        <result property="duration" column="duration"/>
+        <result property="videomd" column="videomd"/>
+        <result property="typeId" column="type_id"/>
+        <result property="type" column="type"/>
+        <result property="sourceType" column="source_type"/>
+    </resultMap>
+
+
+
+    <select id="getPage" resultType="com.kanfa.news.info.vo.admin.video.VideoDemandInfo">
+        SELECT
+            kd.id,
+            kd.title,
+            bu.`name` createUser,
+            kd.create_time createTime,
+            kd.`status` status
+        FROM
+            kf_demand kd
+        LEFT JOIN base_user bu ON kd.create_uid = bu.id
+            ORDER BY
+                kd.id DESC,
+                kd.create_time DESC
+    </select>
+
+
+    <select id="getSearchPage"  parameterType="java.lang.String" resultType="com.kanfa.news.info.vo.admin.video.VideoDemandInfo">
+        SELECT
+            kd.id,
+            kd.title,
+            bu.`name` createUser,
+            kd.create_time createTime,
+            kd.`status` status,
+            kd.`duration`,
+            kd.url
+        FROM
+            kf_demand kd
+        LEFT JOIN base_user bu ON kd.create_uid = bu.id
+        WHERE
+            kd.title LIKE CONCAT(
+                '%',
+                #{title},'%' )
+            ORDER BY
+                kd.id DESC,
+                kd.create_time DESC
+    </select>
+
+
+    <!-- 我的视频库 分页信息及搜索 -->
+    <select id="getMyDemandPage" resultType="com.kanfa.news.info.vo.admin.my.MyDemandPageInfo">
+        SELECT
+        kd.id,
+        kd.title,
+        kd.create_time createTime,
+        kd.`status`
+        FROM kf_demand kd
+        <where>
+            <if test="title!=null and title != '' ">
+                AND kd.title LIKE CONCAT('%',#{title},'%')
+            </if>
+            <if test="stat!=null ">
+                AND kd.stat=#{stat}
+            </if>
+            <if test="createUid!=null">
+                AND kd.create_uid=#{createUid}
+            </if>
+            <if test="createTime!=null">
+                AND kd.create_time=#{createTime}
+            </if>
+            <if test="status!=null ">
+                AND kd.`status`=#{status}
+            </if>
+        </where>
+        ORDER BY kd.id DESC,kd.create_time DESC
+    </select>
+
+
+    <insert id="insertDemand"   keyColumn="id" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO kf_demand (
+        title,
+        create_time,
+        create_uid,
+        `name`,
+        videomd,
+       `type`
+        )
+        VALUES
+        (
+        #{title},
+        #{createTime},
+        #{createUid},
+        #{name},
+        #{videomd},
+        #{type}
+        )
+    </insert>
+
+    <!-- 获得所有视频的videomd -->
+    <select id="getAllVideoMD" resultType="java.lang.String">
+        SELECT
+            kd.videomd
+        FROM
+            kf_demand kd
+        WHERE
+            kd.videomd IS NOT NULL
+    </select>
+
+
+</mapper>

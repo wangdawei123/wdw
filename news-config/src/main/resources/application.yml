@@ -1,0 +1,46 @@
+spring:
+    application:
+        name: news-config
+    cloud:
+        config:
+            server:
+                git:
+                    uri: http://60.205.226.102/kanfanews/spring-cloud-starter.git
+                    username: wangjingzhi@kanfanews.com
+                    password: 12345678
+                    search-paths: config-repo
+                    clone-on-start: true
+        bus:
+          trace:
+            enabled: true
+    rabbitmq:
+        host: 59.110.241.166
+        port:  5672
+        username: superrd
+        password: superrd
+
+server:
+    port: 8888 #启动端口
+
+eureka:
+    instance:
+        statusPageUrlPath: /actuator/info
+        healthCheckUrlPath: /actuator/health
+        # docker 部署开启
+        prefer-ip-address: true
+        ip-address: 127.0.0.1
+    client:
+        serviceUrl:
+#            defaultZone: http://localhost:8761/eureka/
+                    # docker 部署开启
+            defaultZone: http://47.94.8.143:8761/eureka/
+management:
+  endpoint:
+    shutdown:
+      enabled: true
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: bus-refresh

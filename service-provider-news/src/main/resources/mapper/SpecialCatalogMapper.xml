@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.SpecialCatalogMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.SpecialCatalog" id="specialCatalogMap">
+        <result property="id" column="id"/>
+        <result property="cid" column="cid"/>
+        <result property="title" column="title"/>
+        <result property="orderNumber" column="order_number"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="updateUid" column="update_uid"/>
+    </resultMap>
+
+    <select id="selectSpecialCatalogList" resultType="com.kanfa.news.info.vo.admin.info.SubjectCatalogInfo">
+      SELECT
+              id,
+              cid,
+              title
+      FROM
+              kf_special_catalog
+      <where>
+          <if test="specialCatalog.cid!=null">
+              is_delete=1 AND cid=#{specialCatalog.cid}
+          </if>
+      </where>
+    </select>
+
+    <insert id="addSpecialCatalog" parameterType="com.kanfa.news.info.entity.SpecialCatalog" useGeneratedKeys="true" keyProperty="id">
+        insert into kf_special_catalog(
+                                        cid,
+                                        title,
+                                        order_number,
+                                        is_delete,
+                                        create_time,
+                                        create_uid,
+                                        update_time,
+                                        update_uid
+                                        )
+        values(#{cid},
+                #{title},
+                (SELECT IF(MAX(sc.order_number),MAX(sc.order_number)+1,1) FROM kf_special_catalog sc),
+                #{isDelete},
+                #{createTime},
+                #{createUid},
+                #{updateTime},
+                #{updateUid}
+                )
+    </insert>
+    <delete id="deleteSpecialCatalog" parameterType="com.kanfa.news.info.entity.SpecialCatalog">
+        DELETE sc.*,cs.*
+        FROM kf_special_catalog sc ,kf_content_special cs
+        WHERE sc.id = cs.catalog_id AND sc.cid = #{specialCatalog.cid}
+    </delete>
+
+    <!-- app 专题详情页查询关联cid -->
+    <select id="getSpecialCatalog"  parameterType="java.lang.Integer" resultType="java.util.Map">
+        SELECT
+        sc.id,
+        sc.cid scid,
+        cs.content_id,
+
+        sc.title,
+        group_concat(DISTINCT cs.target_cid order by cs.order_number asc) as target_cid
+        FROM
+        kf_special_catalog sc
+        LEFT JOIN kf_content_special cs ON cs.catalog_id = sc.id
+        WHERE
+        sc.cid = #{id}
+        AND cs.content_id = #{id}
+        group by sc.id
+        ORDER BY
+        sc.order_number ASC
+    </select>
+
+    <!--app 专题详情页查询关联content  -->
+    <select id="selectBindSpecialContentListByCid" parameterType="java.lang.Integer" resultType="java.util.Map">
+        SELECT
+        cs.content_id,
+        c.content_type type,
+        c.*, cc.publish_time pub_time,
+        cc.channel_id chan_id,
+        cs.order_number
+        FROM
+        kf_content c
+        LEFT JOIN kf_channel_content cc ON c.id = cc.content_id
+        LEFT JOIN kf_content_special cs ON cs.target_cid = c.id
+        WHERE 1=1
+        <if test="entity.cid!=null">
+            and cs.content_id = #{entity.cid}
+        </if>
+        <if test="entity.ids!=null and entity.ids.size()>0">
+            and c.id IN
+            <foreach collection="entity.ids" item="id" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+        </if>
+        <if test="entity.catalogId!=null">
+            AND cs.catalog_id  = #{entity.catalogId}
+        </if>
+
+        GROUP BY
+        c.id
+        ORDER BY
+        cs.order_number ASC
+
+    </select>
+</mapper>

@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.ChannelMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.Channel" id="channelMap">
+        <result property="id" column="id"/>
+        <result property="category" column="category"/>
+        <result property="orderNumber" column="order_number"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+        <result property="isHeadline" column="is_headline"/>
+        <result property="isFixed" column="is_fixed"/>
+        <result property="isTop" column="is_top"/>
+        <result property="isDefault" column="is_default"/>
+        <result property="isPublish" column="is_publish"/>
+        <result property="publishTime" column="publish_time"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="createTime" column="create_time"/>
+        <result property="channelStatus" column="channel_status"/>
+        <result property="promoteId" column="promote_id"/>
+        <result property="url" column="url"/>
+        <result property="image" column="image"/>
+        <result property="editUid" column="edit_uid"/>
+        <result property="shopShow" column="shop_show"/>
+        <result property="strategyShow" column="strategy_show"/>
+        <result property="strategyName" column="strategy_name"/>
+        <result property="shopName" column="shop_name"/>
+        <result property="commentInitNum" column="comment_init_num"/>
+        <result property="commentThreshold" column="comment_threshold"/>
+        <result property="commentShowRule" column="comment_show_rule"/>
+        <result property="viewInitNum" column="view_init_num"/>
+        <result property="viewThreshold" column="view_threshold"/>
+        <result property="viewShowRule" column="view_show_rule"/>
+        <result property="sortTime" column="sort_time"/>
+        <result property="hotThreshold" column="hot_threshold"/>
+        <result property="topNum" column="top_num"/>
+    </resultMap>
+
+    <select id="selectChannelIds" resultMap="channelMap">
+          SELECT
+                ch.id
+                FROM
+              kf_channel ch
+        <where>
+              ch.channel_status = 1
+            <if test="cate !=null">
+              AND ch.category=#{cate}
+            </if>
+        </where>
+        order by ch.`order_number` desc
+    </select>
+
+    <select id="getKeywordDataType2" resultType="com.kanfa.news.info.vo.admin.live.LiveInfo">
+           SELECT
+                lv.id,
+                lv.title,
+                lv.live_status liveStatus,
+                lv.start_time startTime,
+                lv.cover_img coverImg,
+                lv.live_type_id liveTypeId,
+                lv.live_duration liveDuration,
+                lv.update_time updateTime,
+                lv.flash_obj flashObj,
+                lv.view_count viewCount,
+                lt. `name` ,
+                lv.live_url liveUrl,
+                lv.preview_url previewUrl,
+                lv.review_url reviewUrl
+          FROM
+                kf_live lv
+                LEFT JOIN kf_live_type lt ON lv.live_type_id = lt.id
+                <where>
+                    lv.is_delete = 0
+                    AND lv.is_publish = 1
+                    AND lv.live_type_id != 1
+                    <if test="keyword != null">
+                        AND lv.title like CONCAT('%',#{keyword},'%')
+                    </if>
+                </where>
+                limit
+                #{offset} ,#{pcount}
+    </select>
+
+    <select id="getKeywordDataType" resultType="com.kanfa.news.info.vo.admin.info.ContentInfo">
+                SELECT
+                    cc.card_type cardType,
+                    cc.publish_time publishTime,
+                    cc.type,
+                    c.id,
+                    c.content_type contentType,
+                    c.title,
+                    c.image,
+                    c.content_style contentStyle,
+                    c.source_type sourceType,
+                    c.view_count viewCount,
+                    c.custom_url customUrl,
+                    c.category,
+                    cc.channel_id channelId
+                FROM
+                    kf_content c
+                INNER JOIN kf_channel_content cc ON c.id = cc.content_id
+                    AND cc.from_type = 1
+                    AND cc.check_status = 1
+                <where>
+                        c.content_state = 1
+                        AND (c.check_status = 1 OR c.is_check = 1)
+                        AND cc.check_status = 1
+                    <if test="pub != null">
+                        AND cc.is_publish = #{pub}
+                    </if>
+                    <if test="type == 1">
+                        AND c.content_type = 4
+                    </if>
+                    <if test="type == 3">
+                        AND c.source_type = 1
+                    </if>
+                    <if test="keyword != null">
+                        AND c.title like CONCAT('%',#{keyword},'%')
+                    </if>
+                </where>
+                GROUP BY c.id
+                order by cc.publish_time desc
+                limit #{offset} ,#{pcount}
+    </select>
+
+    <select id="selectChannlList" resultType="com.kanfa.news.info.vo.admin.info.ChannelInfo">
+      SELECT
+                ch.id,
+                ch.name,
+                ch.is_fixed isFixed,
+                ch.is_top isTop,
+                ch.is_publish isPublish,
+                ch.publish_time publishTime,
+                bu.`name` createUser,
+                ch.create_time createTime,
+                ch.channel_status channelStatus,
+                bu1.`name` updateUser
+      FROM
+              kf_channel ch
+              LEFT JOIN base_user bu ON ch.create_uid = bu.id
+              LEFT JOIN base_user bu1 ON ch.edit_uid = bu1.id
+      <where>
+              ch.is_fixed = 1
+          and ch.is_top = 1
+          <if test="entity.isPublish!=null">
+              AND ch.is_publish=#{entity.isPublish}
+          </if>
+          <if test="entity.channelStatus!=null">
+              AND ch.channel_status=#{entity.channelStatus}
+          </if>
+          <if test="entity.category!=null">
+              AND ch.category=#{entity.category}
+          </if>
+      </where>
+      ORDER BY ch.order_number DESC
+    </select>
+
+    <insert id="insertChannelSelective" parameterType="com.kanfa.news.info.entity.Channel" useGeneratedKeys="true" keyProperty="id">
+        insert into kf_channel(
+                                  name,
+                                  category,
+                                  <if test="isFixed!=null">
+                                      is_fixed,
+                                  </if>
+                                  <if test="commentThreshold!=null">
+                                      comment_threshold,
+                                  </if>
+                                  <if test="viewInitNum!=null">
+                                      view_init_num,
+                                  </if>
+                                  <if test="viewThreshold!=null">
+                                      view_threshold,
+                                  </if>
+                                  <if test="hotThreshold!=null">
+                                      hot_threshold,
+                                  </if>
+                                  <if test="topNum!=null">
+                                     top_num,
+                                  </if>
+                                  create_uid,
+                                  create_time,
+                                  order_number)
+        values(#{name},
+                #{category},
+                <if test="isFixed!=null">
+                        #{isFixed},
+                </if>
+                <if test="commentThreshold!=null">
+                        #{commentThreshold},
+                </if>
+                <if test="viewInitNum!=null">
+                        #{viewInitNum},
+                </if>
+                <if test="viewThreshold!=null">
+                        #{viewThreshold},
+                </if>
+                <if test="hotThreshold!=null">
+                        #{hotThreshold},
+                </if>
+                <if test="topNum!=null">
+                        #{topNum},
+                </if>
+                #{createUid},
+                #{createTime},
+                (SELECT IF(MAX(ch.order_number),MAX(ch.order_number)+1,1) FROM kf_channel ch))
+    </insert>
+
+    <!--查询频道绑定的相关内容包含文章直播等-->
+    <select id="selectAssociateContentList" resultType="com.kanfa.news.info.vo.admin.info.ChannelAssociateContent">
+        SELECT
+                ch.id,
+                c.id contentId,
+                c.title,
+                c.content_type contentType,
+                bu.`name` updateUser
+        FROM
+            kf_channel ch
+            LEFT JOIN kf_channel_content cc ON ch.id=cc.channel_id
+            LEFT JOIN kf_content c ON cc.content_id=c.id
+            LEFT JOIN base_user bu ON bu.id=c.update_uid
+        <where>
+            <if test="id != null">
+              ch.id=#{id}
+            </if>
+        </where>
+        ORDER BY cc.order_number
+        limit 5
+    </select>
+
+
+    <!--   查询视频管理的频道列表 -->
+    <select id="getPage" resultType="com.kanfa.news.info.vo.admin.video.VideoChannelInfo">
+            SELECT
+                lt.id,
+                lt.`name`,
+                bu.`name` createUser,
+                bu1.`name` updateUser,
+                lt.create_time createTime,
+                lt.is_publish isPublish,
+                lt.is_top isTop
+            FROM
+                kf_channel lt
+            LEFT JOIN base_user bu ON lt.create_uid = bu.id
+            LEFT JOIN base_user bu1 ON lt.edit_uid = bu1.id
+            WHERE lt.channel_status = 1 AND lt.category = 2
+			ORDER BY lt.order_number DESC,lt.is_top DESC
+    </select>
+
+    <!-- 添加视频频道返回id -->
+    <insert id="insertVideoChannel"  parameterType="com.kanfa.news.info.entity.Channel" useGeneratedKeys="true" keyProperty="id">
+        insert into kf_channel(
+                                  name,
+                                  category,
+                                  create_uid,
+                                  create_time,
+                                  order_number,
+                                  is_headline,
+                                  is_publish,
+                                  channel_status,
+                                  comment_threshold,
+                                  view_init_num,
+                                  view_threshold,
+                                  hot_threshold,
+                                  top_num)
+        values(#{name},
+                #{category},
+                #{createUid},
+                #{createTime},
+                #{orderNumber},
+                #{isHeadline},
+                #{isPublish},
+                #{channelStatus},
+                #{commentThreshold},
+                #{viewInitNum},
+                #{viewThreshold},
+                #{hotThreshold},
+                #{topNum})
+    </insert>
+
+    <!-- 修改视频频道返回id -->
+    <update id="updateVideoChannel" parameterType="com.kanfa.news.info.entity.Channel">
+        update kf_channel
+        <trim prefix="set" suffixOverrides=",">
+            <if test="name != null and name!=''">name=#{name},</if>
+            <if test="editUid != null and editUid!=''">edit_uid=#{editUid},</if>
+            <if test="sortTime != null and sortTime!=''">sort_time=#{sortTime},</if>
+            <if test="commentThreshold != null and commentThreshold!=''">comment_threshold=#{commentThreshold},</if>
+            <if test="viewInitNum != null and viewInitNum!=''">view_init_num=#{viewInitNum},</if>
+            <if test="viewThreshold != null and viewThreshold!=''">view_threshold=#{viewThreshold},</if>
+            <if test="hotThreshold!=null and hotThreshold!=''">hot_threshold=#{hotThreshold},</if>
+            <if test="topNum != null and topNum != ''">top_num=#{topNum},</if>
+        </trim>
+        where id=#{id}
+    </update>
+
+    <select id="selectVideoChannelByid" parameterType="java.lang.Integer" resultType="com.kanfa.news.info.vo.admin.video.VideoChannelAddInfo">
+        SELECT
+            `name`,
+            comment_threshold commentThreshold,
+            view_init_num viewInitNum,
+            view_threshold viewThreshold,
+            hot_threshold hotThreshold,
+            top_num topNum
+        FROM
+            kf_channel
+       where id=#{id}
+    </select>
+
+    <select id="getChannelByIds" resultType="com.kanfa.news.info.entity.Channel">
+        SELECT
+                    ch.id,
+                    ch.name,
+                    ch.channel_status channelStatus,
+                    ch.order_number orderNumber
+        FROM
+                    kf_channel ch
+        <where>
+            ch.id IN
+            <foreach collection="oldIds" item="id" close=")" open="(" separator=",">
+                #{id}
+            </foreach>
+        </where>
+        ORDER BY field
+        <foreach collection="oldIds" item="id" close=")" open="(id," separator=",">
+            #{id}
+        </foreach>
+    </select>
+
+    <!-- 批量更新 -->
+    <update id="batchUpdate" parameterType="java.util.List">
+        <foreach collection="channelList" item="item" index="index" open="" close="" separator=";">
+            update kf_channel
+            <set>
+                <if test="item.orderNumber !=null">
+                    order_number = #{item.orderNumber,jdbcType=INTEGER},
+                </if>
+                <if test="item.editUid !=null">
+                    VISTT_SCORE = #{item.editUid,jdbcType=VARCHAR},
+                </if>
+                <if test="item.liveSource !=null">
+                    LIVE_SOURCE = #{item.liveSource,jdbcType=VARCHAR},
+                </if>
+                <if test="item.liveURL !=null">
+                    LIVE_URL = #{item.liveURL,jdbcType=VARCHAR},
+                </if>
+                <if test="item.isHotMatch !=null">
+                    IS_HOT_MATCH = #{item.isHotMatch,jdbcType=VARCHAR}
+                </if>
+            </set>
+            where HOME_TEAM_ID = #{item.homeTeamId,jdbcType=VARCHAR} and
+            VISIT_TEAM_ID = #{item.visitTeamId,jdbcType=VARCHAR} and
+            MATCH_TIME = #{item.matchTime,jdbcType=BIGINT}
+        </foreach>
+    </update>
+
+    <select id="getChannelForContent" resultType="com.kanfa.news.info.vo.admin.info.ChannelInfo">
+        SELECT
+                ch.id,
+                <if test="contentId!=null">
+                    (SELECT DISTINCT IF(EXISTS(SELECT kcc.id FROM kf_channel_content kcc WHERE kcc.content_id=#{contentId} AND kcc.channel_id=ch.id),1,0)) AS isSelect,
+                </if>
+                ch.name,
+                ch.category
+        FROM
+                kf_channel ch
+        <where>
+               ch.category in (1,4) AND ch.is_publish = 1 AND ch.channel_status = 1
+        </where>
+        ORDER BY ch.is_fixed DESC ,ch.is_top DESC ,ch.order_number ASC,ch.sort_time DESC
+    </select>
+
+    <!-- app频道查询 所有频道-->
+    <select id="appChannelCheck"  resultMap="channelMap">
+        SELECT
+        *
+        FROM
+        kf_channel ch
+        <where>
+            <if test="cate!=null">
+                ch.channel_status=1 AND ch.category=#{cate} AND id!=158  AND ch.is_publish=1
+            </if>
+        </where>
+        ORDER BY is_top desc,order_number desc,id desc
+    </select>
+
+    <select id="getChannelCheck"  resultType="com.kanfa.news.info.vo.admin.info.ChannelInfo">
+        SELECT
+                ch.id,
+                ch.name,
+                ch.category
+
+        FROM
+                kf_channel ch
+        <where>
+            <if test="entity.channelStatus!=null">
+                ch.channel_status=#{entity.channelStatus} AND ch.is_publish=1
+            </if>
+        </where>
+        ORDER BY is_top desc,order_number desc,id desc
+    </select>
+
+
+
+    <!-- VR频道管理的分页显示 -->
+    <select id="getAllVrChannel" resultType="com.kanfa.news.info.vo.admin.vr.VRChannelInfo">
+        SELECT
+        kc.id,
+        kc.`name`,
+        kau.`name` createUser,
+        kau2.`name` updateUser,
+        kc.create_time createTime,
+        kc.is_publish isPublish,
+        kc.is_top isTop
+        FROM kf_channel kc
+        LEFT JOIN base_user kau ON kc.create_uid = kau.id
+        LEFT JOIN base_user kau2 ON kc.edit_uid = kau2.id
+        <where>
+            <if test="category!=null and category != ''">
+                AND  kc.category=#{category}
+            </if>
+            <if test="channelStatus!=null and channelStatus != ''">
+                AND  kc.channel_status=#{channelStatus}
+            </if>
+        </where>
+        ORDER BY kc.order_number DESC,kc.is_fixed DESC,kc.is_top Desc,kc.sort_time DESC
+    </select>
+
+
+    <!-- 新增Vr频道 -->
+    <insert id="addVRChannel" parameterType="com.kanfa.news.info.vo.admin.vr.VRChannelInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into kf_channel(
+                                  `name`,
+                                  comment_show_rule,
+                                  view_init_num,
+                                  view_threshold,
+                                  hot_threshold,
+                                  top_num,
+                                  create_uid,
+                                  create_time,
+                                  order_number,
+                                  category)
+        values(#{name},
+                #{commentShowRule},
+                #{viewInitNum},
+                #{viewThreshold},
+                #{hotThreshold},
+                #{topNum},
+                #{createUid},
+                #{createTime},
+                #{orderNumber},
+                #{category}
+                )
+    </insert>
+
+    <!-- 查询某类Channel中order_number最大值-->
+    <select id="selectMaxOrderNumber" resultType="java.lang.Integer">
+        SELECT
+            MAX(kc.order_number)
+        FROM
+            kf_channel kc
+        WHERE
+            kc.category = #{category}
+    </select>
+
+
+
+    <!-- PC频道管理的分页显示 -->
+    <select id="getPCChannel" resultType="com.kanfa.news.info.vo.admin.vr.VRChannelInfo">
+        SELECT
+        kc.id,
+        kc.`name`,
+        kau.`name` createUser,
+        kau2.`name` updateUser,
+        kc.create_time createTime,
+        kc.is_publish isPublish,
+        kc.is_top isTop
+        FROM kf_channel kc
+        LEFT JOIN base_user kau ON kc.create_uid = kau.id
+        LEFT JOIN base_user kau2 ON kc.edit_uid = kau2.id
+        WHERE kc.category = 4 AND kc.channel_status = 1
+        ORDER BY kc.order_number DESC,kc.is_fixed DESC,kc.is_top Desc,kc.sort_time DESC
+    </select>
+
+
+    <!-- 新增Vr频道 -->
+    <insert id="addPCChannel" parameterType="com.kanfa.news.info.vo.admin.vr.VRChannelInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into kf_channel(
+                                  `name`,
+                                  comment_show_rule,
+                                  view_init_num,
+                                  view_threshold,
+                                  hot_threshold,
+                                  top_num,
+                                  create_uid,
+                                  create_time,
+                                  order_number,
+                                  category)
+        values(#{name},
+                #{commentShowRule},
+                #{viewInitNum},
+                #{viewThreshold},
+                #{hotThreshold},
+                #{topNum},
+                #{createUid},
+                #{createTime},
+                #{orderNumber},
+                #{category}
+                )
+    </insert>
+
+    <!--视频频道查询 所有频道 -->
+    <select id="getVideoChannel" resultType="com.kanfa.news.info.entity.Channel">
+        SELECT
+        xc.id,
+        xc.`name`
+        FROM kf_channel xc
+        WHERE xc.category = 2  AND xc.channel_status = 1 AND xc.is_publish = 1
+    </select>
+
+    <!--VR视频列表左边的频道栏目 所有频道 -->
+    <select id="getVRLeftChannel" resultType="com.kanfa.news.info.entity.Channel">
+        SELECT
+        xc.id,
+        xc.`name`
+        FROM kf_channel xc
+        WHERE xc.category = 3 AND xc.channel_status = 1 AND xc.is_publish = 1
+    </select>
+
+    <!--pc咨询列表左边的频道栏目 所有频道 -->
+    <select id="getPCLeftChannel" resultType="com.kanfa.news.info.entity.Channel">
+        SELECT
+        xc.id,
+        xc.`name`
+        FROM kf_channel xc
+        WHERE xc.category = 4  AND xc.channel_status = 1 AND xc.is_publish = 1
+    </select>
+
+
+    <select id="getConsultLeftChannel" resultType="com.kanfa.news.info.entity.Channel">
+        SELECT
+        xc.id,
+        xc.`name`
+        FROM kf_channel xc
+        WHERE xc.category = 1 AND xc.channel_status = 1 AND xc.is_publish = 1
+    </select>
+
+
+
+    <select id="getChannelByIdsForLog" resultType="com.kanfa.news.info.mongodb.entity.ChannelInfoOfLog">
+        SELECT
+                ch.id,
+                ch.name
+        FROM
+                kf_channel ch
+        <where>
+            ch.id IN
+            <foreach collection="ids" item="id" close=")" open="(" separator=",">
+                #{id}
+            </foreach>
+        </where>
+    </select>
+
+    <select id="getChannelListForContentPage" resultType="com.kanfa.news.info.vo.admin.info.ChannelInfo">
+        SELECT
+                ch.id,
+                ch.name,
+                ch.category
+        FROM
+                kf_channel ch
+        <where>
+            <if test="entity.isPublish!=null">
+                AND ch.is_publish = #{entity.isPublish}
+            </if>
+            <if test="entity.channelStatus!=null">
+                AND ch.channel_status = #{entity.channelStatus}
+            </if>
+            <if test="entity.category!=null">
+                AND ch.category = #{entity.category}
+            </if>
+        </where>
+        ORDER BY ch.is_fixed DESC ,ch.is_top DESC ,ch.order_number ASC,ch.sort_time DESC
+    </select>
+
+</mapper>

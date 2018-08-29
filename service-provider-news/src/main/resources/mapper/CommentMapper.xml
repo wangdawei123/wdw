@@ -1,0 +1,339 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.CommentMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.Comment" id="commentMap">
+        <result property="id" column="id"/>
+        <result property="cid" column="cid"/>
+        <result property="type" column="type"/>
+        <result property="pid" column="pid"/>
+        <result property="pUid" column="p_uid"/>
+        <result property="content" column="content"/>
+        <result property="loves" column="loves"/>
+        <result property="createTime" column="create_time"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="createUser" column="create_user"/>
+        <result property="createDevid" column="create_devid"/>
+        <result property="createIp" column="create_ip"/>
+        <result property="sens" column="sens"/>
+        <result property="ops" column="ops"/>
+        <result property="read" column="read"/>
+        <result property="stat" column="stat"/>
+        <result property="commentId" column="comment_id"/>
+    </resultMap>
+
+
+    <select id="getPage" parameterType="java.util.Map" resultType="com.kanfa.news.info.vo.admin.comment.CommentInfo">
+        SELECT
+                    ct.id,
+                    ct.content,
+                    ct.create_user createUser,
+                    ct.create_time createTime,
+                    ct.loves,
+                    ct.pid,
+
+                    u.image image
+        FROM
+                kf_comment ct
+                LEFT JOIN kf_user u ON u.id=ct.create_uid
+        <where>
+            ct.stat=1 AND ct.ops=1
+            <if test="contentId != null">
+                AND ct.cid = #{contentId}
+            </if>
+        </where>
+        ORDER BY ct.id DESC,ct.create_time DESC
+    </select>
+
+    <select id="getPageForCheck" resultType="com.kanfa.news.info.vo.admin.comment.CommentInfo">
+        SELECT
+                    ct.id,
+                    ct.content,
+                    ct.create_time createTime,
+                    (SELECT INET_NTOA(ct.create_ip)) ip,
+                    IFNULL(c.title,l.title) title,
+                    ct.create_uid createUid,
+                    ct.create_devid createDevid,
+                    ct.create_user createUser
+        FROM
+                    kf_comment ct
+                    LEFT JOIN kf_content c ON c.id=ct.cid AND ct.type=0
+                    LEFT JOIN kf_live l ON l.id=ct.cid AND ct.type=22
+        <where>
+            <if test="entity.stat != null">
+                AND ct.stat = #{entity.stat}
+            </if>
+            <if test="entity.ops != null">
+                AND ct.ops = #{entity.ops}
+            </if>
+            <if test="entity.sens != null">
+                AND ct.sens = #{entity.sens}
+            </if>
+            <if test="entity.cid != null">
+                AND ct.cid = #{entity.cid}
+            </if>
+            <if test="entity.liveid != null">
+                AND l.cid = #{entity.liveid}
+            </if>
+            <if test="entity.content != '' and entity.content != null">
+                AND ct.content LIKE CONCAT('%',#{entity.content},'%')
+            </if>
+            <if test="entity.createIp != null">
+                AND ct.create_ip = (SELECT INET_ATON(#{entity.createIp}))
+            </if>
+            <if test="entity.beginTime != null">
+                AND ct.create_time &gt;= #{entity.beginTime}
+            </if>
+            <if test="entity.endTime != null">
+                AND ct.create_time &lt;= #{entity.endTime}
+            </if>
+        </where>
+        ORDER BY ct.id DESC,ct.create_time DESC
+    </select>
+
+
+    <select id="getByCreator" resultType="com.kanfa.news.info.vo.admin.comment.CommentInfo">
+        SELECT
+            id,
+            cid,
+            `type`,
+            pid,
+            p_uid pUid,
+            `content`,
+            loves,
+            create_time createTime,
+            create_uid createUid,
+            create_devid createDevid,
+            create_user createUser,
+            sens,
+            ops,
+            `READ`,
+            `stat`,
+            comment_id commentId
+        FROM
+        kf_comment
+        <where>
+            sens = 0 and stat = 1
+         <if test="uid != null">
+                and  create_uid = #{uid}
+            </if>
+            <if test="ops != null">
+                and     ops = #{ops}
+            </if>
+            <if test="pids != null and pids.size() > 0">
+                AND id IN
+                <foreach collection="pids" separator="," open="(" close=")" item="id">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+        order by id desc
+        <if test="offset != null and pcount != null">
+            limit #{offset},#{pcount}
+        </if>
+    </select>
+
+
+    <select id="getByReceiver" resultType="com.kanfa.news.info.vo.admin.comment.CommentInfo">
+        SELECT
+        id,
+        cid,
+        `type`,
+        pid,
+        p_uid pUid,
+        `content`,
+        loves,
+        create_time createTime,
+        create_uid createUid,
+        create_user createUser,
+        create_devid createDevid,
+        sens,
+        ops,
+        `READ`,
+        `stat`,
+        comment_id commentId
+        FROM
+        kf_comment
+        <where>
+            sens = 0 and stat = 1
+            <if test="uid != null">
+                and  create_uid = #{uid}
+            </if>
+            <if test="ops != null">
+                and     ops = #{ops}
+            </if>
+            <if test="pids != null and pids.size() > 0">
+                AND c.id IN
+                <foreach collection="pids" separator="," open="(" close=")" item="id">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+        order by id desc
+        <if test="offset != null and pcount != null">
+            limit #{offset},#{pcount}
+        </if>
+    </select>
+
+    <select id="getListByConditions" resultType="com.kanfa.news.info.vo.admin.comment.CommentInfo">
+
+        SELECT
+            ct.id,
+            ct.cid,
+            ct.`type`,
+            ct.pid,
+            ct.p_uid pUid,
+            ct.`content`,
+            ct.loves,
+            ct.create_time createTime,
+            ct.create_uid createUid,
+            ct.create_user createUser,
+            ct.create_devid createDevid,
+            ct.sens,
+            ct.ops,
+            ct.`READ`,
+            ct.`stat`,
+            ct.comment_id commentId
+        FROM
+        kf_comment ct left JOIN kf_user u ON ct.create_uid = u.id
+        <where>
+            ( (ct.create_uid != #{uid}  and  ct.ops = #{ops})   or  (ct.create_uid = #{uid} ))
+            and stat = 1 and u.is_delete = 1
+            <if test="cid != null">
+                and ct.cid = #{cid}
+            </if>
+            <if test="type != null">
+                and ct.type = #{type}
+            </if>
+        </where>
+        order by ct.create_time desc
+        <if test="p!= null and pcount != null" >
+            limit #{p},#{pcount}
+        </if>
+    </select>
+
+    <update id="updateread">
+        UPDATE kf_comment c
+        set c.`read` = 1
+        <where>
+            c.stat = 1 and c.sens = 0 and c.`read` = 0
+            <if test="ops != null">
+                and c.ops = #{ops}
+            </if>
+            <if test="createUid != null">
+                and c.create_uid = #{createUid}
+            </if>
+        </where>
+    </update>
+
+    <update id="updateStat">
+        UPDATE kf_comment
+            SET stat = #{stat}
+            WHERE
+                id = #{id}
+    </update>
+
+    <select id="selectById" resultMap="commentMap">
+        SELECT
+            id,
+            cid,
+            `type`,
+            pid,
+            p_uid,
+            `content`,
+            loves,
+            create_time,
+            create_uid,
+            create_user,
+            create_devid,
+            sens,
+            ops,
+            `READ`,
+            `stat`,
+            comment_id
+        FROM
+            kf_comment
+        <where>
+            <if test="id != null">
+                id = #{id}
+            </if>
+        </where>
+
+    </select>
+
+    <select id="selectCountnum" resultType="java.lang.Long">
+       SELECT
+            COUNT(cm.cid)
+        FROM
+            kf_comment cm
+        WHERE
+            stat = 1
+            AND ops = 1
+            <if test="id != null">
+            AND cm.cid = #{id}
+            </if>
+    </select>
+
+    <insert id="insertSelectiveComment" useGeneratedKeys="true" keyProperty="id">
+      INSERT INTO
+          kf_comment (
+            cid,
+            `type`,
+            pid,
+            `content`,
+            p_uid,
+            create_time,
+            create_uid,
+            create_devid,
+            create_ip,
+            sens,
+            comment_id
+        )
+        VALUES
+            (#{cid},#{type},#{pid},#{content},#{pUid},#{createTime},#{createUid},#{createDevid},#{createIp},#{sens} ,#{commentId})
+    </insert>
+
+
+    <!--  getCommentListByCid  -->
+    <select id="getCommentListByCid" resultType="com.kanfa.news.info.entity.Comment">
+        SELECT
+            id,
+            cid,
+            `type`,
+            pid,
+            p_uid,
+            `content`,
+            loves,
+            create_time createTime,
+            create_uid createUid,
+            create_user,
+            create_devid,
+            sens,
+            ops,
+            `READ`,
+            `stat`,
+            comment_id
+        FROM
+        kf_comment
+        WHERE cid = #{cid} AND  `stat` = 1
+    </select>
+
+    <select id="getCountForDetail" resultType="java.lang.Integer">
+        SELECT
+                COUNT(cm.cid)
+        FROM
+                kf_comment cm
+        <where>
+            cm.stat = 1
+            <if test="ops!=null">
+                AND (cm.ops = #{ops} <if test="uid!=null">OR cm.create_uid=#{uid}</if>)
+            </if>
+            <if test="cid!=null">
+                AND  cm.cid = #{cid}
+            </if>
+        </where>
+    </select>
+
+</mapper>

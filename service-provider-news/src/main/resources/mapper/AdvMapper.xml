@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.AdvMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.info.entity.Adv" id="advMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="startTime" column="start_time"/>
+        <result property="endTime" column="end_time"/>
+        <result property="type" column="type"/>
+        <result property="contentType" column="content_type"/>
+        <result property="title" column="title"/>
+        <result property="image" column="image"/>
+        <result property="url" column="url"/>
+        <result property="description" column="description"/>
+        <result property="appName" column="app_name"/>
+        <result property="appAndroid" column="app_android"/>
+        <result property="views" column="views"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="createTime" column="create_time"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="keep" column="keep"/>
+        <result property="orderNumber" column="order_number"/>
+    </resultMap>
+
+    <insert id="addAdv" parameterType="com.kanfa.news.info.vo.admin.adv.AdvInfo" useGeneratedKeys="true" keyProperty="id">
+        insert into kf_adv(
+                                name,
+                                start_time,
+                                end_time,
+                                type,
+                                <if test="title!=null and title!='' ">
+                                    title,
+                                </if>
+                                <if test="image!=null and image!='' ">
+                                    image,
+                                </if>
+                                url,
+                                <if test="description!=null and description!='' ">
+                                    description,
+                                </if>
+                                create_uid,
+                                create_time,
+                                is_delete,
+                                <if test="keep!=null and keep!='' ">
+                                    keep,
+                                </if>
+                                order_number
+                                )
+        values(#{name},
+                #{startTime},
+                #{endTime},
+                #{type},
+                <if test="title!=null and title!='' ">
+                    #{title},
+                </if>
+                <if test="image!=null and image!='' ">
+                    #{image},
+                </if>
+                #{url},
+                <if test="description!=null and description!='' ">
+                    #{description},
+                </if>
+                #{createUid},
+                #{createTime},
+                #{isDelete},
+                <if test="keep!=null and keep!='' ">
+                    #{keep},
+                </if>
+                (SELECT IF(MAX(adv.order_number)+1,MAX(adv.order_number)+1,1) FROM kf_adv adv)
+                )
+    </insert>
+
+    <select id="getPage" resultType="com.kanfa.news.info.vo.admin.adv.AdvInfo">
+        SELECT
+                adv.id,
+                adv.name,
+                adv.start_time startTime,
+                adv.end_time endTime,
+                adv.views,
+                au.`name` createUser
+        FROM
+                kf_adv adv
+                LEFT JOIN base_user au ON adv.create_uid=au.id
+        <where>
+            <if test="advInfo.name!=null and advInfo.name!=''">
+                AND adv.name LIKE CONCAT('%',#{advInfo.name},'%')
+            </if>
+            <if test="advInfo.type!=null">
+                AND adv.type=#{advInfo.type}
+            </if>
+            <if test="advInfo.online!=null">
+                <if test="advInfo.online==1">
+                    AND adv.start_time &gt;= now()
+                </if>
+                <if test="advInfo.online==2">
+                    AND adv.start_time &lt;= now() AND adv.end_time &gt;= now()
+                </if>
+                <if test="advInfo.online==3">
+                    AND adv.end_time &lt;= now()
+                </if>
+            </if>
+            <if test="advInfo.isDelete!=null">
+                AND adv.is_delete = #{advInfo.isDelete}
+            </if>
+        </where>
+        ORDER BY adv.order_number DESC,adv.create_time DESC
+    </select>
+
+    <select id="getOnlineNum" resultType="com.kanfa.news.info.vo.admin.adv.AdvOnlineNumInfo">
+        SELECT (SELECT COUNT(*) FROM kf_adv WHERE  is_delete =1 AND start_time &lt;= now() AND end_time &gt;= now()) as online,(SELECT COUNT(*) FROM kf_adv WHERE is_delete =1 AND end_time &lt; now()) as notOnline
+    </select>
+
+    <select id="getAdvInfoByIds" resultType="com.kanfa.news.info.entity.Adv">
+        SELECT
+                adv.id,
+                adv.order_number orderNumber
+        FROM
+                kf_adv adv
+        <where>
+            <if test="oldIds!=null and oldIds.size()>0">
+                adv.id IN
+                <foreach collection="oldIds" item="id" open="(" close=")" separator=",">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+        ORDER BY field
+        <foreach collection="oldIds" item="id" open="(adv.id," close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+    <select id="getStartUpAdv" resultMap="advMap">
+        SELECT
+            a.keep,
+            a.url,
+            a.image,
+            a.id
+        FROM
+          kf_adv a
+        <where>
+            <![CDATA[ a.start_time < NOW() ]]>
+            AND <![CDATA[ a.end_time > NOW() ]]>
+            AND a.is_delete = 1
+            AND a.type = 4
+        </where>
+    </select>
+</mapper>

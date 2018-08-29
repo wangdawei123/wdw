@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.info.mapper.KpiCountUserContentMapper">
+
+	<select id="getCountUserContent" resultType="com.kanfa.news.info.vo.admin.kpicount.KpiCountUserContentInfo">
+        SELECT
+            id,
+        <if test="dayShow != null and dayShow ==1">v
+            count_date countDate,
+        </if>
+            uid,
+            edit_name editName,
+            SUM(pure_text) AS pureText,
+            SUM(article) AS article,
+            SUM(video) AS video,
+            SUM(images) AS images,
+            SUM(live) AS live,
+            COUNT(*) AS total
+        <if test="sourceType != null">
+            ,CASE WHEN is_original=1 THEN '原创' WHEN is_original=0 THEN '非原创' END AS sourceType
+        </if>
+        <if test="sourceType == null">
+            ,IF(is_original=1 or is_original = 0,'全部','全部') AS sourceType
+        </if>
+        <if test="dutyType != null">
+            , CASE WHEN is_work=1 THEN '值班' WHEN is_work=0 THEN '非值班' END AS dutyType
+        </if>
+        <if test="dutyType == null">
+            , IF(is_work =1 or is_work = 0,'全部','全部') AS dutyType
+        </if>
+        FROM
+            kf_count_user_content
+        where 1=1
+        <if test="sourceType != null and sourceType == 1">
+              AND  is_original = 1
+        </if>
+        <if test="sourceType != null and sourceType == 2">
+              AND  is_original = 0
+        </if>
+        <if test="dutyType != null and dutyType == 1">
+            AND  is_work = 1
+        </if>
+        <if test="dutyType != null and dutyType == 2">
+            AND  is_work = 0
+        </if>
+        <if test="uid != null">
+            AND  uid = #{uid}
+        </if>
+        <if test="startDate != null and endDate != null">
+            AND ( count_date BETWEEN #{startDate} AND #{endDate})
+        </if>
+        GROUP BY
+        <if test="dayShow != null and dayShow ==1">
+            count_date,
+        </if>
+            uid
+        ORDER BY
+            total DESC
+
+    </select>
+
+    <select id="getContent" resultType="com.kanfa.news.info.vo.admin.kpicount.ContentUserInfo">
+
+        SELECT
+            c.id,
+            c.category,
+            c.create_uid createUid,
+            c.source_type sourceType,
+            c.first_check_time firstCheckTime,
+            c.is_duty isDuty,
+            au.realname realName
+        FROM
+            kf_content c
+        INNER JOIN kf_admin_user au ON c.create_uid = au.id
+        WHERE
+            1 = 1
+        AND c.first_check_time BETWEEN #{startDate}
+        AND #{endDate}
+    </select>
+
+    <select id="getLive" resultType="com.kanfa.news.info.vo.admin.kpicount.LiveUserInfo">
+        SELECT
+            l.id,
+            l.create_uid createUid,
+            l.create_time createTime,
+            l.is_duty isDuty,
+            au.realname realName
+        FROM
+            kf_live l
+        INNER JOIN kf_admin_user au ON l.create_uid = au.id
+        WHERE
+            1 = 1
+        AND l.create_time BETWEEN #{startDate}
+        AND #{endDate}
+    </select>
+
+</mapper>
