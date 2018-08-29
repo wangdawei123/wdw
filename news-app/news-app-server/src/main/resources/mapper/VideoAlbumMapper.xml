@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.app.mapper.VideoAlbumMapper">
+
+    <!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.app.entity.VideoAlbum" id="videoAlbumMap">
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="summary" column="summary"/>
+        <result property="content" column="content"/>
+        <result property="coverImg" column="cover_img"/>
+        <result property="isPublish" column="is_publish"/>
+        <result property="isDelete" column="is_delete"/>
+        <result property="createUid" column="create_uid"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateUid" column="update_uid"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="albumType" column="album_type"/>
+        <result property="albumOrder" column="album_order"/>
+    </resultMap>
+
+
+    <select id="getPage" resultType="com.kanfa.news.app.vo.admin.video.VideoAlbumInfo">
+        SELECT
+            lt.id,
+            lt.title,
+            lt.album_type albumType,
+            lt.album_order albumOrder,
+            bu.`name` createUser,
+            lt.create_time createTime,
+            lt.is_publish isPublish
+        FROM
+            kf_video_album lt
+        LEFT JOIN base_user bu ON lt.create_uid = bu.id
+        WHERE lt.is_delete = 1
+        </select>
+
+
+    <select id="getSearchByTitle" parameterType="java.lang.String"
+            resultType="com.kanfa.news.app.vo.admin.video.VideoAlbumInfo">
+        SELECT
+        lt.id,
+        lt.title,
+        lt.album_type albumType,
+        lt.album_order albumOrder,
+        bu.`name` createUser,
+        lt.create_time createTime,
+        lt.is_publish isPublish
+        FROM
+        kf_video_album lt
+        LEFT JOIN base_user bu ON lt.create_uid = bu.id
+        WHERE lt.is_delete = 1 AND lt.title LIKE CONCAT('%',#{text},'%' )
+    </select>
+    <select id="getalbum" resultType="com.kanfa.news.app.vo.video.VideoAlbumAppInfo$VideoDate">
+    SELECT
+    kf_content.id,
+    kf_content.title,
+    kf_content.category cate,
+    kf_content.content_type type,
+    kf_content.view_count views,
+    kf_content.`introduction` `desc`,
+    kf_content.create_time,
+    kf_content.comment_count comments,
+    kf_content.image con_img,
+    kf_content_video.image,
+    kf_content_video.url,
+    kf_content_video.duration,
+    kf_admin_user.id user_id,
+    kf_admin_user.nickname,
+    kf_admin_user.image user_img,
+    kf_video_source.image source_image,
+    kf_video_source. NAME source_name,
+    kf_channel_content.publish_time pub_time
+    FROM
+    kf_video_album_bind
+    RIGHT JOIN kf_content ON kf_content.id = kf_video_album_bind.video_id
+    LEFT JOIN kf_admin_user ON kf_content.create_uid = kf_admin_user.id
+    LEFT JOIN kf_content_video ON kf_content_video.cid = kf_content.id
+    LEFT JOIN kf_video_source ON kf_video_source.id = kf_content_video.source_id
+    LEFT JOIN kf_channel_content ON kf_channel_content.content_id = kf_content.id
+    where kf_video_album_bind.video_album_id = #{id}
+    AND kf_channel_content.is_publish = 1
+    AND kf_channel_content.channel_id = 59
+    </select>
+
+
+    <select id="getVideoAlbum" resultType="java.util.Map">
+        SELECT
+            id,
+            title,
+            cover_img
+        FROM
+            kf_video_album
+        WHERE
+            is_delete = 1
+        AND is_publish = 1
+        AND album_type = 1
+        ORDER BY
+            album_order DESC,
+            update_time DESC
+        LIMIT 6
+    </select>
+
+</mapper>

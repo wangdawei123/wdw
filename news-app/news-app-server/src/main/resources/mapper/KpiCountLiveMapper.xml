@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.app.mapper.KpiCountLiveMapper">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.kanfa.news.app.entity.KpiCount" id="kpiCountMap">
+        <result property="id" column="id"/>
+        <result property="uid" column="uid"/>
+        <result property="type" column="type"/>
+        <result property="typeId" column="type_id"/>
+        <result property="name" column="name"/>
+        <result property="articleType" column="article_type"/>
+        <result property="workType" column="work_type"/>
+        <result property="weight" column="weight"/>
+        <result property="firstCheckTime" column="first_check_time"/>
+        <result property="firstCheckId" column="first_check_id"/>
+        <result property="isNumPass" column="is_num_pass"/>
+        <result property="jobId" column="job_id"/>
+        <result property="departmentId" column="deptartment_id"/>
+        <result property="isSpecial" column="is_special"/>
+        <result property="pvFinishTime" column="pv_finish_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remarks" column="remarks"/>
+    </resultMap>
+    <!-- 直播工作统计 -->
+    <select id="listKpiCountLive"  resultType="com.kanfa.news.app.vo.admin.kpicount.KpiCountLiveInfo">
+        SELECT
+            collection.*, (
+                collection.columnLive + collection.ordinaryLive
+            ) allCount
+        FROM
+            (
+                SELECT
+                    allResult.uid id,
+                    allResult. NAME,
+                    allResult.deptName,
+                    allResult.jobName,
+                    Max(
+                        CASE allResult.workTypeName
+                        WHEN '栏目直播' THEN
+                            allResult.count
+                        ELSE
+                            0
+                        END
+                    ) columnLive,
+                    Max(
+                        CASE allResult.workTypeName
+                        WHEN '普通直播' THEN
+                            allResult.count
+                        ELSE
+                            0
+                        END
+                    ) ordinaryLive
+                FROM
+                    (
+                        SELECT
+                            cu. NAME,
+                            cd.`name` deptName,
+                            cj.`name` jobName,
+                            cu.id uid,
+                            result.workTypeName,
+                            result.count
+                        FROM
+                            kf_corp_user cu
+                        LEFT JOIN (
+                            SELECT
+                                k.uid,
+                                ktc. NAME workTypeName,
+                                count(0) count
+                            FROM
+                                kf_kpi_count AS k
+                            LEFT JOIN kf_kpi_type_config AS c ON c.id = k.work_type
+                            LEFT JOIN kf_kpi_type_config AS ktc ON c.pid = ktc.id
+                            WHERE
+                                1 = 1
+                            AND k.type = 9
+                            AND k.first_check_time IS NOT NULL
+                            AND k.first_check_time &gt;= #{startDate}
+                            AND k.first_check_time &lt; #{endDate}
+                            AND k.is_special = 0
+                            AND ktc.pid = 0
+                            GROUP BY
+                                k.uid,
+                                ktc.id
+                        ) result ON cu.id = result.uid
+                        LEFT JOIN kf_corp_dept cd ON cd.id = cu.level2_id
+                        LEFT JOIN kf_corp_job cj ON cj.id = cu.job_id
+                        where 1=1
+                        <if test="uid !=null and uid != '' ">
+                            AND cu.id = #{uid}
+                        </if>
+                        <if test="departmentId !=null and departmentId != '' ">
+                            AND cd.id  = #{departmentId}
+                        </if>
+                    ) allResult
+                GROUP BY
+                    allResult.uid
+            ) collection
+
+
+
+    </select>
+
+
+    <select id="listKpiLiveId" resultType="com.kanfa.news.app.vo.admin.kpicount.KpiLiveIdInfo">
+
+        SELECT
+        d.id
+        FROM
+        kf_kpi_count AS k
+        INNER JOIN kf_demand AS d ON d.id = k.type_id
+        WHERE
+        1 = 1
+        <if test="uid !=null and uid != '' ">
+            AND k.uid  = #{uid}
+        </if>
+        AND k.type = 9
+        AND k.first_check_time IS NOT NULL
+        AND k.first_check_time &gt;= #{startDate}
+        AND k.first_check_time &lt; #{endDate}
+        GROUP BY
+        d.id
+
+
+    </select>
+    <!--直播工作统计详情-->
+    <select id="listKpiCountLiveDetail" resultType="com.kanfa.news.app.vo.admin.kpicount.KpiCountLiveDetailInfo">
+      select result.* from (
+        SELECT
+            k.id as id ,
+            l.id AS liveId,
+            l.title,
+
+        IF (k.is_special = 1, "是", "否") isSpecial,
+         k. NAME,
+         k.first_check_time firstCheckTime,
+         CASE l.live_type
+        WHEN 0 THEN
+            '无'
+        WHEN 1 THEN
+            '栏目'
+        WHEN 2 THEN
+            '其他'
+        ELSE
+            '无'
+        END liveTypeName,
+         CONCAT(tc. NAME, "(", ktc. NAME, ")") AS workName,
+         k.pv_finish_time,
+         tc.pv_limit pvLimit,
+         k.remarks,
+         l.review_url AS url,
+         l.from_remark fromRemark
+        FROM
+            kf_kpi_count AS k
+        LEFT JOIN kf_live AS l ON l.id = k.type_id
+        LEFT JOIN kf_kpi_type_config AS tc ON k.work_type = tc.id
+        LEFT JOIN kf_kpi_type_config AS ktc ON tc.pid = ktc.id
+        WHERE
+            1 = 1
+        <if test="uid !=null and uid != '' ">
+            AND k.uid = #{uid}
+        </if>
+        AND k.type = 9
+        AND k.first_check_time IS NOT NULL
+        AND k.first_check_time &gt;= #{startDate}
+        AND k.first_check_time &lt; #{endDate}
+      ) result where 1=1
+
+        <if test="liveTypeName !=null and liveTypeName != '' ">
+            AND result.liveTypeName = #{liveTypeName}
+        </if>
+        <if test="title !=null and title != '' ">
+            AND (
+            result.liveId = #{title}
+            OR result.title = #{title}
+            )
+        </if>
+
+
+    </select>
+
+    <select id="listWorkTypeResult"  resultType="com.kanfa.news.app.vo.admin.kpicount.KpiCountWorkTypeResultInfo">
+
+        SELECT
+            k.uid,
+            k. NAME,
+            workType.id workTypeId,
+            workType.workTypeName,
+            count(0) count
+        FROM
+          kf_kpi_count AS k
+        LEFT JOIN (
+        SELECT
+            ktc.id,
+            CONCAT(ktcp. NAME, "-", ktc. NAME) workTypeName
+        FROM
+          kf_kpi_type_config ktc
+        LEFT JOIN kf_kpi_type_config ktcp ON ktc.pid = ktcp.id
+        WHERE
+          1 = 1
+        AND ktc.pid &lt;&gt; 0
+        AND ktc.is_show = 1
+        AND (
+            ktc.config_type = 50
+            OR ktc.config_type = 51
+        )
+        ) workType ON k.work_type = workType.id
+        WHERE
+        1 = 1
+        AND k.type = 9
+        AND k.first_check_time IS NOT NULL
+        AND k.first_check_time &gt;= #{startDate}
+        AND k.first_check_time &lt; #{endDate}
+        AND k.is_special = 0
+        AND workType.workTypeName IS NOT NULL
+        GROUP BY
+        k.uid,
+        workType.id
+    </select>
+
+    <select id="listWorkType" resultType="com.kanfa.news.app.vo.admin.kpicount.KpiCountWorkTypeInfo">
+
+        SELECT
+            ktc.id,
+            CONCAT(ktcp. NAME,"-",ktc. NAME) workTypeName
+        FROM
+            kf_kpi_type_config ktc
+        LEFT JOIN kf_kpi_type_config ktcp ON ktc.pid = ktcp.id
+        WHERE
+          1 = 1
+        and ktc.pid &lt;&gt;0
+        AND ktc.is_show = 1
+        AND (
+            ktc.config_type = 50
+            OR ktc.config_type = 51
+        )
+    </select>
+
+
+</mapper>

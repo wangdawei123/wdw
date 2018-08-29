@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.kanfa.news.app.mapper.DataCountMapper">
+
+	 <select id="dataCountTop100List" resultType="com.kanfa.news.app.vo.admin.kpicount.DataCountInfo">
+
+
+        SELECT DISTINCT
+            c.id,
+            c.content_type contentType,
+             c.title,
+             c.view_count viewCount,
+             c.category,
+             au.realname,
+             cc.publish_time publishTime
+        FROM
+            kf_content c
+        LEFT JOIN kf_channel_content cc ON c.id = cc.content_id
+        LEFT JOIN kf_channel kc ON kc.id = cc.channel_id
+        LEFT JOIN kf_admin_user au ON c.create_uid = au.id
+        WHERE
+            1 = 1
+         <if test="categoryId !=null and categoryId !='' ">
+             AND c.category = #{categoryId}
+         </if>
+         <if test="channelId !=null and channelId !='' ">
+             AND cc.channel_id = #{channelId}
+         </if>
+         <if test="startDate !=null and startDate !='' ">
+             AND cc.publish_time &gt;=  #{startDate}
+         </if>
+         <if test="endDate !=null and endDate !='' ">
+             AND cc.publish_time &lt;=  #{endDate}
+         </if>
+        GROUP BY
+            c.id
+        ORDER BY
+            c.view_count DESC
+        LIMIT 0,100
+     </select>
+
+    <select id="allViewContent" resultType="java.lang.Integer">
+        SELECT
+            SUM(a.`view_count`) AS h
+
+        FROM
+            kf_content AS a
+        JOIN kf_channel_content AS b ON a.`id` = b.content_id
+        WHERE
+            b.is_publish = 1
+        AND b.is_delete = 1
+        AND a.check_status = 1
+        AND a.content_state = 1
+    </select>
+
+    <select id="publishCount" resultType="java.lang.Integer">
+        SELECT
+          count(0) c
+        FROM
+            kf_content AS a
+        JOIN kf_channel_content AS b ON a.`id` = b.content_id
+        WHERE
+            b.is_publish = 1
+        AND b.is_delete = 1
+        AND a.check_status = 1
+        AND a.content_state = 1
+        <if test="categoryId !=null and categoryId !='' ">
+            AND a.category =#{categoryId}
+        </if>
+        <if test="channelId !=null and channelId !='' ">
+            AND b.channel_id = #{channelId}
+        </if>
+    </select>
+</mapper>
